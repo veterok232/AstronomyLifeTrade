@@ -1,0 +1,17 @@
+{
+    "typescript.preferences.quoteStyle": "double",
+    "editor.detectIndentation": false,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        { "language": "typescript", "autoFix": true },
+        { "language": "typescriptreact", "autoFix": true }
+    ],
+    "scssFormatter.tabWidth": 4,
+    "cSpell.ignoreWords": ["devtool"],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "editor.rulers": [120]
+}
