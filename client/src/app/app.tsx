@@ -1,5 +1,20 @@
 import React from "react";
 import { observer, Provider } from "mobx-react";
+import { initRefreshSynchronization } from "./infrastructure/services/auth/refreshTokenService";
+import { initializeFingerprintAgent } from "./infrastructure/services/auth/fingerprintService";
+import { refreshToken } from "./infrastructure/services/identityService";
+import { contextActions } from "./infrastructure/services/contextService";
+import { initExternalLogoutSubscription } from "./infrastructure/services/auth/externalLogoutService";
+import { initExternalLoginSubscription } from "./infrastructure/services/auth/externalLoginService";
+import { stores } from "./infrastructure/stores";
+import { RawIntlProvider } from "react-intl";
+import { Localizer } from "./components/localization/localizer";
+import { contextStore } from "./infrastructure/stores/contextStore";
+import { sharedHistory } from "./infrastructure/sharedHistory";
+import { viewStore } from "./infrastructure/stores/viewStore";
+import { AutoLogoutScheduler } from "./components/layout/logout/autoLogoutScheduler";
+import { Router } from "./components/layout/routes/router";
+import Header from "./components/layout/header/header";
 
 @observer
 export class App extends React.Component {
@@ -29,7 +44,6 @@ export class App extends React.Component {
                         : <ExternalPageLayout />}
                     <NotificationContainer />
                     <ModalsContainer />
-                    <AffectedApplicationsConfirmationModal />
                 </Router>
             </RawIntlProvider>;
         }
