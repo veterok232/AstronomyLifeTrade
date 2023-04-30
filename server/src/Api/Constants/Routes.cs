@@ -26,4 +26,11 @@ public static class Routes
 
         public const string CreateOneTimeToken = "create-one-time-token";
     }
+
+    public static class Catalog
+    {
+        public const string Root = "catalog";
+
+        public const string Get = "get";
+    }
 }

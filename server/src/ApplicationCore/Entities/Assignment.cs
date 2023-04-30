@@ -31,7 +31,5 @@ public class Assignment : Entity, IHasVersion, IHasCreatedByUser, IHasCreatedAt,
 
     public Role Role { get; set; }
 
-    public ICollection<AssignmentPermission> AssignmentPermissions { get; set; }
-
     public ICollection<AssignmentPromotion> Promotions { get; set; }
 }

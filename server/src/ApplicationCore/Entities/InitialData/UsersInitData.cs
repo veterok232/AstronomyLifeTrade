@@ -17,7 +17,6 @@ public static class UsersInitData
             PasswordHash = null,
             CreatedByUserId = SystemUserId,
             CreatedAt = new DateTime(2020, 11, 09, 0, 0, 0, DateTimeKind.Utc),
-            Birthday = new DateOnly(2020, 11, 09).AddYears(-UserConstants.AdultAge),
         },
     };
 }
