@@ -1,8 +1,10 @@
 ﻿using ApplicationCore.Interfaces;
+using ApplicationCore.Services.Dependencies.Attributes;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Logging;
 
+[ScopedDependency]
 public class AppLogger<T> : IAppLogger<T>
 {
     private readonly ILogger<T> _logger;

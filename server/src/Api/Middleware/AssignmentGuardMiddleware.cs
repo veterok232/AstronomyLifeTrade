@@ -32,7 +32,7 @@ public class AssignmentGuardMiddleware
 
     public async Task Invoke(HttpContext context)
     {
-        if (!context.User.Identity.IsAuthenticated || context.IsCurrentAssignmentChosen())
+        /*if (!context.User.Identity.IsAuthenticated || context.IsCurrentAssignmentChosen())
         {
             await _next(context);
             return;
@@ -58,25 +58,6 @@ public class AssignmentGuardMiddleware
             return;
         }
 
-        await _next(context);
-    }
-
-    private async Task<bool> ShouldRejectIfAssignmentIsMissing(HttpContext context) =>
-        !IsChooseAssignmentRelatedAction(context) &&
-        await HasUserMultipleAssignment(context.GetUserId().Value);
-
-    private async Task<bool> ShouldPreventUserToChooseAssignment(HttpContext context) =>
-        IsChooseAssignmentRelatedAction(context) &&
-        !await HasUserMultipleAssignment(context.GetUserId().Value);
-
-    private async Task<bool> HasUserMultipleAssignment(Guid userId) =>
-        await _assignmentService.GetCountByUser(userId) > 1;
-
-    private static bool IsChooseAssignmentRelatedAction(HttpContext context)
-    {
-        (string controller, string action) = context.GetActionInfo();
-        return
-            (controller == nameof(AssignmentsController) && action == nameof(AssignmentsController.GetList)) ||
-            (controller == nameof(IdentityController) && action == nameof(IdentityController.ChooseAssignment));
+        await _next(context);*/
     }
 }

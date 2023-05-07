@@ -1,8 +1,10 @@
+import { getMenuItems } from "../components/layout/catalogNavigation/catalogNavigationConfig";
 import { routeLinks } from "../components/layout/routes/routeLinks";
+import { NavigationItemType } from "../dataModels/enums/navigationItemType";
+import { MenuItem } from "../dataModels/menu/menuItem";
 import { objToQueryString } from "./requestParameterUtils";
 
 export const getDefaultPageRoute = (): string => {
-
     return getFirstPageRoute();
 };
 

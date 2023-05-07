@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { IconicSearchButton } from "../../common/controls/buttons/iconicSearchButton";
 import { TextFormControl } from "../../common/controls/formControls/textFormControl";
@@ -7,7 +8,7 @@ import { Form } from "reactstrap";
 interface Props {
     className?: string;
     onSearch: () => void;
-};
+}
 
 interface SearchFormData {
     searchString: string;

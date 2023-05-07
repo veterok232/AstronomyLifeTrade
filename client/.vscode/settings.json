@@ -13,5 +13,7 @@
         "source.fixAll.eslint": true
     },
     "typescript.tsdk": "node_modules\\typescript\\lib",
-    "editor.rulers": [120]
+    "editor.rulers": [
+        120
+    ]
 }

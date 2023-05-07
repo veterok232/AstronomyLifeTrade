@@ -1,9 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { Navigation } from "react-router-dom";
 import { viewStore } from "../../../infrastructure/stores/viewStore";
 import { Local } from "../../localization/local";
 import MenuToggle from "../menuToggle/menuToggle";
+import { NavigationItemsCollection } from "./navigationItemsCollection";
+import { getMenuItems } from "./catalogNavigationConfig";
 
 const CatalogNavigation = observer(() => {
     return <nav className={`grid__navigation navigation ${viewStore.isNavigationOpened ? "grid__navigation--opened navigation--opened" : ""}`}>
@@ -16,4 +17,4 @@ const CatalogNavigation = observer(() => {
     </nav>;
 });
 
-export default Navigation;
+export default CatalogNavigation;

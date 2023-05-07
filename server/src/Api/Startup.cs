@@ -24,6 +24,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.InstallServicesInAssembly(Configuration);
+        
     }
 
     public void ConfigureContainer(ContainerBuilder builder)

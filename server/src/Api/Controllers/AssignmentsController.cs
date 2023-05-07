@@ -18,7 +18,7 @@ public class AssignmentsController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
+    /*[HttpGet]
     public Task<IEnumerable<GetUserAssignmentsResponse>> GetList() =>
-        _mediator.Send(new Query<IEnumerable<GetUserAssignmentsResponse>>());
+        _mediator.Send(new Query<IEnumerable<GetUserAssignmentsResponse>>());*/
 }

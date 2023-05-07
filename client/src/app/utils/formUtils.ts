@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldMetaState } from "react-final-form";
 
 export const shouldShowValidations = (meta: FieldMetaState<any>, showIfPristine?: boolean):

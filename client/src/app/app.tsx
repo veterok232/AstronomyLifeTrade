@@ -15,6 +15,11 @@ import { viewStore } from "./infrastructure/stores/viewStore";
 import { AutoLogoutScheduler } from "./components/layout/logout/autoLogoutScheduler";
 import { Router } from "./components/layout/routes/router";
 import Header from "./components/layout/header/header";
+import CatalogNavigation from "./components/layout/catalogNavigation/catalogNavigation";
+import { MainContent } from "./components/layout/mainContent";
+import Footer from "./components/layout/footer/footer";
+import { ModalsContainer } from "./components/layout/modals/modalsContainer";
+import { ProgressIndicator } from "./components/layout/progressIndicator/progressIndicator";
 
 @observer
 export class App extends React.Component {
@@ -37,12 +42,16 @@ export class App extends React.Component {
                         ? <div className={`grid ${viewStore.isNavigationOpened ? "grid--navigation-opened" : ""}`}>
                             <AutoLogoutScheduler expirationTime={stores.contextStore.refreshTokenExpirationDateTime} />
                             <Header />
-                            <Navigation />
+                            <CatalogNavigation />
                             <MainContent />
                             <Footer />
                         </div>
-                        : <ExternalPageLayout />}
-                    <NotificationContainer />
+                        : <div className={`grid ${viewStore.isNavigationOpened ? "grid--navigation-opened" : ""}`}>
+                            <Header />
+                            <CatalogNavigation />
+                            <MainContent />
+                            <Footer />
+                    </div>}
                     <ModalsContainer />
                 </Router>
             </RawIntlProvider>;

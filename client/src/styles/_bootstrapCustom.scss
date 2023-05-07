@@ -1,0 +1,55 @@
+@function z-index($key) {
+    @return map-get($z-index, $key);
+}
+
+@function color($color, $suffix: "") {
+    @if ($suffix != "") {
+        @return map-get($colors, "#{$color}-#{$suffix}");
+    }
+    @return map-get($colors, $color);
+}
+
+$primary: $color-green;
+$secondary: $color-black;
+$success: $primary;
+$info: $color-blue-pale;
+$warning: $color-yellow;
+$danger: $color-red;
+$light: $color-white;
+$dark: $color-black-2;
+
+$z-index: (
+    "max": 9999999,
+    "navigation": 10,
+);
+
+$body-bg: $color-grey-light;
+$link-hover-color: $primary;
+
+$btn-line-height: 2;
+
+$pagination-color: $secondary;
+$pagination-hover-color: $secondary;
+$pagination-padding-y: 0;
+$pagination-padding-x: 0;
+$pagination-line-height: $pagination-size;
+$pagination-border-width: 0;
+$pagination-bg: transparent;
+$pagination-active-bg: $color-grey-dark;
+$pagination-hover-bg: $light;
+$pagination-focus-box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
+
+$input-height: 48px;
+$input-disabled-bg: #F1F1F5;
+
+$dropdown-border-width: 0;
+$dropdown-box-shadow: 0 2px 4px 1px red;
+$dropdown-min-width: 11rem;
+$dropdown-item-padding-y: 14px;
+$dropdown-item-padding-x: 20px;
+$dropdown-link-hover-bg: $body-bg;
+$dropdown-link-active-color: $color-grey-dark;
+$dropdown-link-active-bg: $light;
+
+@import "~bootstrap";
+@import "./bootstrapStylesOverrides";

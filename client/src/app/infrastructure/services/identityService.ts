@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import jwt_decode from "jwt-decode";
 import { Constants } from "../../components/constants";
 import { originRouteParamName, routeLinks } from "../../components/layout/routes/routeLinks";

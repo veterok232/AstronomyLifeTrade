@@ -1,0 +1,120 @@
+$color-green: #13ac6c;
+$color-green-2: #008e5b;
+$color-green-3: #639200;
+$color-green-dark: #00744a;
+$color-green-light: #e7f7f0;
+$color-green-light-2: #37e69c;
+$color-green-light-3: #f3fbf7;
+$color-green-light-4: #e5fdf5;
+$color-green-light-5: #a4e6e9;
+$color-green-light-6: #0e9da4;
+$color-green-light-7: #a5e3c9;
+$color-green-light-8: #bbe291;
+$color-green-light-9: #f4ffe9;
+$color-green-transparent: rgba(19, 172, 108, 0.08);
+
+$color-black: #2f2e38;
+$color-black-2: #1f1e26;
+
+$color-yellow: #ffb800;
+$color-yellow-2: #ea7000;
+$color-yellow-3: #fdac34;
+$color-yellow-4: #b85800;
+$color-yellow-5: #ffa800;
+$color-yellow-dark: #c59f67;
+$color-yellow-dark-2: #a77b3a;
+$color-yellow-light: #fff8d0;
+$color-yellow-light-2: #fff5e0;
+$color-yellow-light-3: rgba(234, 112, 0, 0.03);
+$color-yellow-light-4: #fccd86;
+$color-yellow-light-5: #fff7e7;
+$color-yellow-light-6: #fcfaeb;
+
+$color-blue: #a096ff;
+$color-blue-1: #3d67dc;
+$color-blue-2: #3e4fe8;
+$color-blue-pale: #078fac;
+$color-light-blue: #12b1d4;
+$color-light-blue-1: #bcceff;
+$color-light-blue-2: #f0f4ff;
+$color-light-blue-3: #effeff;
+$color-light-blue-4: #e1f4ff;
+$color-light-blue-5: #f2f9ff;
+$color-dark-blue: #158ed1;
+
+$color-turquesa: #4ed6dc;
+
+$color-grey: #9a98a7;
+$color-grey-2: #53525b;
+$color-grey-dark: #2f2e38;
+$color-grey-dark-2: #4f4e58;
+$color-middle-grey: #7a7987;
+$color-grey-light: #efeff5;
+$color-grey-light-2: #b8b8cb;
+$color-grey-light-3: #e5e5e5;
+$color-grey-light-4: #dadada;
+$color-grey-light-5: #d8d8e5;
+$color-grey-light-6: #e6e6ef;
+$color-grey-light-7: rgba(0, 0, 0, 0.15);
+$color-grey-light-8: #ceceda;
+
+$color-white: #ffffff;
+$color-white-light: #f9f9fc;
+$color-show-white: #f6f6fa;
+
+$color-red: #ff4136;
+$color-red-2: #f45279;
+$color-red-3: #de0035;
+$color-red-4: #fff2f8;
+$color-red-5: #ff5656;
+$color-red-light: #fff2f5;
+$color-red-light-1: #fbb8c8;
+
+$color-violet: #5e4bd3;
+$color-violet-dark: #6e43ce;
+$color-violet-light: #f4f2ff;
+$color-violet-light-2: #cac2ff;
+$color-violet-light-3: #eaf0ff;
+$color-violet-light-4: rgba(198, 0, 231, 0.1);
+$color-violet-light-5: #d2bffa;
+$color-violet-light-6: #f7f3ff;
+
+$color-icon-grey: $color-grey-light-2;
+$color-icon-lightgrey: $color-grey-light-4;
+$color-card-header-grey: $color-white-light;
+$color-page-bg-grey: $color-grey-light-3;
+$color-line-grey: $color-grey-light-5;
+$color-primary-alt: $color-green-light-2;
+$color-secondary-alt: $color-red-2;
+$color-validation-error: $color-red-3;
+$color-validation-error-background: $color-red-4;
+
+$help-text-color: #f3f1ff;
+
+$logo-placeholder-width: 240px;
+$semi-transparent-background: rgba(255, 255, 255, 0.3);
+
+$field-label-width: 84px;
+$field-payments-recurring-label-width: 120px;
+$field-application-general-label-width: 90px;
+$transition-duration: 0.5s;
+
+$navigation-width: 72px;
+$navigation-width-mobile: 290px;
+$navigation-width-opened: 260px;
+$navigation-toggle-width: 5px;
+$navigation-icon-padding: 12px;
+$navigation-overlapping-width: 1240px;
+
+$pagination-size: 42px;
+$pagination-arrow-bg: $color-green;
+
+$input-checkbox-size: 18px;
+$input-radio-size: 20px;
+$label-color: $color-grey-2;
+$border-input-radio: $color-grey-light-2;
+
+$step-width: 28px;
+
+$card-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.07);
+$react-default-dropdown-shadow: 0 0 0 1px #{'hsl(0deg 0% 0% / 10%)'}, 0 4px 11px #{'hsl(0deg 0% 0% / 10%)'};

@@ -1,3 +1,4 @@
+import { contextStore } from "../../stores/contextStore";
 import { Roles } from "./roles";
 
 const prioritizedRoles = [Roles.staff, Roles.manager, Roles.consumer];

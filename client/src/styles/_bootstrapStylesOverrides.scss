@@ -1,0 +1,50 @@
+.btn {
+    &-outline-secondary {
+        color: $color-green-dark;
+        border-color: $color-icon-grey;
+    }
+
+    &-width {
+        width: 164px;
+    }
+
+    &:focus {
+        box-shadow: none;
+    }
+}
+
+.modal {
+    $close-btn-width: 48px;
+
+    &-header {
+        position: relative;
+        padding-right: $close-btn-width;
+    }
+
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        width: $close-btn-width;
+        line-height: $close-btn-width;
+    }
+}
+
+Input[type="text"]:last-of-type,
+Input[type="email"]:last-of-type,
+Input[type="password"]:last-of-type {
+    margin: 0;
+}
+
+.modal-open {
+    overflow: hidden;
+    padding-right: 0 !important;
+}
+
+.tooltip[x-out-of-boundaries="true"],
+.popover[x-out-of-boundaries="true"] {
+    visibility: hidden;
+    pointer-events: none;
+}

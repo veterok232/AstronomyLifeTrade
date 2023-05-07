@@ -1,0 +1,17 @@
+@mixin box-shadow($var: '') {
+    @if $var == light {
+        //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+        //0 1px 2px rgba(0, 0, 0, 0.1);
+    } @else if $var == regular {
+        //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+        //0 1px 2px rgba(0, 0, 0, 0.1);
+    } @else {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@mixin position-sticky(){
+    position: sticky;
+    position: -webkit-sticky; /* for Safari, Chrome for iOS */
+}

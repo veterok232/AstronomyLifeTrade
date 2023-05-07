@@ -1,0 +1,22 @@
+.progress-indicator-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: z-index("max") - 2;
+    background: $semi-transparent-background;
+
+    .indicator {
+        margin: auto;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    &.elevated-progress-indicator {
+        z-index: z-index("max");
+    }
+}

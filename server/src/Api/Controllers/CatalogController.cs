@@ -21,10 +21,10 @@ public class CatalogController : ControllerBase
         _mediator = mediator;
     }
     
-    [HttpGet(Routes.Catalog.Get)]
+    /*[HttpGet(Routes.Catalog.Get)]
     [AllowAnonymous]
     public Task<SearchResult<ProductListItem>> Get([FromQuery] ProductsSearchModel model)
     {
         return _mediator.Send(new GetProductsRequest(model));
-    }
+    }*/
 }

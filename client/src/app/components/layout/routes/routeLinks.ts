@@ -14,4 +14,9 @@ export const routeLinks = {
         forbidden: "/errors/forbidden",
         notFound: "/errors/not-found",
     },
+    catalog: {
+        telescopes: "/catalog/telescopes",
+        binoculars: "/catalog/binoculars",
+        accessories: "catalog/accessories",
+    },
 };

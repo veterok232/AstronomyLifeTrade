@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
-import { ContextResponse, CurrentAssignmentInfo } from "../../dataModels/contextResponse";
 import { convertUtcStringToDate } from "../../utils/dateTimeUtils";
+import { ContextResponse, CurrentAssignmentInfo } from "../../dataModels/common/contextResponse";
 
 class AssignmentInfo {
     public assignmentId?: string;
@@ -42,12 +42,10 @@ class ContextStore {
         this.lang = context.lang;
         this.isAuthenticated = context.isAuthenticated;
         this.userId = context.userId;
-        this.hasMultipleAssignments = context.hasMultipleAssignments;
         this.roleName = context.roleName;
         this.firstName = context.firstName;
         this.lastName = context.lastName;
         this.setRefreshTokenExpirationDateTime(context.refreshTokenExpirationDateTime);
-        this.originAssignmentId = context.originAssignmentId;
 
         if (context.currentSelectedAssignment.id) {
             this.currentAssignment = new AssignmentInfo(context.currentSelectedAssignment);
