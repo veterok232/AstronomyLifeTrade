@@ -1,8 +1,11 @@
 ﻿using Api.Constants;
 using Api.Controllers.Attributes;
 using Api.Interfaces;
+using ApplicationCore.Constants;
+using ApplicationCore.Handlers.Catalog.GetPopularProducts;
 using ApplicationCore.Handlers.Common;
 using ApplicationCore.Models.Catalog;
+using ApplicationCore.Models.Catalog.Search;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +24,38 @@ public class CatalogController : ControllerBase
         _mediator = mediator;
     }
     
-    /*[HttpGet(Routes.Catalog.Get)]
+    [HttpGet(Routes.Catalog.GetPopularProducts)]
     [AllowAnonymous]
-    public Task<SearchResult<ProductListItem>> Get([FromQuery] ProductsSearchModel model)
+    public Task<ICollection<ProductListItem>> GetPopularProducts()
     {
-        return _mediator.Send(new GetProductsRequest(model));
+        return _mediator.Send(new GetPopularProductsRequest());
+    }
+
+    [HttpGet(Routes.Catalog.SearchTelescopes)]
+    [AllowAnonymous]
+    public Task<SearchResult<ProductListItem>> SearchTelescopes([FromQuery] TelescopeSearchModel model)
+    {
+        return _mediator.Send(new SearchTelescopesRequest(model));
+    }
+    
+    /*[HttpGet(Routes.Catalog.GetProductRating)]
+    [AllowAnonymous]
+    public Task<ProductRatingModel> GetProductRating()
+    {
+        return _mediator.Send(new GetProductRatingRequest());
+    }
+    
+    [HttpPost(Routes.Catalog.AddProductToCart)]
+    [Authorization(Roles.Consumer)]
+    public Task<SearchResult<ProductListItem>> AddProductToCart()
+    {
+        return _mediator.Send(new AddProductToCartCommand());
+    }
+    
+    [HttpPost(Routes.Catalog.AddProductToFavorites)]
+    [Authorization(Roles.Consumer)]
+    public Task<SearchResult<ProductListItem>> AddProductToFavorites()
+    {
+        return _mediator.Send(new AddProductToFavoritesCommand());
     }*/
 }

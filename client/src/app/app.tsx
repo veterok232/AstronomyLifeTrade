@@ -38,7 +38,7 @@ export class App extends React.Component {
         if (stores.contextStore.isContextLoaded) {
             contextDependentComponents = <RawIntlProvider value={Localizer.configureIntl(contextStore.lang)}>
                 <Router history={sharedHistory.history}>
-                    {stores.contextStore.currentAssignment && stores.contextStore.currentAssignment.assignmentId
+                    {stores.contextStore.isAuthenticated
                         ? <div className={`grid ${viewStore.isNavigationOpened ? "grid--navigation-opened" : ""}`}>
                             <AutoLogoutScheduler expirationTime={stores.contextStore.refreshTokenExpirationDateTime} />
                             <Header />

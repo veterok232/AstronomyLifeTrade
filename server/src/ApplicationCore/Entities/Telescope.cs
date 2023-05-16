@@ -39,4 +39,6 @@ public class Telescope : Entity
     public Guid ProductId { get; set; }
     
     public Product Product { get; set; }
+    
+    public ICollection<TelescopeEyepiece> TelescopeEyepieces { get; set; }
 }

@@ -42,7 +42,7 @@ internal class SwaggerInstaller : IServiceInstaller
                     },
                 });
 
-            c.IncludeXmlComments(XmlCommentsDocumentPath);
+            // c.IncludeXmlComments(XmlCommentsDocumentPath);
         });
     }
 }

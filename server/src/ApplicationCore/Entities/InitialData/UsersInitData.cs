@@ -14,7 +14,7 @@ public static class UsersInitData
             Email = "systemEmail",
             FirstName = "System",
             LastName = string.Empty,
-            PasswordHash = null,
+            PasswordHash = string.Empty,
             CreatedByUserId = SystemUserId,
             CreatedAt = new DateTime(2020, 11, 09, 0, 0, 0, DateTimeKind.Utc),
         },

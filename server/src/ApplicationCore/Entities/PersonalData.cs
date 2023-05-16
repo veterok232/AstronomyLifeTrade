@@ -21,4 +21,8 @@ public class PersonalData : Entity
     public Guid AssignmentId { get; set; }
     
     public Assignment Assignment { get; set; }
+    
+    public Guid LegalDetailsId { get; set; }
+    
+    public LegalDetails LegalDetails { get; set; }
 }

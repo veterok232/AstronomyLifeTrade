@@ -3,11 +3,12 @@ import { Button } from "reactstrap";
 import { AppIcon } from "../../appIcon";
 
 interface Props {
+    className?: string;
     onFavoritesOpen: () => void;
 }
 
 export function IconicFavoritesButton(props: Props) {
     return (<Button color="link" onClick={props.onFavoritesOpen}>
-        <AppIcon className="d-block" icon="heart" />
+        <AppIcon className="d-block" icon="favorite_border" />
     </Button>);
 }

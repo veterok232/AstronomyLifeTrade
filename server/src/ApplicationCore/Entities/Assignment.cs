@@ -23,6 +23,8 @@ public class Assignment : Entity, IHasVersion, IHasCreatedByUser, IHasCreatedAt,
 
     public DateTime CreatedAt { get; set; }
 
+    public User CreatedByUser { get; set; }
+    
     public Guid CreatedByUserId { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
@@ -31,5 +33,5 @@ public class Assignment : Entity, IHasVersion, IHasCreatedByUser, IHasCreatedAt,
 
     public Role Role { get; set; }
 
-    public ICollection<AssignmentPromotion> Promotions { get; set; }
+    public ICollection<File> AvatarFiles { get; set; }
 }

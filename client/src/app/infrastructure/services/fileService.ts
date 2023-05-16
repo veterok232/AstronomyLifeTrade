@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { routeLinks } from "../../components/layout/routes/routeLinks";
 import { notifications } from "../../components/toast/toast";
 import { sharedHistory } from "../sharedHistory";

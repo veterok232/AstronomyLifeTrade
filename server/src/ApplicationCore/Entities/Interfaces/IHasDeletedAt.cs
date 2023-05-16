@@ -2,5 +2,5 @@
 
 public interface IHasDeletedAt
 {
-    public DateTime DeletedAt { get; set; } 
+    public DateTime? DeletedAt { get; set; } 
 }

@@ -1,0 +1,13 @@
+.footer {
+    & {
+        @include font-size(14px);
+        @include media-breakpoint-up(lg) {
+            padding: 20px 24px;
+        }
+
+        color: $color-middle-grey;
+        line-height: 20px;
+        padding: 16px 24px;
+        text-align: center;
+    }
+}

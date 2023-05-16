@@ -17,7 +17,7 @@ public class Payment : Entity, IHasCreatedAt, IHasModifiedAt
     
     public Guid ConsumerAssignmentId { get; set; }
     
-    public Assignment ConsumerAssingment { get; set; }
+    public Assignment ConsumerAssignment { get; set; }
     
     public DateTime CreatedAt { get; set; }
 

@@ -8,8 +8,6 @@ public class ProductsSearchModel : ISortable, IPageable
     public decimal PriceMin { get; set; }
     
     public decimal PriceMax { get; set; }
-    
-    public Guid CategoryId { get; set; }
 
     public string SortBy { get; }
     

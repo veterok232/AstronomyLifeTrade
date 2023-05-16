@@ -6,7 +6,7 @@ public class Cart : Entity, IHasCreatedAt, IHasModifiedAt
 {
     public Guid CustomerAssignmentId { get; set; }
     
-    public Assignment Assignment { get; set; }
+    public Assignment CustomerAssignment { get; set; }
     
     public DateTime CreatedAt { get; set; }
  
@@ -15,4 +15,6 @@ public class Cart : Entity, IHasCreatedAt, IHasModifiedAt
     public decimal TotalAmount { get; set; }
     
     public int Quantity { get; set; }
+
+    public ICollection<CartItem> CartItems { get; set; }
 }

@@ -26,9 +26,15 @@ public class Product : Entity, IHasCreatedAt, IHasModifiedAt, IHasDeletedAt
     
     public string SpecialNote { get; set; }
     
+    public string Description { get; set; }
+    
+    public string Equipment { get; set; }
+    
     public DateTime CreatedAt { get; set; }
     
     public DateTime ModifiedAt { get; set; }
     
-    public DateTime DeletedAt { get; set; }
+    public DateTime? DeletedAt { get; set; }
+    
+    public ICollection<ProductItem> ProductItems { get; set; }
 }

@@ -31,6 +31,14 @@ public static class Routes
     {
         public const string Root = "catalog";
 
-        public const string Get = "get";
+        public const string GetPopularProducts = "get-popular-products";
+
+        public const string SearchTelescopes = "search-telescopes";
+        
+        public const string GetProductRating = "get-product-rating/{productId}";
+        
+        public const string AddProductToCart = "add-product-to-cart";
+        
+        public const string AddProductToFavorites = "add-product-to-favorites";
     }
 }

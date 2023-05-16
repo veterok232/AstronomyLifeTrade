@@ -9,7 +9,6 @@ internal class DbInstaller : IServiceInstaller
 {
     public void InstallServices(IServiceCollection services, IConfiguration configuration)
     {
-        // todo CommandTimeout should be removed in BELMONTFINANCE-450 story
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
                     configuration.GetConnectionString("Default"),

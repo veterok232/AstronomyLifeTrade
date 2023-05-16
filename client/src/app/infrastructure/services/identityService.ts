@@ -30,17 +30,9 @@ const saveIdentityData = (data?: IdentityData) => {
     }
 };
 
-const isAssignmentSelectionNeeded = () =>
-    contextStore.hasMultipleAssignments && !contextStore.currentAssignment;
-
 export const applyNewIdentity = async (identityData: IdentityData, searchString = "") => {
     saveIdentityData(identityData);
     await contextActions.load();
-
-    if (isAssignmentSelectionNeeded()) {
-        sharedHistory.push(`${routeLinks.account.selectAssignment}${searchString}`);
-        return;
-    }
 
     crossWindowEventBroker.publish(Constants.crossWindowEvents.logInCompleted);
 

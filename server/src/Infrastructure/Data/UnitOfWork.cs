@@ -2,11 +2,13 @@
 using ApplicationCore.Extensions;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.AuthContext;
+using ApplicationCore.Services.Dependencies.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Data;
 
+[ScopedDependency]
 public class UnitOfWork : IUnitOfWork
 {
     private readonly ApplicationDbContext _context;

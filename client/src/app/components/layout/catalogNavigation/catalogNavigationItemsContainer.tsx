@@ -50,7 +50,7 @@ export const NavigationItemsContainer = observer((props: React.PropsWithChildren
         if (!isOpened) {
             setIsOpened(isSelected);
         }
-    }, [isSelected]);
+    }, [isSelected, isOpened]);
 
     const isRootLevel = isNodeOnRootLevel(props.rootFor);
 

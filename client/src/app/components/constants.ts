@@ -46,7 +46,7 @@ export const Constants = {
         specialCharactersExpression: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).+$/
     },
     defaultUserAvatarImagePath: "static/images/user-avatar.svg",
-    defaultDistributorLogoImagePath: "static/images/default-logo.svg",
+    defaultProductImagePath: "static/images/default-product.svg",
     defaultEmptyValue: "-",
     longDash: "—",
     dash: "-",

@@ -1,7 +1,7 @@
 import { MenuItem } from "../../../dataModels/menu/menuItem";
 import { viewStore } from "../../../infrastructure/stores/viewStore";
 import { localizer } from "../../localization/localizer";
-import { getMenuItems } from "./catalogNavigationConfig";
+import { getCatalogMenuItems } from "./catalogNavigationConfig";
 
 const branchTextDelimiter = " -> ";
 
@@ -10,11 +10,11 @@ export function isNodeBelongToPath(rootFor: string[]): boolean {
 }
 
 export function isNodeOnRootLevel(rootFor: string[]): boolean {
-    return getMenuItems().some(i => i.rootFor.every(root => rootFor.includes(root)));
+    return getCatalogMenuItems().some(i => i.rootFor.every(root => rootFor.includes(root)));
 }
 
 export function getSelectedBranchText(): string {
-    return getNodeTitleKeysOnTheBranch(getMenuItems())
+    return getNodeTitleKeysOnTheBranch(getCatalogMenuItems())
         .map(k => localizer.get(k))
         .join(branchTextDelimiter);
 }

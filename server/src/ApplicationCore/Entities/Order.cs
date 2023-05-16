@@ -5,9 +5,9 @@ namespace ApplicationCore.Entities;
 
 public class Order : Entity, IHasCreatedAt, IHasModifiedAt
 {
-    public Guid AssignmentId { get; set; }
+    public Guid ConsumerAssignmentId { get; set; }
     
-    public Assignment Assignment { get; set; }
+    public Assignment ConsumerAssignment { get; set; }
     
     public OrderStatus OrderStatus { get; set; }
     
@@ -22,4 +22,8 @@ public class Order : Entity, IHasCreatedAt, IHasModifiedAt
     public DateTime CreatedAt { get; set; }
 
     public DateTime ModifiedAt { get; set; }
+    
+    public int OrderNumber { get; set; }
+    
+    public ICollection<OrderItem> OrderItems { get; set; }
 }

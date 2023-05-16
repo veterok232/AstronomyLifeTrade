@@ -4,7 +4,7 @@ import { MenuItemConfig } from "../../../dataModels/menu/menuItemConfig";
 import { isAuthorizedAsOneOf } from "../../../infrastructure/services/auth/authService";
 import { routeLinks } from "../routes/routeLinks";
 
-export const getMenuItems = (): Array<MenuItem> => {
+export const getCatalogMenuItems = (): Array<MenuItem> => {
     return getUserAccessibleMenuItems(menuItemsConfig);
 };
 

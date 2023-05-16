@@ -26,4 +26,6 @@ public class Promotion : Entity, IHasVersion, IHasCreatedAt, IHasModifiedAt
     public DateTime CreatedAt { get; set; }
     
     public DateTime ModifiedAt { get; set; }
+    
+    public ICollection<PromotionProduct> Products { get; set; }
 }

@@ -8,7 +8,9 @@ public class LegalDetails : Entity
     
     public string Iban { get; set; }
     
-    public string LegalAddress { get; set; }
+    public Guid LegalAddressId { get; set; }
+    
+    public Address LegalAddress { get; set; }
     
     public string LegalName { get; set; }
     

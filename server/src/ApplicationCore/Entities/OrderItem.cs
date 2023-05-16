@@ -8,9 +8,7 @@ public class OrderItem : Entity, IHasCreatedAt, IHasModifiedAt
     
     public Order Order { get; set; }
     
-    public Guid ProductItemId { get; set; }
-    
-    public ProductItem ProductItem { get; set; }
+    public ICollection<OrderItemProductItem> ProductItems { get; set; }
     
     public int Quantity { get; set; }
     

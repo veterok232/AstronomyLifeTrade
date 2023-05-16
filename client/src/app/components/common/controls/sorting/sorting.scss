@@ -1,0 +1,81 @@
+.sorting {
+    @include font-size(14px);
+
+    display: flex;
+    align-items: baseline;
+
+    &__toggle {
+        padding: 0;
+        color: $color-middle-grey;
+        border: none;
+        line-height: 0;
+        margin-left: 8px;
+
+        &:focus {
+            box-shadow: none;
+        }
+
+        &:hover {
+            color: $color-green-dark;
+            background-color: $color-green-light;
+        }
+    }
+
+    &__order-icon {
+        @include font-size(16px);
+
+        color: $color-middle-grey;
+        position: relative;
+        top: 3px;
+    }
+
+    &__sort-by {
+        font-weight: bold;
+        padding: 0 4px;
+        text-align: right;
+    }
+
+    &__sort-by-wrapper {
+        padding: 5px;
+        border-radius: 3px;
+        user-select: none;
+        margin-right: 4px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: flex-end;
+
+        &:hover {
+            cursor: pointer;
+            background-color: $color-line-grey;
+        }
+    }
+
+    &__menu {
+        @include box-shadow();
+    }
+
+    &__menu-item {
+        padding-left: 44px;
+        line-height: 1.3;
+        position: relative;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__checked-icon {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+    }
+
+    &__count {
+        margin-right: auto;
+    }
+
+    &__dropdown {
+        border-left: 1px solid $color-grey;
+    }
+}

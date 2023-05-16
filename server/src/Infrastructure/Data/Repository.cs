@@ -3,6 +3,7 @@ using ApplicationCore.Exceptions;
 using ApplicationCore.Extensions;
 using ApplicationCore.Handlers.Common;
 using ApplicationCore.Interfaces;
+using ApplicationCore.Services.Dependencies.Attributes;
 using ApplicationCore.Specifications.Common;
 using ApplicationCore.Specifications.ImplicitFilters;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Data;
 
+[ScopedDependency]
 public class Repository<T> : IRepository<T>
     where T : Entity
 {

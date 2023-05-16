@@ -1,0 +1,69 @@
+.header {
+    $user-photo-width: 36px;
+    $count-label-width: 18px;
+
+    & {
+        @include font-size(14px);
+
+        display: flex;
+        align-items: center;
+        color: $white;
+        background-color: $color-grey-dark;
+        line-height: 17px;
+        user-select: none;
+    }
+
+    &__menu-toggle {
+        cursor: pointer;
+        line-height: $navigation-width;
+        text-align: center;
+        color: $color-icon-grey;
+        width: 64px;
+
+        @media (min-width: $navigation-overlapping-width) {
+            display: none;
+        }
+    }
+
+    &__user-data {
+        text-align: right;
+        padding: 0 20px 0 10px;
+    }
+
+    &__action-buttons {
+        margin-left: auto;
+    }
+
+    &__user-name {
+        padding-bottom: 10px;
+    }
+
+    &__user-role {
+        @include font-size(10px);
+
+        font-family: 'Libre Baskerville', serif;
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        line-height: 12px;
+        opacity: .75;
+    }
+
+    &__dropdown-menu {
+        top: 5px !important;
+        left: -20px !important;
+    }
+
+    &__logo {
+        width: 150px;
+        height: auto;
+    }
+
+    &__button {
+        width: 64px;
+        height: 64px;
+    }
+
+    @include media-breakpoint-up(lg) {
+        min-height: 72px;
+    }
+}

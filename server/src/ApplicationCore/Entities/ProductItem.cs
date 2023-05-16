@@ -18,5 +18,5 @@ public class ProductItem : Entity, IHasCreatedAt, IHasModifiedAt, IHasDeletedAt
     
     public DateTime ModifiedAt { get; set; }
     
-    public DateTime DeletedAt { get; set; }
+    public DateTime? DeletedAt { get; set; }
 }

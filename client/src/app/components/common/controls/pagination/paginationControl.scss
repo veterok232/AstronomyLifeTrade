@@ -1,0 +1,50 @@
+.pagination {
+    justify-content: center;
+
+    .page-link {
+        @include font-size(14px);
+
+        text-align: center;
+        width: $pagination-size;
+        border-radius: $border-radius;
+    }
+
+    .page-item {
+        padding: 0 1px;
+
+        @include media-breakpoint-down(md) {
+            padding: 0 0;
+        }
+
+        .page-link[aria-label="Previous"],
+        .page-link[aria-label="Next"] {
+            color: $color-green-dark;
+            background-color: rgba($pagination-arrow-bg, .1);
+            height: 42px;
+            font-size: 27px;
+
+            span {
+                margin-top: -7px;
+                display: block;
+            }
+        }
+
+        &.disabled {
+            .page-link {
+                color: rgba($color-green-dark, .4);
+            }
+        }
+
+        &:hover {
+            .page-link {
+                box-shadow: $pagination-focus-box-shadow;
+            }
+        }
+    }
+
+    .page-ellipsis {
+        text-align: center;
+        width: $pagination-size;
+        padding-top: 5px;
+    }
+}

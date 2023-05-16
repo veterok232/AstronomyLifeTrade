@@ -1,3 +1,4 @@
+using Api.BackgroundProcessing;
 using Api.Constants;
 using Api.Extensions;
 using Api.Utils;
@@ -38,6 +39,7 @@ public sealed class Program
         {
             logger.Info("Starting application.");
 
+            webHost.Services.RunStartupJobs();
             await webHost.RunAsync();
 
             logger.Info("Stopped application.");

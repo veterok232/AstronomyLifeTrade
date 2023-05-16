@@ -15,6 +15,7 @@ export const routeLinks = {
         notFound: "/errors/not-found",
     },
     catalog: {
+        root: "/catalog",
         telescopes: "/catalog/telescopes",
         binoculars: "/catalog/binoculars",
         accessories: "catalog/accessories",
