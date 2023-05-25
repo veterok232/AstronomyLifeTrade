@@ -1457,31 +1457,35 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<decimal>("Aperture")
+                    b.Property<decimal?>("Aperture")
                         .HasColumnType("numeric")
                         .HasColumnName("aperture");
 
-                    b.Property<decimal>("ApertureRatio")
+                    b.Property<decimal?>("ApertureRatio")
                         .HasColumnType("numeric")
                         .HasColumnName("aperture_ratio");
 
-                    b.Property<decimal>("EyepieceFittingDiameter")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<decimal?>("EyepieceFittingDiameter")
                         .HasColumnType("numeric")
                         .HasColumnName("eyepiece_fitting_diameter");
 
-                    b.Property<decimal>("FocusDistance")
+                    b.Property<decimal?>("FocusDistance")
                         .HasColumnType("numeric")
                         .HasColumnName("focus_distance");
 
-                    b.Property<decimal>("MaxUsefulScale")
+                    b.Property<decimal?>("MaxUsefulScale")
                         .HasColumnType("numeric")
                         .HasColumnName("max_useful_scale");
 
-                    b.Property<decimal>("MinUsefulScale")
+                    b.Property<decimal?>("MinUsefulScale")
                         .HasColumnType("numeric")
                         .HasColumnName("min_useful_scale");
 
-                    b.Property<int>("MountingType")
+                    b.Property<int?>("MountingType")
                         .HasColumnType("integer")
                         .HasColumnName("mounting_type");
 
@@ -1489,11 +1493,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
-                    b.Property<decimal>("ScaleMax")
+                    b.Property<decimal?>("ScaleMax")
                         .HasColumnType("numeric")
                         .HasColumnName("scale_max");
 
-                    b.Property<decimal>("ScaleMin")
+                    b.Property<decimal?>("ScaleMin")
                         .HasColumnType("numeric")
                         .HasColumnName("scale_min");
 
@@ -1502,11 +1506,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("seeker");
 
-                    b.Property<int>("TelescopeControlType")
+                    b.Property<int?>("TelescopeControlType")
                         .HasColumnType("integer")
                         .HasColumnName("telescope_control_type");
 
-                    b.Property<int>("TelescopeUserLevel")
+                    b.Property<int?>("TelescopeUserLevel")
                         .HasColumnType("integer")
                         .HasColumnName("telescope_user_level");
 
@@ -1520,11 +1524,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("tripod_material");
 
-                    b.Property<int>("Type")
+                    b.Property<int?>("Type")
                         .HasColumnType("integer")
                         .HasColumnName("type");
 
-                    b.Property<decimal>("Weight")
+                    b.Property<decimal?>("Weight")
                         .HasColumnType("numeric")
                         .HasColumnName("weight");
 
@@ -1535,6 +1539,30 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("ix_telescope_product_id");
 
                     b.ToTable("telescope", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9b9fbff4-3a3a-4a71-b1d7-8a09872919d7"),
+                            Aperture = 50m,
+                            ApertureRatio = 1m,
+                            CreatedAt = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EyepieceFittingDiameter = 1m,
+                            FocusDistance = 600m,
+                            MaxUsefulScale = 100m,
+                            MinUsefulScale = 1m,
+                            MountingType = 2,
+                            ProductId = new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302"),
+                            ScaleMax = 1m,
+                            ScaleMin = 1m,
+                            Seeker = "",
+                            TelescopeControlType = 1,
+                            TelescopeUserLevel = 2,
+                            TripodHeight = "",
+                            TripodMaterial = "",
+                            Type = 2,
+                            Weight = 20m
+                        });
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.TelescopeEyepiece", b =>
@@ -1576,10 +1604,6 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
-
-                    b.Property<Guid>("CreatedByUserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("created_by_user_id");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -1628,9 +1652,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_user");
 
-                    b.HasIndex("CreatedByUserId")
-                        .HasDatabaseName("ix_user_created_by_user_id");
-
                     b.HasIndex("Email")
                         .HasDatabaseName("ix_user_email");
 
@@ -1647,7 +1668,6 @@ namespace Infrastructure.Migrations
                         {
                             Id = new Guid("8faeffed-e97c-4262-9bb9-995f558e6c8c"),
                             CreatedAt = new DateTime(2020, 11, 9, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreatedByUserId = new Guid("8faeffed-e97c-4262-9bb9-995f558e6c8c"),
                             Email = "systemEmail",
                             FirstName = "System",
                             LastName = "",
@@ -1791,7 +1811,7 @@ namespace Infrastructure.Migrations
                         .HasConstraintName("fk_comment_assignment_assignment_id");
 
                     b.HasOne("ApplicationCore.Entities.Product", "Product")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -2104,18 +2124,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Telescope");
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.User", b =>
-                {
-                    b.HasOne("ApplicationCore.Entities.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_user_user_created_by_id");
-
-                    b.Navigation("CreatedBy");
-                });
-
             modelBuilder.Entity("Infrastructure.Entities.JwtKey", b =>
                 {
                     b.HasOne("ApplicationCore.Entities.SecretToken", "SecretToken")
@@ -2150,6 +2158,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.Product", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("ProductItems");
                 });
 
