@@ -5,6 +5,8 @@ interface Props {
     value: number;
     currency: CurrencyType;
     className?: string;
+    showColouredBox?: boolean;
+    inlineStyle?: boolean;
 }
 
 const getCurrencyLabel = (currency: CurrencyType): string => {
@@ -18,7 +20,7 @@ const getCurrencyLabel = (currency: CurrencyType): string => {
 
 export const CardPrice = (props: Props) => {
     return (
-        <div className="price">
+        <div className={`${props.showColouredBox ? "price" : "d-inline"} p-1 ${props.className}`}>
             <span>{props.value} {getCurrencyLabel(props.currency)}</span>
         </div>
     );

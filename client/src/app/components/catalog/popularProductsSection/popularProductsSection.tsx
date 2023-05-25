@@ -5,6 +5,8 @@ import { NoData } from "../../common/presentation/noData";
 import { ProductCard } from "../product/productCard";
 import useAsyncEffect from "use-async-effect";
 import { getPopularProducts } from "../../../api/catalog/catalogApi";
+import { getProductsInCart } from "../../../api/cart/cartApi";
+import { isConsumer } from "../../../infrastructure/services/auth/authService";
 
 interface Props {
     onAddToFavorites: (productId: string) => void;
@@ -13,10 +15,21 @@ interface Props {
 
 export const PopularProductsSection = (props: Props) => {
     const [popularProductsList, setPopularProductsList] = useState<ProductListItem[]>();
+    const [productsInCart, setProductsInCart] = useState<string[]>();
 
     useAsyncEffect(async () => {
         setPopularProductsList(await getPopularProducts());
+
+        if (isConsumer()) {
+            setProductsInCart(await getProductsInCart());
+        }
     }, []);
+
+    const isProductInCart = (productId: string): boolean => {
+        return isConsumer()
+            ? productsInCart.includes(productId)
+            : false;
+    };
 
     return (
         <div>
@@ -25,8 +38,9 @@ export const PopularProductsSection = (props: Props) => {
                 ? popularProductsList?.map((product, ind) =>
                     <ProductCard key={ind}
                         product={product}
-                        onAddToCart={() => props.onAddToCart(product.id)}
-                        onAddToFavorites={() => props.onAddToFavorites(product.id)} />)
+                        onAddToCart={() => props.onAddToCart(product.productId)}
+                        onAddToFavorites={() => props.onAddToFavorites(product.productId)}
+                        isInCart={isProductInCart(product.productId)} />)
                 : <NoData />
             }
         </div>

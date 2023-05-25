@@ -41,9 +41,9 @@ $root-class: ".navigation";
 
     &__logo {
         transition-duration: $transition-duration;
-        width: 150px;
-        height: auto;
-        opacity: 0;
+        width: 100px;
+        height: 50px;
+        opacity: 1;
         visibility: hidden;
         padding-left: 15px;
     }
@@ -57,9 +57,10 @@ $root-class: ".navigation";
     }
 
     &__title {
-        @include font-size(13px);
+        @include font-size(18px);
 
         color: $color-middle-grey;
+        font-style: italic;
         font-family: 'Libre Baskerville', serif;
         line-height: 20px;
         padding: 20px 0 20px $navigation-width;
@@ -100,12 +101,12 @@ $root-class: ".navigation";
             text-decoration: none;
 
             #{$root-class}__item-icon {
-                color: $color-green-dark;
+                color: $color-header-dark;
             }
         }
 
         &:hover {
-            color: $color-green-dark;
+            color: $color-header-dark;
         }
 
         &--active,
@@ -113,8 +114,8 @@ $root-class: ".navigation";
             font-weight: bold;
 
             &.root-level {
-                background-color: rgba($color-green-dark, 0.05);
-                box-shadow: inset -2px 0 0 0 $color-green-dark;
+                background-color: rgba($color-header-dark, 0.20);
+                box-shadow: inset -2px 0 0 0 $color-header-dark;
             }
         }
 

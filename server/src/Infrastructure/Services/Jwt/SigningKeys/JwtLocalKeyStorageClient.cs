@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Services.Jwt.SigningKeys;
 
-[ScopedDependency]
+[SelfScopedDependency]
 internal class JwtLocalKeyStorageClient : IJwtLocalKeyStorageClient
 {
     private readonly IJwtKeyParametersSerializer _jwtKeyParametersSerializer;

@@ -9,7 +9,7 @@ interface Props {
 
 export const CardActionsSection = (props: Props) => {
     return (
-        <div className="product-card">
+        <div className="d-flex flex-row">
             <AddToCartIconicButton onClick={props.onAddToCart} />
             <AddToFavoritesIconicButton onClick={props.onAddToCart} />
         </div>

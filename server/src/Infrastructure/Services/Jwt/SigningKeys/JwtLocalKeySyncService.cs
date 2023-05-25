@@ -1,19 +1,27 @@
 ﻿using ApplicationCore.Services.Dependencies.Attributes;
 using Infrastructure.Interfaces.Jwt.SigningKeys;
 using Infrastructure.Services.Jwt.Models;
+using Infrastructure.Settings;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Services.Jwt.SigningKeys;
 
 [SelfScopedDependency]
 internal class JwtLocalKeySyncService : IJwtKeySyncService
 {
-    private readonly IJwtLocalKeyStorageClient _jwtKeyStorageClient;
     private readonly IJwtKeyStorage _jwtKeyStorage;
+    private readonly IJwtKeyParametersSerializer _jwtKeyParametersSerializer;
+    private readonly JwtSettings _jwtSettings;
 
-    public JwtLocalKeySyncService(IJwtLocalKeyStorageClient jwtKeyStorageClient, IJwtKeyStorage jwtKeyStorage)
+    public JwtLocalKeySyncService(
+        IJwtKeyStorage jwtKeyStorage,
+        IJwtKeyParametersSerializer jwtKeyParametersSerializer,
+        IOptions<JwtSettings> jwtSettings)
     {
-        _jwtKeyStorageClient = jwtKeyStorageClient;
         _jwtKeyStorage = jwtKeyStorage;
+        _jwtKeyParametersSerializer = jwtKeyParametersSerializer;
+        _jwtSettings = jwtSettings.Value;
     }
 
     public Task Sync()
@@ -23,12 +31,23 @@ internal class JwtLocalKeySyncService : IJwtKeySyncService
             _jwtKeyStorage.AddKey(
                 Guid.Empty,
                 new JwtKeyModel(
-                    securityKey: _jwtKeyStorageClient.Get(),
+                    securityKey: GetSecurityKey(),
                     effectiveFrom: DateTime.UtcNow,
                     signingEffectiveTo: DateTime.MaxValue,
                     validationEffectiveTo: DateTime.MaxValue));
         }
 
         return Task.CompletedTask;
+    }
+
+    private RsaSecurityKey GetSecurityKey()
+    {
+        var rsaParameters = _jwtKeyParametersSerializer.Deserialize(
+            _jwtSettings.SigningKeysSettings.LocalKey);
+
+        return new RsaSecurityKey(rsaParameters)
+        {
+            KeyId = nameof(JwtSettings.SigningKeysSettings.LocalKey),
+        };
     }
 }

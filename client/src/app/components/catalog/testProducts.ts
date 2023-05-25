@@ -1,0 +1,265 @@
+import { GetProductsResult } from "../../dataModels/catalog/getProductsResult";
+import { ProductListItem } from "../../dataModels/catalog/productListItem";
+
+export const getProducts = (): GetProductsResult => {
+    return {
+        totalCount: 1,
+        items: [{
+            productId: "",
+            brand: {
+                id: "",
+                name: "dsfsd",
+            },
+            category: {
+                id: "",
+                name: "Telescopes",
+                code: "1",
+                description: "dsfdfstring",
+            },
+            imageFileId: "string",
+            price: 123,
+            quantity: 12,
+            name: "gfgdfg",
+            shortDescription: "sdfsdfdf",
+            specialNote: "",
+            characteristics: [{
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }],
+            rating: {
+                rating: 2,
+                commentsCount: 12,
+            }
+        }, {
+            productId: "",
+            brand: {
+                id: "",
+                name: "dsfsd",
+            },
+            category: {
+                id: "",
+                name: "Telescopes",
+                code: "1",
+                description: "dsfdfstring",
+            },
+            imageFileId: "string",
+            price: 123,
+            quantity: 12,
+            name: "gfgdfg",
+            shortDescription: "sdfsdfdf",
+            specialNote: "",
+            characteristics: [{
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }],
+            rating: {
+                rating: 2,
+                commentsCount: 12,
+            }
+        }, {
+            productId: "",
+            brand: {
+                id: "",
+                name: "dsfsd",
+            },
+            category: {
+                id: "",
+                name: "Telescopes",
+                code: "1",
+                description: "dsfdfstring",
+            },
+            imageFileId: "string",
+            price: 123,
+            quantity: 12,
+            name: "gfgdfg",
+            shortDescription: "sdfsdfdf",
+            specialNote: "",
+            characteristics: [{
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }],
+            rating: {
+                rating: 2,
+                commentsCount: 12,
+            }
+        }, {
+            productId: "",
+            brand: {
+                id: "",
+                name: "dsfsd",
+            },
+            category: {
+                id: "",
+                name: "Telescopes",
+                code: "1",
+                description: "dsfdfstring",
+            },
+            imageFileId: "string",
+            price: 123,
+            quantity: 12,
+            name: "gfgdfg",
+            shortDescription: "sdfsdfdf",
+            specialNote: "",
+            characteristics: [{
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }],
+            rating: {
+                rating: 2,
+                commentsCount: 12,
+            }
+        }, {
+            productId: "",
+            brand: {
+                id: "",
+                name: "dsfsd",
+            },
+            category: {
+                id: "",
+                name: "Telescopes",
+                code: "1",
+                description: "dsfdfstring",
+            },
+            imageFileId: "string",
+            price: 123,
+            quantity: 12,
+            name: "gfgdfg",
+            shortDescription: "sdfsdfdf",
+            specialNote: "",
+            characteristics: [{
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }],
+            rating: {
+                rating: 2,
+                commentsCount: 12,
+            }
+        }, {
+            productId: "",
+            brand: {
+                id: "",
+                name: "dsfsd",
+            },
+            category: {
+                id: "",
+                name: "Telescopes",
+                code: "1",
+                description: "dsfdfstring",
+            },
+            imageFileId: "string",
+            price: 123,
+            quantity: 12,
+            name: "gfgdfg",
+            shortDescription: "sdfsdfdf",
+            specialNote: "",
+            characteristics: [{
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }],
+            rating: {
+                rating: 2,
+                commentsCount: 12,
+            }
+        }, {
+            productId: "",
+            brand: {
+                id: "",
+                name: "dsfsd",
+            },
+            category: {
+                id: "",
+                name: "Telescopes",
+                code: "1",
+                description: "dsfdfstring",
+            },
+            imageFileId: "string",
+            price: 123,
+            quantity: 12,
+            name: "gfgdfg",
+            shortDescription: "sdfsdfdf",
+            specialNote: "",
+            characteristics: [{
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }],
+            rating: {
+                rating: 2,
+                commentsCount: 12,
+            }
+        }, {
+            productId: "",
+            brand: {
+                id: "",
+                name: "dsfsd",
+            },
+            category: {
+                id: "",
+                name: "Telescopes",
+                code: "1",
+                description: "dsfdfstring",
+            },
+            imageFileId: "string",
+            price: 123,
+            quantity: 12,
+            name: "gfgdfg",
+            shortDescription: "sdfsdfdf",
+            specialNote: "",
+            characteristics: [{
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }, {
+                name: "ssdftring",
+                value: "sing",
+            }],
+            rating: {
+                rating: 2,
+                commentsCount: 12,
+            }
+        }] as ProductListItem[]
+    };
+};

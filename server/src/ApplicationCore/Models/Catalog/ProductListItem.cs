@@ -2,6 +2,8 @@
 
 public class ProductListItem
 {
+    public Guid ProductId { get; set; }
+    
     public BrandModel Brand { get; set; }
     
     public CategoryModel Category { get; set; }
@@ -19,4 +21,6 @@ public class ProductListItem
     public ICollection<CharacteristicModel> CharacteristicsModels { get; set; }
     
     public ProductRatingModel ProductRating { get; set; }
+    
+    public Guid? ImageFileId { get; set; }
 }

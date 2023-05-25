@@ -8,9 +8,10 @@
         display: flex;
         align-items: center;
         color: $white;
-        background-color: $color-grey-dark;
+        background-color: #d5def3;
         line-height: 17px;
         user-select: none;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.07);
     }
 
     &__menu-toggle {
@@ -23,6 +24,11 @@
         @media (min-width: $navigation-overlapping-width) {
             display: none;
         }
+    }
+
+    &__greetings {
+        font-size: 24px;
+        color: black;
     }
 
     &__user-data {

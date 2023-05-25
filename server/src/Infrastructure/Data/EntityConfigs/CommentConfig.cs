@@ -15,7 +15,7 @@ public class CommentConfig : IEntityTypeConfiguration<Comment>
             .HasForeignKey(c => c.AssignmentId);
         
         builder.HasOne(c => c.Product)
-            .WithMany()
+            .WithMany(p => p.Comments)
             .HasForeignKey(c => c.ProductId);
     }
 }

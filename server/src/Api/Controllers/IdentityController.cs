@@ -39,6 +39,13 @@ public class IdentityController : ControllerBase
         return result;
     }
 
+    [HttpPost(Routes.Identity.RegisterConsumer)]
+    [AllowAnonymous]
+    public async Task<Result> RegisterConsumer([FromBody] UserRegistrationModel registrationModel)
+    {
+        return await _mediator.Send(new RegisterCommand(registrationModel));
+    }
+
     [HttpPost(Routes.Identity.ChooseAssignment)]
     public async Task<IActionResult> ChooseAssignment([FromBody] ChangeAssignmentData data)
     {

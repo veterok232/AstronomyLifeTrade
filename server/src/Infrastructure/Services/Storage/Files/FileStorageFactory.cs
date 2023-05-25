@@ -1,8 +1,8 @@
 ﻿using ApplicationCore.Enums;
+using ApplicationCore.Interfaces.Files;
 using ApplicationCore.Services.Dependencies.Attributes;
 using ApplicationCore.Settings;
 using Infrastructure.Interfaces;
-using Infrastructure.Interfaces.Storage.Files;
 using Infrastructure.Settings;
 using Microsoft.Extensions.Options;
 

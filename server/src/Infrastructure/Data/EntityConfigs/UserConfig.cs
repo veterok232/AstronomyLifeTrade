@@ -22,9 +22,5 @@ internal class UserConfig : IEntityTypeConfiguration<User>
         builder.Property(u => u.PasswordHash).HasMaxLength(DbConfigConstants.DefaultTextColumnLength);
         builder.Property(u => u.FirstName).IsRequired().HasMaxLength(DbConfigConstants.DefaultTextColumnLength);
         builder.Property(u => u.LastName).IsRequired().HasMaxLength(DbConfigConstants.DefaultTextColumnLength);
-
-        builder.HasOne(u => u.CreatedBy)
-            .WithMany()
-            .HasForeignKey(u => u.CreatedByUserId);
     }
 }

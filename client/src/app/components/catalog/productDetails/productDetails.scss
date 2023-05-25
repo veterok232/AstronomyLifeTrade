@@ -1,0 +1,15 @@
+.product-details {
+    &.product-image {
+        width: 350px;
+        height: 500px;
+    }
+
+    &.slider-button {
+        width: 90px;
+        height: 60px;
+    }
+
+    &.top-box {
+        background-color: $color-header-light;
+    }
+}

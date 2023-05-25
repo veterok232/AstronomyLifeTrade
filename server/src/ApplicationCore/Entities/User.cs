@@ -3,7 +3,7 @@ using ApplicationCore.Enums;
 
 namespace ApplicationCore.Entities;
 
-public class User : Entity, IHasCreatedByUser, IHasCreatedAt, IHasUpdatedAt
+public class User : Entity, IHasCreatedAt, IHasUpdatedAt
 {
     public string Email { get; set; }
 
@@ -19,10 +19,6 @@ public class User : Entity, IHasCreatedByUser, IHasCreatedAt, IHasUpdatedAt
     public DateTime? PasswordChangedAt { get; set; }
 
     public DateTime? FirstLoginDate { get; set; }
-
-    public Guid CreatedByUserId { get; set; }
-
-    public User CreatedBy { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

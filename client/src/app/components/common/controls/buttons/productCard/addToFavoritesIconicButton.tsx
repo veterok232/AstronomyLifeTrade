@@ -8,6 +8,6 @@ interface Props {
 
 export function AddToFavoritesIconicButton(props: Props) {
     return (<Button color="link" onClick={props.onClick}>
-        <AppIcon className="d-block" icon="heart" />
+        <AppIcon className="d-block" icon="favorite" />
     </Button>);
 }

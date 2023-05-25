@@ -11,6 +11,14 @@
     &:focus {
         box-shadow: none;
     }
+
+    &-link {
+        color: $color-black;
+    }
+
+    &:hover {
+        color: $color-grey-2;
+    }
 }
 
 .modal {
@@ -29,6 +37,16 @@
         padding: 0;
         width: $close-btn-width;
         line-height: $close-btn-width;
+    }
+}
+
+.a {
+    &{
+        color: $color-blue;
+    }
+
+    &:hover {
+        color: $color-green-light;
     }
 }
 

@@ -8,12 +8,10 @@ internal class AssignmentByUserIdSpecification : Specification<Assignment>
 {
     public AssignmentByUserIdSpecification(Guid userId)
         : base(p =>
-            p.User.Id == userId &&
-            p.Status == Enums.AssignmentStatus.Active)
+            p.User.Id == userId)
     {
         AddIncludes();
         ApplyOrderBy(a => a.CreatedAt);
-        SkipImplicitFilters(FilterKeys.Assignment);
     }
 
     private void AddIncludes()

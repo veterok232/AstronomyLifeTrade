@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Infrastructure.Services.Jwt.SigningKeys;
 
 [ScopedDependency]
-internal class JwtKeyParametersSerializer : IJwtKeyParametersSerializer
+public class JwtKeyParametersSerializer : IJwtKeyParametersSerializer
 {
     public string Serialize(RSAParameters parameters)
     {

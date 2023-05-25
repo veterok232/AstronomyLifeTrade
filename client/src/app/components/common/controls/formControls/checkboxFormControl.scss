@@ -1,0 +1,12 @@
+.checkbox-validation-error {
+    border: 1px solid $color-validation-error;
+    border-radius: 5px;
+}
+
+.form-control-wrapper {
+    label {
+        span {
+            order: -1;
+        }
+    }
+}

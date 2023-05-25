@@ -2,13 +2,14 @@ export const originRouteParamName = "origin_url";
 
 export const routeLinks = {
     root: "/",
-    login: "/login",
     news: "/news",
     account: {
+        login: "/account/login",
+        register: "/account/register",
+        profile: "/account/profile",
         setupPassword: "/account/setup-password/:token",
         selectAssignment: "/account/select-assignments",
         forgotPassword: "/account/forgot-password",
-        registerConsumer: "/account/register-consumer",
     },
     errors: {
         forbidden: "/errors/forbidden",
@@ -16,8 +17,14 @@ export const routeLinks = {
     },
     catalog: {
         root: "/catalog",
-        telescopes: "/catalog/telescopes",
+        telescopes: {
+            category: "/catalog/telescopes",
+        },
         binoculars: "/catalog/binoculars",
         accessories: "catalog/accessories",
+        productDetails: "catalog/product-details/:productId",
     },
+    cart: {
+        root: "/cart",
+    }
 };

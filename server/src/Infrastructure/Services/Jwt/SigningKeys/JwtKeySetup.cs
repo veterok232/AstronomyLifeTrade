@@ -2,31 +2,37 @@
 using ApplicationCore.Services.Dependencies.Attributes;
 using Infrastructure.Entities;
 using Infrastructure.Interfaces.Jwt.SigningKeys;
+using Infrastructure.Services.Jwt.Models;
 using Infrastructure.Settings;
+using Infrastructure.Specifications;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Services.Jwt.SigningKeys;
 
-/*[SelfScopedDependency]
+[SelfScopedDependency]
 public class JwtKeySetup
 {
     private readonly IRepository<JwtKey> _jwtKeyRepository;
     private readonly Lazy<IJwtKeyCreationService> _jwtKeyCreationService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly JwtSettings _jwtSettings;
-    private readonly IJwtKeySyncService _jwtKeySyncService;
+    private readonly IJwtKeyStorage _jwtKeyStorage;
+    private readonly IJwtKeyParametersSerializer _jwtKeyParametersSerializer;
 
     public JwtKeySetup(
         IRepository<JwtKey> jwtKeyRepository,
         Lazy<IJwtKeyCreationService> jwtKeyCreationService,
         IUnitOfWork unitOfWork,
         IOptions<JwtSettings> jwtSettings,
-        IJwtKeySyncService jwtKeySyncService)
+        IJwtKeyStorage jwtKeyStorage,
+        IJwtKeyParametersSerializer jwtKeyParametersSerializer)
     {
         _jwtKeyRepository = jwtKeyRepository;
         _jwtKeyCreationService = jwtKeyCreationService;
         _unitOfWork = unitOfWork;
-        _jwtKeySyncService = jwtKeySyncService;
+        _jwtKeyStorage = jwtKeyStorage;
+        _jwtKeyParametersSerializer = jwtKeyParametersSerializer;
         _jwtSettings = jwtSettings.Value;
     }
 
@@ -38,7 +44,7 @@ public class JwtKeySetup
             await _unitOfWork.Commit();
         }
 
-        await _jwtKeySyncService.Sync();
+        await Sync();
     }
 
     private async Task<bool> IsInitKeyNeeded()
@@ -46,4 +52,31 @@ public class JwtKeySetup
         return _jwtSettings.SigningKeysSettings.EnableRotation &&
                !await _jwtKeyRepository.Any(new ActiveJwtKeysSpecification());
     }
-}*/
+
+    private Task Sync()
+    {
+        if (_jwtKeyStorage.IsEmpty)
+        {
+            _jwtKeyStorage.AddKey(
+                Guid.Empty,
+                new JwtKeyModel(
+                    securityKey: GetSecurityKey(),
+                    effectiveFrom: DateTime.UtcNow,
+                    signingEffectiveTo: DateTime.MaxValue,
+                    validationEffectiveTo: DateTime.MaxValue));
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private RsaSecurityKey GetSecurityKey()
+    {
+        var rsaParameters = _jwtKeyParametersSerializer.Deserialize(
+            _jwtSettings.SigningKeysSettings.LocalKey);
+
+        return new RsaSecurityKey(rsaParameters)
+        {
+            KeyId = nameof(JwtSettings.SigningKeysSettings.LocalKey),
+        };
+    }
+}

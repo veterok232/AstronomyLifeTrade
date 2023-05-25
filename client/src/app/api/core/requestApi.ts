@@ -87,7 +87,7 @@ function handleRedirect<T>(status: number, options?: RequestOptions<T>) {
         case responseHandlingStatuses.unauthorized:
         case responseHandlingStatuses.unauthenticated:
         case responseHandlingStatuses.refreshTokenWasFailed:
-            redirectToPage = routeLinks.login;
+            redirectToPage = routeLinks.account.login;
             break;
         case responseHandlingStatuses.assignmentIsMissing:
             redirectToRoute = routeLinks.account.selectAssignment;
@@ -97,9 +97,6 @@ function handleRedirect<T>(status: number, options?: RequestOptions<T>) {
             break;
         case responseHandlingStatuses.forbidden:
             redirectToRoute = routeLinks.errors.forbidden;
-            break;
-        case responseHandlingStatuses.assignmentDeactivated:
-            redirectToPage = `${routeLinks.login}?assignment-deactivated=${true.toString()}`;
             break;
     }
 

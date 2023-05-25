@@ -74,7 +74,6 @@ public class DatabaseSetup
                 FirstName = "staff",
                 LastName = "staff",
                 CreatedAt = DateTime.UtcNow,
-                CreatedByUserId = ChiefOfStaffUserId,
             });
     }
 

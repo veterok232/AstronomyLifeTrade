@@ -8,6 +8,6 @@ interface Props {
 
 export function AddToCartIconicButton(props: Props) {
     return (<Button color="link" onClick={props.onClick}>
-        <AppIcon className="d-block" icon="cart" />
+        <AppIcon className="d-block" icon="shopping_cart" />
     </Button>);
 }

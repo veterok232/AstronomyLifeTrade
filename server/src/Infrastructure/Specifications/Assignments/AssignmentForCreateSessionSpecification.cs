@@ -8,7 +8,7 @@ namespace Infrastructure.Specifications.Assignments;
 internal class AssignmentForCreateSessionSpecification : Specification<Assignment>
 {
     public AssignmentForCreateSessionSpecification(Guid assignmentId)
-        : base(a => a.Id == assignmentId && a.Status == AssignmentStatus.Active)
+        : base(a => a.Id == assignmentId)
     {
         AddIncludes(
             a => a.Role);

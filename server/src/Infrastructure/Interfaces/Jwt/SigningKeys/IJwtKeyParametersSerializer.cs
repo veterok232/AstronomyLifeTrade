@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Interfaces.Jwt.SigningKeys;
 
-internal interface IJwtKeyParametersSerializer
+public interface IJwtKeyParametersSerializer
 {
     string Serialize(RSAParameters parameters);
 

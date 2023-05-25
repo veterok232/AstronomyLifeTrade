@@ -15,7 +15,6 @@ public static class UsersInitData
             FirstName = "System",
             LastName = string.Empty,
             PasswordHash = string.Empty,
-            CreatedByUserId = SystemUserId,
             CreatedAt = new DateTime(2020, 11, 09, 0, 0, 0, DateTimeKind.Utc),
         },
     };

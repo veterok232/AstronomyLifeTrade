@@ -40,7 +40,7 @@ export class App extends React.Component {
                 <Router history={sharedHistory.history}>
                     {stores.contextStore.isAuthenticated
                         ? <div className={`grid ${viewStore.isNavigationOpened ? "grid--navigation-opened" : ""}`}>
-                            <AutoLogoutScheduler expirationTime={stores.contextStore.refreshTokenExpirationDateTime} />
+                            {/* <AutoLogoutScheduler expirationTime={stores.contextStore.refreshTokenExpirationDateTime} /> */}
                             <Header />
                             <CatalogNavigation />
                             <MainContent />

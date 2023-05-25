@@ -18,10 +18,10 @@ export const SmallContainerWrapper = (props: PropsWithChildren<Props>) => {
             {props.withBackButton && <BackButton onCancel={props.onCancel} labelKey={props.backButtonLabelKey} />}
             <Row>
                 <Col>
-                    <img className="logo" src="/static/images/logo.svg"></img>
+                    <img className="logo" src="/static/images/logo.png"></img>
                 </Col>
-                <Col className="mt-3">
-                    <Label><Local id="AstronomyLifeTagline" /></Label>
+                <Col className="">
+                    <Label className="mt-4 tagline"><Local id="AstronomyLifeTagline" /></Label>
                 </Col>
             </Row>
             <hr />

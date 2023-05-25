@@ -1,3 +1,4 @@
+import { UserRegistrationModel } from "../../components/identity/registerPage";
 import { Result } from "../../dataModels/common/result";
 import { OneTimeTokenTermType } from "../../dataModels/enums/oneTimeTokenTermType";
 import { ChangeAssignmentData } from "../../dataModels/identity/changeAssignmentData";
@@ -20,6 +21,18 @@ export async function login(data: LoginData): Promise<IdentityData> {
     handleErrorResult(response);
 
     return response.data;
+}
+
+export async function register(data: UserRegistrationModel): Promise<Result> {
+    const response = await httpPost<UserRegistrationModel, Result>({
+        url: `${identityResource}/register-consumer`,
+        body: data,
+        disableSuccessfulToast: true,
+    });
+
+    handleErrorResult(response);
+
+    return response;
 }
 
 export async function chooseAssignment(changeAssignmentData: ChangeAssignmentData): Promise<IdentityData> {

@@ -26,7 +26,7 @@ export const Constants = {
         tagStaticText: 10000,
     },
     specificFieldLengths: {
-        phone: 10,
+        phone: 12,
     },
     paging: {
         defaultPageSize: 10,
@@ -46,7 +46,8 @@ export const Constants = {
         specialCharactersExpression: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&+=]).+$/
     },
     defaultUserAvatarImagePath: "static/images/user-avatar.svg",
-    defaultProductImagePath: "static/images/default-product.svg",
+    /* defaultProductImagePath: "static/images/default-product-2.png", */
+    defaultProductImagePath: "static/images/products/1.jpg",
     defaultEmptyValue: "-",
     longDash: "—",
     dash: "-",
@@ -81,7 +82,7 @@ export const Constants = {
     separators: {
         manualPickUpButtonsSeparator: "/",
     },
-    phonePlaceholder: "(___) ___-____",
+    phonePlaceholder: "+ 375 (__) ___-__-__",
     createCommentForm: {
         textLengthMaxValue: 2000,
     },

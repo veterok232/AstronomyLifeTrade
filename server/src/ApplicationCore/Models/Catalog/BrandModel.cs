@@ -4,5 +4,5 @@ public class BrandModel
 {
     public Guid BrandId { get; set; }
     
-    public Guid BrandName { get; set; }
+    public string BrandName { get; set; }
 }

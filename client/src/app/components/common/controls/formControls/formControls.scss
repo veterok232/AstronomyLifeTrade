@@ -1,0 +1,193 @@
+$check-box-extending: 2px;
+
+.form-group {
+    input {
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        &::placeholder {
+            color: $color-middle-grey;
+        }
+
+        &[type="number"] {
+            -moz-appearance: textfield;
+            padding: 0;
+            text-align: center;
+        }
+    }
+
+    label {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: $label-color;
+    }
+
+    &__label {
+        color: $label-color;
+    }
+
+    .form-control {
+        &--warning,
+        &.warning {
+            border-color: $color-yellow-5;
+        }
+
+        &--error,
+        &.error {
+            border-color: $color-secondary-alt;
+        }
+    }
+
+    &--readonly {
+        .form-group__label {
+            color: $color-grey;
+        }
+    }
+
+    &.required > label:after {
+        content: "*";
+        padding-left: 5px;
+    }
+}
+
+.form-check {
+    position: relative;
+    padding-left: 0;
+
+    input {
+        position: relative;
+        left: 0;
+        top: 1px;
+        width: $input-checkbox-size - $check-box-extending * 2;
+        height: $input-checkbox-size - $check-box-extending * 2;
+        cursor: pointer;
+        box-sizing: content-box;
+        margin-right: 13px !important;
+
+        &:focus {
+            outline-offset: 0px;
+        }
+
+        &:before {
+            transition-duration: $transition-duration;
+            content: "";
+            visibility: visible;
+            display: block;
+            height: $input-checkbox-size;
+            width: $input-checkbox-size;
+            background-color: $light;
+            border: 1px solid $color-icon-grey;
+            border-radius: 2px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            margin: -$check-box-extending;
+        }
+
+        &[disabled] {
+            &:before {
+                background-color: $input-disabled-bg;
+            }
+
+            &:checked {
+                &:before {
+                    background-color: $color-grey-2;
+                    border-color: $color-grey-2;
+                }
+            }
+        }
+
+        &:checked {
+            &:before {
+                background-color: $color-header-dark;
+            }
+
+            &:after {
+                @include font-size(14px);
+
+                font-family: "Material Icons";
+                content: "\e5ca";
+                display: block;
+                visibility: visible;
+                color: $light;
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                margin: -3px 0 0 0;
+                font-weight: bold;
+            }
+        }
+    }
+
+    label {
+        font-size: 16px;
+        cursor: pointer;
+    }
+}
+
+.form-control {
+    &__btn {
+        @include font-size(14px);
+
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        line-height: $input-height;
+        width: $input-height;
+        font-weight: bold;
+        color: $input-color;
+        background-color: transparent;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        padding: 0;
+        border: 1px solid $input-border-color;
+
+        &--plus {
+            right: 0;
+        }
+
+        &--minus {
+            left: 0;
+        }
+
+        &--invalid {
+            border-color: $color-validation-error;
+        }
+
+        &:hover {
+            background-color: transparent;
+            border-color: $input-border-color;
+
+            &:not([disabled]) {
+                color: $primary;
+            }
+        }
+
+        &:active,
+        &:focus {
+            background-color: transparent;
+            box-shadow: none;
+        }
+    }
+
+    &:active,
+    &:focus {
+        box-shadow: none;
+        border-color: $primary;
+    }
+
+    &[readonly] {
+        border-color: $input-border-color;
+    }
+
+    &:active ~ &__btn,
+    &:focus ~ &__btn {
+        &:not([disabled]) {
+            border-color: $primary;
+        }
+    }
+}

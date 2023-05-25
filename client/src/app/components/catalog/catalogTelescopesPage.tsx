@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/require-await */
 import React, { useMemo, useState } from "react";
 import { localizer } from "../localization/localizer";
 import { Col, Row } from "reactstrap";
@@ -20,8 +21,17 @@ import Sorting from "../common/controls/sorting/sorting";
 import { Pageable } from "../../dataModels/common/pageable";
 import { TelescopesFilter } from "./filters/telescopesFilter";
 import { searchTelescopes } from "../../api/catalog/catalogApi";
+import { onAddToCart, onAddToFavorites } from "./catalogActions";
+import { TelescopeType } from "../../dataModels/enums/telescope/telescopeType";
 
 const defaultFilter: TelescopesFilterData = {
+    telescopeTypes: [
+        TelescopeType.Refractor,
+        TelescopeType.Reflector,
+        TelescopeType.MirrorLens,
+    ],
+    priceMin: 0,
+    priceMax: 999999,
 };
 
 const defaultSorting: Sortable = {
@@ -53,10 +63,6 @@ const getFilterDataFromQuery = (): TelescopesFilterData => {
 
 const getInitialFilter = () => getFilterDataFromQuery() || defaultFilter;
 
-const onAddToCart = () => {};
-
-const onAddToFavorites = () => {};
-
 export const CatalogTelescopesPage = () => {
     const [products, setProducts] = useState<ListResult<ProductListItem>>();
 
@@ -86,7 +92,7 @@ export const CatalogTelescopesPage = () => {
             </p>
             <TelescopesFilter onApply={listHandler.applyFilter}
                 defaultFilter={defaultFilter} filterFromQuery={listHandler.getRequest()} />
-            <div className="contracts-font">
+            <div>
                 <div className="d-flex align-items-center">
                     <div className="mr-auto"><Local id="Found" />: <b>{products?.totalCount}</b></div>
                     <Sorting
@@ -94,14 +100,17 @@ export const CatalogTelescopesPage = () => {
                         sortKeys={["CreatedAt", "Price"]}
                         onChange={listHandler.applyListOptions} />
                 </div>
-                {products?.totalCount > 0
-                    ? products.items.map((product, ind) =>
-                        <ProductCard key={ind}
-                            product={product}
-                            onAddToFavorites={onAddToFavorites}
-                            onAddToCart={onAddToCart} />)
-                    : <NoData />
-                }
+                <Row className="p-3">
+                    {products?.totalCount > 0
+                        ? products.items.map((product, ind) =>
+                            <ProductCard
+                                className="col-2"
+                                key={ind}
+                                product={product}
+                                onAddToFavorites={async () => await onAddToFavorites(product.productId)}
+                                onAddToCart={async () => await onAddToCart(product.productId)} />)
+                        : <NoData />}
+                </Row>
             </div>
             {pagesCount > 1 &&
                 <div className="mt-3 justify-content-center">

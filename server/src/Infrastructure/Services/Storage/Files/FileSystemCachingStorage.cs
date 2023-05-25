@@ -1,6 +1,6 @@
 ﻿using System.Collections;
+using ApplicationCore.Interfaces.Files;
 using Infrastructure.Interfaces;
-using Infrastructure.Interfaces.Storage.Files;
 using Infrastructure.Settings;
 using Microsoft.Extensions.Options;
 

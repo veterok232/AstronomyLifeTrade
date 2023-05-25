@@ -1,8 +1,9 @@
 ﻿using Api.Constants;
 using Api.Controllers.Attributes;
 using Api.Interfaces;
-using ApplicationCore.Constants;
 using ApplicationCore.Handlers.Catalog.GetPopularProducts;
+using ApplicationCore.Handlers.Catalog.ProductDetails;
+using ApplicationCore.Handlers.Catalog.SearchTelescopes;
 using ApplicationCore.Handlers.Common;
 using ApplicationCore.Models.Catalog;
 using ApplicationCore.Models.Catalog.Search;
@@ -36,6 +37,13 @@ public class CatalogController : ControllerBase
     public Task<SearchResult<ProductListItem>> SearchTelescopes([FromQuery] TelescopeSearchModel model)
     {
         return _mediator.Send(new SearchTelescopesRequest(model));
+    }
+    
+    [HttpGet(Routes.Catalog.ProductDetails)]
+    [AllowAnonymous]
+    public Task<ProductDetails> GetProductDetails(Guid productId)
+    {
+        return _mediator.Send(new GetProductDetailsQuery(productId));
     }
     
     /*[HttpGet(Routes.Catalog.GetProductRating)]

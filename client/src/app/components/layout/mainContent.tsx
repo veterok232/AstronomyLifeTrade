@@ -1,13 +1,12 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { isAuthorizedAsOneOf } from "../../infrastructure/services/auth/authService";
 import { routeLinks } from "./routes/routeLinks";
-import { RouteItem, commonRoutes, internalRoutes, mainMenuRoutes } from "./routes/routes";
+import { RouteItem, commonRoutes, customerRoutes, internalRoutes } from "./routes/routes";
 import React, { useEffect } from "react";
 import { viewStore } from "../../infrastructure/stores/viewStore";
 import { getDefaultPageRoute } from "../../utils/routeUtils";
 
 const routesWithRedirectToDefaultPage = [
-    routeLinks.login,
     routeLinks.root,
 ];
 
@@ -22,7 +21,7 @@ const ProtectedComponent = (props: RouteItem) => {
 };
 
 export const MainContent = () => {
-    const routes = internalRoutes.concat(mainMenuRoutes).concat(commonRoutes);
+    const routes = internalRoutes.concat(customerRoutes).concat(commonRoutes);
     const location = useLocation();
 
     useEffect(() => {
@@ -32,7 +31,7 @@ export const MainContent = () => {
     }, [location]);
 
     return (
-        <main className="grid__main main">
+        <main className="grid__main main p-4">
             <Routes>
                 {routes.map((route, key) => <Route {...route} key={key} element={<ProtectedComponent {...route} />} />)}
                 {routesWithRedirectToDefaultPage.map((route, key) =>

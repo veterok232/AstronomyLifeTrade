@@ -42,8 +42,8 @@ const menuItemsConfig: Array<MenuItemConfig> = [{
     type: NavigationItemType.Link,
     iconName: "dashboard",
     titleKey: "Telescopes",
-    to: routeLinks.catalog.telescopes,
-    rootFor: [routeLinks.catalog.telescopes],
+    to: routeLinks.catalog.telescopes.category,
+    rootFor: [routeLinks.catalog.telescopes.category],
 }, {
     type: NavigationItemType.Link,
     iconName: "dashboard",

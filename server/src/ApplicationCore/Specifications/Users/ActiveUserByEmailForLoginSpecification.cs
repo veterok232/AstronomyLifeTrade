@@ -8,8 +8,7 @@ public class ActiveUserByEmailForLoginSpecification : Specification<User>
 {
     public ActiveUserByEmailForLoginSpecification(string email)
         : base(u =>
-            u.Email == email &&
-            u.Assignment.Status == AssignmentStatus.Active)
+            u.Email == email)
     {
         AddInclude(u => u.Assignment);
     }

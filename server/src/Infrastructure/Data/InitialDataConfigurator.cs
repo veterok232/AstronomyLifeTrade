@@ -14,5 +14,6 @@ internal static class InitialDataConfigurator
         modelBuilder.Entity<Brand>().HasData(BrandsInitData.Data);
         modelBuilder.Entity<Category>().HasData(CategoryInitData.Data);
         modelBuilder.Entity<Product>().HasData(ProductsInitData.Data);
+        modelBuilder.Entity<Telescope>().HasData(TelescopesInitData.Data);
     }
 }

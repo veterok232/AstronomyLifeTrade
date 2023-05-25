@@ -1,7 +1,6 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { applyNewIdentity, login } from "../../infrastructure/services/identityService";
 import { sharedHistory } from "../../infrastructure/sharedHistory";
-import { notifications } from "../toast/toast";
 import { Form as FinalForm, FormRenderProps } from "react-final-form";
 import { SmallContainerWrapper } from "../common/containers/smallContainerWrapper";
 import { Button, Form } from "reactstrap";
@@ -20,19 +19,12 @@ interface LoginFormModel {
 }
 
 export const LoginPage = () => {
-    const isUserDeactivated: boolean = useMemo(() =>
-        new URLSearchParams(window.location.search).get("assignment-deactivated") === true.toString(), []);
-
     const handleSubmit = async (model: LoginFormModel) => {
         const response = await login(model.email, model.password);
         if (response) {
             await applyNewIdentity(response, sharedHistory.getSearchString());
         }
     };
-
-    if (isUserDeactivated) {
-        notifications.localizedError("LoginError_InactiveAccount");
-    }
 
     return (
         <FinalForm
@@ -44,12 +36,12 @@ export const LoginPage = () => {
                             validator={required} skipEmailFormatValidation />
                         <PasswordFormControl name="password" label="Password" placeholder={localizer.get("Login_PasswordPlaceholder")}
                             validator={composeValidators(required, defaultTextFieldMaxLength)} skipPasswordFormatValidation />
-                        <Link className="text-primary mb-3" to={routeLinks.account.forgotPassword}><Local id="ForgotPasswordLink" /></Link>
-                        <Button className="button-primary w-100 mt-4" type="submit" onClick={() => showNotificationIfInvalid(valid)}>
+                        <Link className=" text-secondary mb-3" to={routeLinks.account.forgotPassword}><Local id="ForgotPasswordLink" /></Link>
+                        <Button className="w-100 mt-4" type="submit" onClick={() => showNotificationIfInvalid(valid)}>
                             <Local id="Login" />
                         </Button>
-                        <Link className="btn button-secondary w-100 mt-3" to={routeLinks.account.registerConsumer}>
-                            <Local id="RegisterAsConsumer" />
+                        <Link className="btn btn-outline-secondary w-100 mt-3" to={routeLinks.account.register}>
+                            <Local id="Register" />
                         </Link>
                     </Form>
                 </SmallContainerWrapper>)}

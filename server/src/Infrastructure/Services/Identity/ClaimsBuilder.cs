@@ -39,6 +39,7 @@ internal class ClaimsBuilder
 
         _claims.Add(new Claim(CustomClaimTypes.AssignmentId, assignment.Id.ToString()));
         _claims.Add(new Claim(ClaimTypes.Role, assignment.Role.Name));
+        _claims.Add(new Claim(CustomClaimTypes.Privilege, assignment.Role.Name));
 
         return this;
     }

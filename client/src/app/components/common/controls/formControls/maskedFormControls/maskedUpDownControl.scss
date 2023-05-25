@@ -1,0 +1,40 @@
+.form-group {
+    &__numeric-wrapper {
+        width: 150px;
+        position: relative;
+
+        [disabled] {
+            background-color: transparent;
+            border-color: $input-border-color;
+            color: $color-grey;
+
+            &:hover {
+                cursor: auto;
+            }
+        }
+
+        .btn-secondary:not(:disabled):not(.disabled):active {
+            background-color: transparent;
+            border-color: $primary;
+            color: $primary;
+        }
+
+        .btn-secondary:not(:disabled):not(.disabled):active:focus {
+            box-shadow: none;
+        }
+
+        .btn-secondary:focus {
+            color: initial;
+        }
+
+        &--error {
+            .form-control {
+                border-color: $color-secondary-alt;
+            }
+
+            .btn-secondary:not(:disabled):not(.disabled) {
+                border-color: $color-secondary-alt;
+            }
+        }
+    }
+}

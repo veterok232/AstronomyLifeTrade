@@ -53,7 +53,7 @@ public class UnitOfWork : IUnitOfWork
         foreach (var entity in GetAddedAndUpdatedEntities())
         {
             SetEntityOperationDateProperties(entity);
-            SetEntityOperationPersonProperties(entity);
+            // SetEntityOperationPersonProperties(entity);
         }
     }
 
@@ -74,22 +74,28 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    private void SetEntityOperationPersonProperties(EntityEntry entity)
+    /*private void SetEntityOperationPersonProperties(EntityEntry entity)
     {
         switch (entity.Entity)
         {
             case IHasCreatedByUser createdEntity when entity.State == EntityState.Added:
-                createdEntity.CreatedByUserId = _authContext.UserId.Value;
+                createdEntity.CreatedByUserId = _authContext.UserId.HasValue
+                    ? _authContext.UserId.Value
+                    : Guid.Empty;
                 break;
             case IHasCreatedByAssignment createdEntity when entity.State == EntityState.Added:
-                createdEntity.CreatedByAssignmentId = _authContext.AssignmentId.Value;
+                createdEntity.CreatedByAssignmentId = _authContext.UserId.HasValue
+                    ? _authContext.UserId.Value
+                    : Guid.Empty;
                 break;
             case IHasModifiedByAssignment modifiedEntity
                 when entity.State is EntityState.Added or EntityState.Modified:
-                modifiedEntity.ModifiedByAssignmentId = _authContext.AssignmentId.Value;
+                modifiedEntity.ModifiedByAssignmentId = _authContext.UserId.HasValue
+                    ? _authContext.UserId.Value
+                    : Guid.Empty;
                 break;
         }
-    }
+    }*/
 
     private IEnumerable<EntityEntry> GetAddedAndUpdatedEntities() => _context.ChangeTracker.Entries().Where(x =>
         x.Entity.GetType().GetInterfaces().Intersect(CommonInterfaces).Any() &&

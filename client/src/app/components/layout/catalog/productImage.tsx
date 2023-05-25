@@ -6,6 +6,7 @@ import { getFileAnonymousDownloadLink } from "../../../api/file/filesApi";
 import { getLinkToProductDetails } from "../../../api/catalog/catalogApi";
 
 interface Props {
+    className?: string;
     productId: string;
     productImageId?: string;
 }
@@ -26,12 +27,10 @@ export const ProductImage = (props: Props) => {
     }, [props.productImageId]);
 
     return (
-        <div className="product-card">
-            <Link to={getLinkToProductDetails(props.productId)} >
-                <ImagePreview
-                    className="logo-wrapper d-inline-block align-middle p-1 my-3"
-                    image={getProductImageUrl(productImageUrl)} />
-            </Link>
-        </div>
+        <Link to={getLinkToProductDetails(props.productId)} >
+            <ImagePreview
+                className={`card-product-image ${props.className}`}
+                image={productImageUrl} />
+        </Link>
     );
 };

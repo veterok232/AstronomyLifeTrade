@@ -81,7 +81,7 @@ export const logOut = async () => {
     await logout();
     removeIdentityData();
     crossWindowEventBroker.publish(Constants.crossWindowEvents.logOutCompleted);
-    window.location.href = routeLinks.login;
+    window.location.href = routeLinks.account.login;
 };
 
 export async function login(email: string, password: string): Promise<IdentityData> {

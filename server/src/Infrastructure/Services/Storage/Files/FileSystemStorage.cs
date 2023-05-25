@@ -1,5 +1,5 @@
-﻿using ApplicationCore.Services.Dependencies.Attributes;
-using Infrastructure.Interfaces.Storage.Files;
+﻿using ApplicationCore.Interfaces.Files;
+using ApplicationCore.Services.Dependencies.Attributes;
 using Infrastructure.Settings;
 
 namespace Infrastructure.Services.Storage.Files;

@@ -20,7 +20,7 @@ internal class SearchTelescopesRequestHandler : IRequestHandler<SearchTelescopes
         SearchTelescopesRequest request,
         CancellationToken cancellationToken)
     {
-        var products = await _catalogSearchService.GetPopularProducts();
+        var products = await _catalogSearchService.GetTelescopes(request.Model);
 
         return products;
     }

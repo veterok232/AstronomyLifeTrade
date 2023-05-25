@@ -61,7 +61,7 @@ export class AutoLogoutConfirmationModal extends React.Component<Props, State> {
             this.clearCountdownInterval();
             // at this point user session already expired so we need to remove expired identity info
             removeIdentityData();
-            window.location.href = routeLinks.login;
+            window.location.href = routeLinks.account.login;
         }
     };
 

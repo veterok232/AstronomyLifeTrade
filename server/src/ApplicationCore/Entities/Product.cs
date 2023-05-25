@@ -37,4 +37,6 @@ public class Product : Entity, IHasCreatedAt, IHasModifiedAt, IHasDeletedAt
     public DateTime? DeletedAt { get; set; }
     
     public ICollection<ProductItem> ProductItems { get; set; }
+    
+    public ICollection<Comment> Comments { get; set; }
 }
