@@ -10,6 +10,8 @@ public class ProductByIdForDetailsSpecification : Specification<Product>
     public ProductByIdForDetailsSpecification(Guid productId)
         : base(p => p.Id == productId)
     {
-        AddIncludes(p => p.Category);
+        AddIncludes(
+            p => p.Category,
+            p => p.Files);
     }
 }

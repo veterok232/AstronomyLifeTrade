@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import { Button, Col, Form, Row } from "reactstrap";
 import { Form as FinalForm, FormRenderProps } from "react-final-form";
 import useAsyncEffect from "use-async-effect";
-import { changeProductCount, getCart, removeProductFromCart } from "../../api/cart/cartApi";
+import { changeProductCount, clearCart, getCart, removeProductFromCart } from "../../api/cart/cartApi";
 import { Cart } from "../../dataModels/cart/cart";
 import { Local } from "../localization/local";
 import { CurrencyType } from "../../dataModels/enums/currencyType";
 import { CardPrice } from "../common/presentation/cardPrice";
 import arrayMutators from "final-form-arrays";
 import { CartItemsControl } from "./cartItemsControl";
+import { sharedHistory } from "../../infrastructure/sharedHistory";
+import { getRoute } from "../../utils/routeUtils";
+import { routeLinks } from "../layout/routes/routeLinks";
 
 interface CartFormData {
     cart: Cart;
@@ -28,6 +31,10 @@ const calculateTotalAmount = (cart: Cart): number => {
     return result;
 };
 
+const isMakeOrderButtonActive = (cart: Cart) => {
+    return cart && cart.quantity > 0;
+};
+
 export const CartPage = () => {
     const [cart, setCart] = useState<Cart>();
 
@@ -38,11 +45,15 @@ export const CartPage = () => {
 
 
     const onSubmit = () => {
-
+        sharedHistory.push(getRoute(routeLinks.orders.makeOrder));
     };
 
-    const onClearCart = () => {
-
+    const onClearCart = async (values: CartFormData) => {
+        await clearCart();
+        values.cart.cartItems = [];
+        values.cart.quantity = 0;
+        values.cart.totalAmount = 0;
+        window.location.reload();
     };
 
     const onRemoveItem = async (index: number) => {
@@ -70,12 +81,12 @@ export const CartPage = () => {
                 </Row>
                 <Row className="justify-content-end">
                     <Col>
-                        <Button type="submit" >
+                        <Button type="submit" disabled={!isMakeOrderButtonActive(values.cart)}>
                             <Local id="MakeOrder" />
                         </Button>
                     </Col>
                 </Row>
-                <Row className="cart-items-header mt-3 py-3 w-100">
+                <Row className="cart-items-header mt-3 py-3 w-100 mx-1">
                     <Col className="col-2 my-auto font-weight-bold">
                         <Local id="Product" />
                     </Col>
@@ -109,13 +120,13 @@ export const CartPage = () => {
                 </Row>
                 <Row className="justify-content-between">
                     <Col className="p-0">
-                        <Button type="submit">
-                            <Local id="ClearCart" />
+                        <Button type="submit" disabled={!isMakeOrderButtonActive(values.cart)}>
+                            <Local id="MakeOrder" />
                         </Button>
                     </Col>
-                    <Col className="text-right p-0">
-                        <Button onClick={onClearCart} >
-                            <Local id="MakeOrder" />
+                    <Col className="p-0 text-right">
+                        <Button onClick={() => onClearCart(values)}>
+                            <Local id="ClearCart" />
                         </Button>
                     </Col>
                 </Row>

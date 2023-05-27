@@ -7,7 +7,7 @@ export interface ProductListItem {
     productId: string;
     brand: BrandModel;
     category: CategoryModel;
-    imageFileId: string;
+    imageFilesIds: string[];
     price: number;
     quantity: number;
     name: string;

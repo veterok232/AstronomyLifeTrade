@@ -47,7 +47,7 @@ public static class TelescopesInitData
             Type = TelescopeType.Reflector,
             TelescopeUserLevel = TelescopeUserLevel.ForConfidentUsers,
             Weight = null,
-            ProductId = Guid.Parse("26e52bab-4c7e-4f92-b46e-8708b1e4f302"),
+            ProductId = Guid.Parse("26e52bab-4c7e-4f92-b46e-8708b1936302"),
             CreatedAt = new DateTime(2023, 01, 03, 0, 0, 0, DateTimeKind.Utc),
         }
     };

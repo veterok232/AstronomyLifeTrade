@@ -34,4 +34,8 @@ public class Assignment : Entity, IHasVersion, IHasCreatedByUser, IHasCreatedAt,
     public Role Role { get; set; }
 
     public ICollection<File> AvatarFiles { get; set; }
+    
+    public Guid? PersonalDataId { get; set; }
+    
+    public PersonalData? PersonalData { get; set; }
 }

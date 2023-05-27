@@ -97,7 +97,7 @@ export const TelescopeCharacteristicsSection = (props: Props) => {
                 <DetailsCharacteristic name="Материал штатива" value={props.details.tripodMaterial.toString()}  />
                 <DetailsCharacteristic name="Тип телескопа" value={getTelescopeType(props.details.type)} />
                 <DetailsCharacteristic name="Пользовательский уровень" value={getUserLevel(props.details.telescopeUserLevel)}  />
-                <DetailsCharacteristic name="Вес" value={props.details.weight.toString()}  />
+                <DetailsCharacteristic name="Вес" value={props.details.weight?.toString()}  />
             </Col>
         </Row>
     </>

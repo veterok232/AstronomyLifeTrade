@@ -3,6 +3,8 @@ using Api.Controllers.Attributes;
 using Api.Extensions;
 using ApplicationCore.Constants;
 using ApplicationCore.Handlers.File;
+using ApplicationCore.Models.Files;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +17,12 @@ namespace Api.Controllers;
 public class FilesController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IMapper _mapper;
 
-    public FilesController(IMediator mediator)
+    public FilesController(IMediator mediator, IMapper mapper)
     {
         _mediator = mediator;
+        _mapper = mapper;
     }
 
     [HttpGet(Routes.File.Download)]
@@ -37,5 +41,12 @@ public class FilesController : ControllerBase
         var fileDescriptor = await _mediator.Send(new DownloadFileAnonymouslyQuery(fileId));
 
         return this.ConvertToFileStreamResult(fileDescriptor);
+    }
+    
+    [HttpPost(Routes.File.Upload)]
+    [Authorization(Roles.Staff, Roles.Consumer, Roles.Manager)]
+    public Task Upload(IFormFile file)
+    {
+        return _mediator.Send(new UploadFileCommand(_mapper.Map<ReadableFileModel>(file)));
     }
 }

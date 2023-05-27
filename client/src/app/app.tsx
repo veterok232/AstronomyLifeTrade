@@ -12,7 +12,6 @@ import { Localizer } from "./components/localization/localizer";
 import { contextStore } from "./infrastructure/stores/contextStore";
 import { sharedHistory } from "./infrastructure/sharedHistory";
 import { viewStore } from "./infrastructure/stores/viewStore";
-import { AutoLogoutScheduler } from "./components/layout/logout/autoLogoutScheduler";
 import { Router } from "./components/layout/routes/router";
 import Header from "./components/layout/header/header";
 import CatalogNavigation from "./components/layout/catalogNavigation/catalogNavigation";
@@ -20,6 +19,7 @@ import { MainContent } from "./components/layout/mainContent";
 import Footer from "./components/layout/footer/footer";
 import { ModalsContainer } from "./components/layout/modals/modalsContainer";
 import { ProgressIndicator } from "./components/layout/progressIndicator/progressIndicator";
+import { NotificationContainer } from "./components/toast/toast";
 
 @observer
 export class App extends React.Component {
@@ -52,6 +52,7 @@ export class App extends React.Component {
                             <MainContent />
                             <Footer />
                     </div>}
+                    <NotificationContainer />
                     <ModalsContainer />
                 </Router>
             </RawIntlProvider>;

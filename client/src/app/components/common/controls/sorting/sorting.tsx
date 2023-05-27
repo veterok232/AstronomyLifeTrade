@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";

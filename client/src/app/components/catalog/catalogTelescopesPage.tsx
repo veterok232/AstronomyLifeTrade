@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 import React, { useMemo, useState } from "react";
 import { localizer } from "../localization/localizer";
-import { Col, Row } from "reactstrap";
+import { Col, Form, Input, Row } from "reactstrap";
 import { Local } from "../localization/local";
 import { ProductListItem } from "../../dataModels/catalog/productListItem";
 import useAsyncEffect from "use-async-effect";
@@ -23,6 +23,8 @@ import { TelescopesFilter } from "./filters/telescopesFilter";
 import { searchTelescopes } from "../../api/catalog/catalogApi";
 import { onAddToCart, onAddToFavorites } from "./catalogActions";
 import { TelescopeType } from "../../dataModels/enums/telescope/telescopeType";
+import { generateRandomString } from "../../utils/stringUtils";
+import { uploadFile } from "../../api/file/filesApi";
 
 const defaultFilter: TelescopesFilterData = {
     telescopeTypes: [
@@ -65,6 +67,7 @@ const getInitialFilter = () => getFilterDataFromQuery() || defaultFilter;
 
 export const CatalogTelescopesPage = () => {
     const [products, setProducts] = useState<ListResult<ProductListItem>>();
+    const [fileInputKey, setFileInputKey] = useState(generateRandomString());
 
     async function loadProducts(request: FilterData<{}>) {
         setProducts(await searchTelescopes(request));
@@ -80,11 +83,29 @@ export const CatalogTelescopesPage = () => {
 
     const pagesCount = calculatePageNumber(products?.totalCount);
 
+    const uploadFiles = async (fileInputChangeEvent: React.ChangeEvent<HTMLInputElement>) => {
+        for (const file of Array.from(fileInputChangeEvent.target.files)) {
+            await uploadFile(file);
+        }
+
+        setFileInputKey(generateRandomString());
+    };
+
     return (
         <div className="catalog-page">
             <Row>
                 <Col xs={4} >
-                     <h1 className="ui-page-header pt-2"><Local id="Telescopes" /></h1>
+                    <h1 className="ui-page-header pt-2"><Local id="Telescopes" /></h1>
+                    <Form>
+                        <Input
+                            type="file"
+                            className=""
+                            key={fileInputKey}
+                            onChange={uploadFiles}
+                            multiple
+                        />
+                    </Form>
+
                 </Col>
             </Row>
             <p className="catalog category-description">

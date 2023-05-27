@@ -9,7 +9,7 @@ export const FilterSection = (props: { headerKey?: string; children: React.React
                 <b><Local id={props.headerKey} /></b>
             </h6>
         }
-        <Row>
+        <Row className="pl-3">
             {props.children}
         </Row>
         <hr className="mt-4" />

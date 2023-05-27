@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using ApplicationCore.Models.Catalog;
 using ApplicationCore.Specifications.Common;
 
@@ -77,6 +78,9 @@ public class TelescopeDetailsByProductIdSpecification : DataTransformSpecificati
                 TelescopeUserLevel = t.TelescopeUserLevel,
                 Weight = t.Weight,
                 TelescopeEyepieces = t.TelescopeEyepieces,
+                ProductImagesIds = t.Product.Files
+                    .Where(f => f.ProductFileType == ProductFileType.Image)
+                    .Select(f => f.FileId).ToList(),
             },
             t => t.ProductId == productId)
     {

@@ -27,6 +27,7 @@ interface Props {
     readonly?: boolean;
     minValue: number;
     maxValue: number;
+    onChange?: (val: any) => void;
 }
 
 const UpDownNumericControl = (props: Props) => {
@@ -45,6 +46,7 @@ const UpDownNumericControl = (props: Props) => {
                 className="form-control__btn form-control__btn--minus"
                 onClick={() => {
                     props.finalFormProps.input.onChange(value - 1);
+                    props?.onChange(value - 1);
                 }}
             >
                 -
@@ -54,6 +56,7 @@ const UpDownNumericControl = (props: Props) => {
                 className="form-control__btn form-control__btn--plus"
                 onClick={() => {
                     props.finalFormProps.input.onChange(value + 1);
+                    props?.onChange(value + 1);
                 }}
             >
                 +

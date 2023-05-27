@@ -29,12 +29,13 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    building = table.Column<string>(type: "text", nullable: false),
+                    building = table.Column<string>(type: "text", nullable: true),
                     city = table.Column<string>(type: "text", nullable: false),
-                    country = table.Column<string>(type: "text", nullable: false),
+                    country = table.Column<string>(type: "text", nullable: true),
                     flat = table.Column<string>(type: "text", nullable: false),
-                    postal_code = table.Column<string>(type: "text", nullable: false),
-                    street = table.Column<string>(type: "text", nullable: false)
+                    postal_code = table.Column<string>(type: "text", nullable: true),
+                    street = table.Column<string>(type: "text", nullable: true),
+                    full_address = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -284,6 +285,7 @@ namespace Infrastructure.Migrations
                     created_by_user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     role_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    personal_data_id = table.Column<Guid>(type: "uuid", nullable: true),
                     user_id1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -608,7 +610,7 @@ namespace Infrastructure.Migrations
                     storage_type = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     is_attached = table.Column<bool>(type: "boolean", nullable: false),
-                    assignment_id = table.Column<Guid>(type: "uuid", nullable: false)
+                    assignment_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -617,8 +619,7 @@ namespace Infrastructure.Migrations
                         name: "fk_file_assignment_assignment_id",
                         column: x => x.assignment_id,
                         principalTable: "assignment",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -630,7 +631,8 @@ namespace Infrastructure.Migrations
                     order_status = table.Column<int>(type: "integer", nullable: false),
                     total_amount = table.Column<decimal>(type: "numeric", nullable: false),
                     payment_method = table.Column<int>(type: "integer", nullable: false),
-                    manager_assignment_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    delivery_type = table.Column<int>(type: "integer", nullable: false),
+                    manager_assignment_id = table.Column<Guid>(type: "uuid", nullable: true),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     modified_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     order_number = table.Column<int>(type: "integer", nullable: false, defaultValueSql: "nextval('\"SEQ_order_number\"')")
@@ -648,8 +650,7 @@ namespace Infrastructure.Migrations
                         name: "fk_order_assignment_manager_assignment_id",
                         column: x => x.manager_assignment_id,
                         principalTable: "assignment",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -659,13 +660,13 @@ namespace Infrastructure.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     first_name = table.Column<string>(type: "text", nullable: false),
                     last_name = table.Column<string>(type: "text", nullable: false),
-                    address_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    birthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    address_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    birthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     email = table.Column<string>(type: "text", nullable: false),
-                    gender = table.Column<string>(type: "text", nullable: false),
+                    gender = table.Column<string>(type: "text", nullable: true),
                     phone = table.Column<string>(type: "text", nullable: false),
                     assignment_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    legal_details_id = table.Column<Guid>(type: "uuid", nullable: false)
+                    legal_details_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -674,8 +675,7 @@ namespace Infrastructure.Migrations
                         name: "fk_personal_data_address_address_id",
                         column: x => x.address_id,
                         principalTable: "address",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "fk_personal_data_assignment_assignment_id",
                         column: x => x.assignment_id,
@@ -686,8 +686,7 @@ namespace Infrastructure.Migrations
                         name: "fk_personal_data_legal_details_legal_details_id",
                         column: x => x.legal_details_id,
                         principalTable: "legal_details",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -762,6 +761,57 @@ namespace Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_cart_item_product_product_id",
+                        column: x => x.product_id,
+                        principalTable: "product",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "comment_file",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    file_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    comment_id = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_comment_file", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_comment_file_comment_comment_id",
+                        column: x => x.comment_id,
+                        principalTable: "comment",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_comment_file_file_file_id",
+                        column: x => x.file_id,
+                        principalTable: "file",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "product_file",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    file_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    product_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    product_file_type = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_product_file", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_product_file_file_file_id",
+                        column: x => x.file_id,
+                        principalTable: "file",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_product_file_product_product_id",
                         column: x => x.product_id,
                         principalTable: "product",
                         principalColumn: "id",
@@ -875,6 +925,17 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "file",
+                columns: new[] { "id", "assignment_id", "attachment_type", "created_at", "extension", "file_name", "file_size_in_bytes", "is_attached", "mime_type", "reference", "storage_type" },
+                values: new object[,]
+                {
+                    { new Guid("11db01d7-e42f-425c-b312-c3253b5402f3"), null, 2, new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc), ".jpg", "4", 495704L, true, "image/jpeg", "abb6d9a7-9e43-4889-b09e-056ff0480a5b", 1 },
+                    { new Guid("55515111-3b2a-4749-b48b-7e17faa2eaaf"), null, 2, new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc), ".jpg", "3", 230563L, true, "image/jpeg", "588c7a91-a348-4a13-b9f1-0b544d7d7ae8", 1 },
+                    { new Guid("7cba49fe-e562-487a-bfec-4ea235f35ab3"), null, 2, new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc), ".jpg", "2", 256673L, true, "image/jpeg", "9d6dbaf4-60aa-41d8-be34-86357e074146", 1 },
+                    { new Guid("87b14130-8b4f-46af-a571-a2c5fdd6fefa"), null, 2, new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc), ".jpg", "1", 250308L, true, "image/jpeg", "1671c525-3bee-453f-8a7b-6a2b64ba853c", 1 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "role",
                 columns: new[] { "id", "name" },
                 values: new object[,]
@@ -892,18 +953,37 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "assignment",
-                columns: new[] { "id", "affiliate_number", "created_at", "created_by_user_id", "phone", "role_id", "status", "updated_at", "user_id", "user_id1", "version" },
-                values: new object[] { new Guid("348a8f47-a4f5-4ac0-8c3c-282c6b03118d"), null, new DateTime(2020, 11, 9, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("8faeffed-e97c-4262-9bb9-995f558e6c8c"), "+11", new Guid("a8aecf8e-1dba-497f-abdd-74db9384398e"), 1, null, new Guid("8faeffed-e97c-4262-9bb9-995f558e6c8c"), null, new Guid("00000000-0000-0000-0000-000000000000") });
+                columns: new[] { "id", "affiliate_number", "created_at", "created_by_user_id", "personal_data_id", "phone", "role_id", "status", "updated_at", "user_id", "user_id1", "version" },
+                values: new object[] { new Guid("348a8f47-a4f5-4ac0-8c3c-282c6b03118d"), null, new DateTime(2020, 11, 9, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("8faeffed-e97c-4262-9bb9-995f558e6c8c"), null, "+11", new Guid("a8aecf8e-1dba-497f-abdd-74db9384398e"), 1, null, new Guid("8faeffed-e97c-4262-9bb9-995f558e6c8c"), null, new Guid("00000000-0000-0000-0000-000000000000") });
 
             migrationBuilder.InsertData(
                 table: "product",
                 columns: new[] { "id", "brand_id", "category_id", "code", "created_at", "deleted_at", "description", "equipment", "manufacturer", "modified_at", "name", "price", "quantity", "short_description", "special_note" },
-                values: new object[] { new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302"), new Guid("445faffb-0213-42f4-ab19-a22834ec3cb6"), new Guid("df445d42-ca49-4fc5-9573-a14371daf34b"), "T1", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Телескоп Levenhuk Skyline Travel Sun 70 – компактный рефрактор для прогулок и путешествий. Длина его трубы составляет всего 40 см при апертуре 70 мм. В комплект входит удобный фирменный рюкзак, в него легко поместятся телескоп, монтировка, тренога и все необходимые аксессуары. Оптический прибор подойдет для наблюдения планет и спутников, а также деталей ландшафта и архитектуры. В идеальных условиях в него можно рассмотреть большинство объектов из каталога Мессье (без деталей), щель Кассини, кольца Сатурна и Большое Красное Пятно на Юпитере.", "", "КНР for Levenhuk, Inc. (USA)", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Телескоп Levenhuk Skyline Travel Sun 70", 703.60m, 20, "компактный рефрактор для прогулок и путешествий.", "" });
+                values: new object[,]
+                {
+                    { new Guid("26e52bab-4c7e-4f92-b46e-8708b1936302"), new Guid("5bfaa88a-8b4c-4092-8c41-f9c2e3982ff1"), new Guid("df445d42-ca49-4fc5-9573-a14371daf34b"), "T1", new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Телескоп Bresser Pollux 150/1400 EQ3 – длиннофокусный рефлектор среднего уровня с большой входной апертурой. Предназначен для астрономов-любителей, позволяет исследовать широкий спектр объектов списка Мессье и каталога NGC.Основной оптической системы прибора выступает классическая надежная схема Ньютона, включающая в себя основное параболическое и вторичное плоское диагональное зеркало. Телескоп при использовании не формирует хроматических/сферических аберраций, комплектуется парой окуляров Кельнера 4/20 миллиметров и линзой Барлоу 3х с посадочными диаметрами 1.25 дюйма. «Коробочная» комплектация формирует максимально обширный диапазон номинального увеличения в 70-1050 крат (при максимальном полезном приближении 300 крат без потерь качества изображения), содержит в себе практичный оптический искатель с центрированной красной точкой, облегчающей наведение устройства на участки неба и конкретные объекты.Оптическая труба управляется надежной и функциональной экваториальной монтировкой с механизмами тонких движений по обеим осям, высокой точностью позиционирования и возможностью опциональной установки привода. Она регламентирует простоту проведения астросъемки – как любительского уровня, с применением комплектной окулярной насадки с присосками для фиксации смартфона, так и профессионального, через опциональный Т2 адаптер и резьбовое кольцо М42, совместимое с цифровыми зеркальными фотоаппаратами, снабженными байонетом К.", "Рефлектор Bresser Pollux 150/1400 в базовой конфигурации;\r\n                          Экваториальная монтировка EQ3;\r\n                          Прочная алюминиевая тренога с регулировкой по высоте и секцией для аксессуаров;\r\n                          Два окуляра;\r\n                          Линза Барлоу;\r\n                          Оптический искатель с красной точкой;\r\n                          Универсальный накладной окулярный адаптер для смартфона на присосках;\r\n                          Инструкция и гарантийный талон.", "Германия", new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc), "Телескоп Bresser Pollux 150/1400 EQ3", 3359.60m, 9, "Длиннофокусный рефлектор среднего уровня с большой входной апертурой.", "Выбор магазина!" },
+                    { new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302"), new Guid("445faffb-0213-42f4-ab19-a22834ec3cb6"), new Guid("df445d42-ca49-4fc5-9573-a14371daf34b"), "T1", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Телескоп Levenhuk Skyline Travel Sun 70 – компактный рефрактор для прогулок и путешествий. Длина его трубы составляет всего 40 см при апертуре 70 мм. В комплект входит удобный фирменный рюкзак, в него легко поместятся телескоп, монтировка, тренога и все необходимые аксессуары. Оптический прибор подойдет для наблюдения планет и спутников, а также деталей ландшафта и архитектуры. В идеальных условиях в него можно рассмотреть большинство объектов из каталога Мессье (без деталей), щель Кассини, кольца Сатурна и Большое Красное Пятно на Юпитере.", "", "КНР for Levenhuk, Inc. (USA)", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "Телескоп Levenhuk Skyline Travel Sun 70", 703.60m, 20, "компактный рефрактор для прогулок и путешествий.", "" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "product_file",
+                columns: new[] { "id", "file_id", "product_file_type", "product_id" },
+                values: new object[,]
+                {
+                    { new Guid("639a3b65-3376-4927-9c37-8d76e9d715c2"), new Guid("55515111-3b2a-4749-b48b-7e17faa2eaaf"), 1, new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302") },
+                    { new Guid("8e25b766-1361-43ea-8084-2428d0699975"), new Guid("7cba49fe-e562-487a-bfec-4ea235f35ab3"), 1, new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302") },
+                    { new Guid("eab8c7de-e063-4720-a15b-623cdfc25652"), new Guid("11db01d7-e42f-425c-b312-c3253b5402f3"), 1, new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302") },
+                    { new Guid("f398e48d-3c6c-4c9b-90f1-463263d3091a"), new Guid("87b14130-8b4f-46af-a571-a2c5fdd6fefa"), 1, new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302") }
+                });
 
             migrationBuilder.InsertData(
                 table: "telescope",
                 columns: new[] { "id", "aperture", "aperture_ratio", "created_at", "eyepiece_fitting_diameter", "focus_distance", "max_useful_scale", "min_useful_scale", "mounting_type", "product_id", "scale_max", "scale_min", "seeker", "telescope_control_type", "telescope_user_level", "tripod_height", "tripod_material", "type", "weight" },
-                values: new object[] { new Guid("9b9fbff4-3a3a-4a71-b1d7-8a09872919d7"), 50m, 1m, new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 1m, 600m, 100m, 1m, 2, new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302"), 1m, 1m, "", 1, 2, "", "", 2, 20m });
+                values: new object[,]
+                {
+                    { new Guid("9b9fbff4-3a3a-4a71-b1d7-1a69872919d7"), 150m, 9.3m, new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc), 1.25m, 1400m, 1050m, 70m, 1, new Guid("26e52bab-4c7e-4f92-b46e-8708b1936302"), 70m, 1050m, "с красной точкой", 1, 3, "", "стальная", 1, null },
+                    { new Guid("9b9fbff4-3a3a-4a71-b1d7-8a09872919d7"), 50m, 1m, new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), 1m, 600m, 100m, 1m, 2, new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302"), 1m, 1m, "", 1, 2, "", "", 2, 20m }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "ix_accessory_product_id",
@@ -960,6 +1040,16 @@ namespace Infrastructure.Migrations
                 name: "ix_comment_product_id",
                 table: "comment",
                 column: "product_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_comment_file_comment_id",
+                table: "comment_file",
+                column: "comment_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_comment_file_file_id",
+                table: "comment_file",
+                column: "file_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_currency_exchange_from_currency_id",
@@ -1035,7 +1125,8 @@ namespace Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "ix_personal_data_assignment_id",
                 table: "personal_data",
-                column: "assignment_id");
+                column: "assignment_id",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_personal_data_legal_details_id",
@@ -1056,6 +1147,16 @@ namespace Infrastructure.Migrations
                 name: "ix_product_code",
                 table: "product",
                 column: "code");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_file_file_id",
+                table: "product_file",
+                column: "file_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_product_file_product_id",
+                table: "product_file",
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_product_item_product_id",
@@ -1155,13 +1256,10 @@ namespace Infrastructure.Migrations
                 name: "cart_item");
 
             migrationBuilder.DropTable(
-                name: "comment");
+                name: "comment_file");
 
             migrationBuilder.DropTable(
                 name: "currency_exchange");
-
-            migrationBuilder.DropTable(
-                name: "file");
 
             migrationBuilder.DropTable(
                 name: "jwt_key");
@@ -1177,6 +1275,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "personal_data");
+
+            migrationBuilder.DropTable(
+                name: "product_file");
 
             migrationBuilder.DropTable(
                 name: "promotion_product");
@@ -1203,6 +1304,9 @@ namespace Infrastructure.Migrations
                 name: "cart");
 
             migrationBuilder.DropTable(
+                name: "comment");
+
+            migrationBuilder.DropTable(
                 name: "currency");
 
             migrationBuilder.DropTable(
@@ -1213,6 +1317,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "product_item");
+
+            migrationBuilder.DropTable(
+                name: "file");
 
             migrationBuilder.DropTable(
                 name: "promotion");

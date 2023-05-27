@@ -20,6 +20,7 @@ export async function addProductToCart(productId: string) {
     return httpPost({
         url: `${resourceName}/add`,
         body: { productId },
+        disableSuccessfulToast: true,
     });
 }
 
@@ -34,5 +35,13 @@ export async function changeProductCount(model: CartChangeCountModel) {
     return httpPost({
         url: `${resourceName}/change-count`,
         body: model,
+        disableSuccessfulToast: true,
+    });
+}
+
+export async function clearCart() {
+    return httpPost({
+        url: `${resourceName}/clear-cart`,
+        disableSuccessfulToast: true,
     });
 }

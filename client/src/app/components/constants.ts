@@ -47,7 +47,7 @@ export const Constants = {
     },
     defaultUserAvatarImagePath: "static/images/user-avatar.svg",
     /* defaultProductImagePath: "static/images/default-product-2.png", */
-    defaultProductImagePath: "static/images/products/1.jpg",
+    defaultProductImagePath: "static/images/default-product-2.png",
     defaultEmptyValue: "-",
     longDash: "—",
     dash: "-",

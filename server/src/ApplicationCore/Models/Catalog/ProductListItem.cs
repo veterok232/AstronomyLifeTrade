@@ -4,9 +4,9 @@ public class ProductListItem
 {
     public Guid ProductId { get; set; }
     
-    public BrandModel Brand { get; set; }
+    public BrandModel? Brand { get; set; }
     
-    public CategoryModel Category { get; set; }
+    public CategoryModel? Category { get; set; }
     
     public decimal Price { get; set; }
     
@@ -18,9 +18,9 @@ public class ProductListItem
     
     public string SpecialNote { get; set; }
     
-    public ICollection<CharacteristicModel> CharacteristicsModels { get; set; }
+    public ICollection<CharacteristicModel>? CharacteristicsModels { get; set; }
     
-    public ProductRatingModel ProductRating { get; set; }
+    public ProductRatingModel? ProductRating { get; set; }
     
-    public Guid? ImageFileId { get; set; }
+    public ICollection<Guid>? ImageFilesIds { get; set; }
 }

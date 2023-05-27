@@ -13,4 +13,6 @@ public interface ICartService
     Task Remove(Guid productId);
 
     Task ChangeProductCount(CartChangeCountModel model);
+    
+    Task Clear();
 }

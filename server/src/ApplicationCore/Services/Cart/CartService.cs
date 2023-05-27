@@ -123,6 +123,15 @@ public class CartService : ICartService
         cartItem.Quantity = model.Count;
 
         await _cartRepository.Update(customerCart);
-        await _cartItemRepository.Delete(cartItem);
+    }
+
+    public async Task Clear()
+    {
+        var customerCart = await _cartRepository.GetSingleOrDefault(
+            new CustomerCartSpecification(_authContextAccessor.AssignmentId.Value));
+        
+        customerCart.CartItems.Clear();
+        
+        await _cartRepository.Update(customerCart);
     }
 }

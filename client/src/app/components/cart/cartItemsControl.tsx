@@ -4,6 +4,7 @@ import { withParent } from "../common/controls/formControls/formControlsDecorato
 import { NoData } from "../common/presentation/noData";
 import { CartItemElement } from "./cartItem";
 import { FieldArray } from "react-final-form-arrays";
+import { Row } from "reactstrap";
 
 interface Props {
     cartItems: CartItem[];
@@ -19,7 +20,7 @@ export const CartItemsControl = (props: Props) => {
     return (
         <FieldArray name="cart.cartItems" className="m-0 w-100">
             {({ fields }) => (
-                <>
+                <Row className="p-0">
                     {fields.map((name, i) => (
                         withParent(CartItemElement, name, {
                             item: props.cartItems[i],
@@ -31,7 +32,7 @@ export const CartItemsControl = (props: Props) => {
                             onChangeItemQuantity: props.onChangeItemQuantity,
                         }
                     )))}
-                </>
+                </Row>
             )}
         </FieldArray>
     );

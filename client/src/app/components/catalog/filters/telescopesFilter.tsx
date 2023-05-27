@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { FormRenderProps, Form as FinalForm } from "react-final-form";
 import { useLocation } from "react-router-dom";
 import { filterDataStore } from "../../../infrastructure/stores/filterDataStore";
-import { getNameOfFunction } from "../../../utils/namingUtils";
 import { FilterCard } from "../../common/controls/filter/filterCard";
 import { FilterSection } from "../../common/controls/filter/filterSection";
 import { TelescopesFilterData } from "../../../dataModels/catalog/telescopesFilterData";
@@ -79,8 +79,6 @@ const telescopesControlTypes = {
     autoguidance: "Autoguidance",
 };
 
-const getFilterDataPropertyName = getNameOfFunction<TelescopesFilterDataFilterFormData>();
-
 const convertFilterToFormData = (filterData: TelescopesFilterData): TelescopesFilterDataFilterFormData => {
     return {
         formSpecifics: {
@@ -143,9 +141,6 @@ const convertFormToFilterData = (formData: TelescopesFilterDataFilterFormData): 
     };
 };
 
-const orderedMethods = [
-];
-
 export const TelescopesFilter = (props: Props) => {
     const [fullView, setFullView] = useState(false);
     const [formState, setFormState] = useState<TelescopesFilterDataFilterFormData>(
@@ -180,7 +175,7 @@ export const TelescopesFilter = (props: Props) => {
     return (<FinalForm
         onSubmit={onSubmitFilter}
         initialValues={formState}
-        render={({ values, invalid, ...renderProps }: FormRenderProps<TelescopesFilterDataFilterFormData>) => {
+        render={({ invalid, ...renderProps }: FormRenderProps<TelescopesFilterDataFilterFormData>) => {
             const onTelescopeTypeChange = () => !fullView && renderProps.handleSubmit();
             const primarySearchContent = <>
                 <div className="group-items">
@@ -217,7 +212,7 @@ export const TelescopesFilter = (props: Props) => {
                         <TextFormControl name="priceMax" />
                     </div>
                 </FilterSection>
-                <FilterSection headerKey="Brand">
+                <FilterSection headerKey="ByBrand">
                     <div className="group-items">
                         <CheckboxFormControl
                             name="formSpecifics.isLevenhukBrand"
@@ -270,7 +265,7 @@ export const TelescopesFilter = (props: Props) => {
                         />
                     </div>
                 </FilterSection>
-                <FilterSection headerKey="MountingType">
+                <FilterSection headerKey="ByMountingType">
                     <div className="group-items">
                         <CheckboxFormControl
                             name="formSpecifics.isEquatorial"

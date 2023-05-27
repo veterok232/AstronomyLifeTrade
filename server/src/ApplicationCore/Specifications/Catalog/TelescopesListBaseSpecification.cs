@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Linq.Expressions;
 using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using ApplicationCore.Models.Catalog;
 using ApplicationCore.Specifications.Common;
 
@@ -61,7 +62,9 @@ internal abstract class TelescopesListBaseSpecification : DataTransformSpecifica
                 Quantity = t.Product.Quantity,
                 ShortDescription = t.Product.ShortDescription,
                 SpecialNote = t.Product.SpecialNote,
-                ImageFileId = null,
+                ImageFilesIds = t.Product.Files
+                    .Where(f => f.ProductFileType == ProductFileType.Image)
+                    .Select(f => f.FileId).ToList(),
             },
             criteria)
     {
@@ -69,6 +72,7 @@ internal abstract class TelescopesListBaseSpecification : DataTransformSpecifica
             t => t.Product,
             t => t.Product.Brand,
             t => t.Product.Category,
-            t => t.Product.Comments);
+            t => t.Product.Comments,
+            t => t.Product.Files);
     }
 }

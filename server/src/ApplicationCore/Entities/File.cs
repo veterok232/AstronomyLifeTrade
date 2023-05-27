@@ -27,5 +27,5 @@ public class File : Entity, IHasCreatedAt
     
     public Guid? AssignmentId { get; set; }
     
-    public Assignment Assignment { get; set; }
+    public Assignment? Assignment { get; set; }
 }

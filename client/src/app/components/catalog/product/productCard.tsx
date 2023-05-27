@@ -9,6 +9,7 @@ import { CardCharacteristic } from "./cardCharacteristic";
 import { CardPrice } from "../../common/presentation/cardPrice";
 import { CurrencyType } from "../../../dataModels/enums/currencyType";
 import { CardActionsSection } from "./cardActionsSection";
+import { isEmpty } from "lodash";
 
 interface Props {
     className?: string;
@@ -22,7 +23,10 @@ interface Props {
 export const ProductCard = (props: Props) => {
     return (
         <Card className="product-card mr-3 mb-2">
-            <ProductImage className="card-img-top" productId={props.product.productId} />
+            <ProductImage
+                className="card-img-top"
+                productId={props.product.productId}
+                productImageId={!isEmpty(props.product.imageFilesIds) && props.product.imageFilesIds[0]} />
             <CardBody className="d-flex flex-column">
                 <h5 className="card-title mb-1"><Link className="text-secondary" to={getLinkToProductDetails(props.product.productId)}>{props.product.name}</Link></h5>
                 <div className="card-text">
@@ -36,7 +40,7 @@ export const ProductCard = (props: Props) => {
                     <p className="mt-2">{props.product.shortDescription}</p>
                 </div>
                 <Row className="mt-auto align-items-center">
-                    <Col className="align-self-center">
+                    <Col className="align-self-center pr-0">
                         <CardPrice
                             value={props.product.price}
                             currency={CurrencyType.BYN}

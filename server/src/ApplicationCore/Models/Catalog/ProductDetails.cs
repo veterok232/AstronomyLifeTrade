@@ -27,4 +27,6 @@ public class ProductDetails
     public ProductRatingModel Rating { get; set; }
     
     public ICollection<CharacteristicModel> Characteristics { get; set; }
+    
+    public ICollection<Guid> ProductImagesIds { get; set; }
 }

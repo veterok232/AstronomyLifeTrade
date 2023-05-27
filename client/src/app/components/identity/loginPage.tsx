@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { routeLinks } from "../layout/routes/routeLinks";
 import { Local } from "../localization/local";
 import { showNotificationIfInvalid } from "../common/controls/validation/formValidators";
+import { notifications } from "../toast/toast";
 
 interface LoginFormModel {
     email: string;
@@ -23,6 +24,7 @@ export const LoginPage = () => {
         const response = await login(model.email, model.password);
         if (response) {
             await applyNewIdentity(response, sharedHistory.getSearchString());
+            notifications.defaultSuccess();
         }
     };
 

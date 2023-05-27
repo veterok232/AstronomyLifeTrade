@@ -6,7 +6,7 @@ import { SmallContainerWrapper } from "../common/containers/smallContainerWrappe
 import { EmailFormControl } from "../common/controls/formControls/emailFormControl";
 import { PasswordFormControl } from "../common/controls/formControls/passwordFormControl";
 import { showNotificationIfInvalid } from "../common/controls/validation/formValidators";
-import { required, composeValidators, defaultTextFieldMaxLength, nonWhitespace, requiredNonWhitespace } from "../common/controls/validation/validators";
+import { required, composeValidators, defaultTextFieldMaxLength, requiredNonWhitespace } from "../common/controls/validation/validators";
 import { routeLinks } from "../layout/routes/routeLinks";
 import { Local } from "../localization/local";
 import { localizer } from "../localization/localizer";
@@ -15,6 +15,7 @@ import { PhoneFormControl } from "../common/controls/formControls/maskedFormCont
 import { register } from "../../api/identity/identityApi";
 import { sharedHistory } from "../../infrastructure/sharedHistory";
 import { getDefaultPageRoute } from "../../utils/routeUtils";
+import { notifications } from "../toast/toast";
 
 export interface UserRegistrationModel {
     email: string;
@@ -30,6 +31,7 @@ export const RegisterPage = () => {
         const response = await register(model);
 
         if (response.isSucceeded) {
+            notifications.defaultSuccess();
             sharedHistory.push(getDefaultPageRoute());
         }
     };
@@ -41,10 +43,10 @@ export const RegisterPage = () => {
                 <SmallContainerWrapper titleKey="Register_Title">
                     <Form onSubmit={handleSubmit}>
                         <TextFormControl label="FirstName" name="firstName" validator={requiredNonWhitespace} markRequired />
-                        <TextFormControl label="LastName" name="lastName" validator={nonWhitespace} markRequired />
+                        <TextFormControl label="LastName" name="lastName" validator={requiredNonWhitespace} markRequired />
                         <EmailFormControl name="email" label="Email" placeholder={localizer.get("Login_EmailPlaceholder")}
-                            validator={required} skipEmailFormatValidation markRequired />
-                        <PhoneFormControl label="PhoneNumber" name="phone" markRequired />
+                            validator={required} markRequired />
+                        <PhoneFormControl label="PhoneNumber" name="phone" markRequired validator={required} />
                         <PasswordFormControl name="password" label="Password" placeholder={localizer.get("Login_PasswordPlaceholder")}
                             validator={composeValidators(required, defaultTextFieldMaxLength)} skipPasswordFormatValidation />
                         <PasswordFormControl name="retypedPassword" label="RetypePassword" placeholder={localizer.get("Login_PasswordPlaceholder")}

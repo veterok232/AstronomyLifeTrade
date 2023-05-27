@@ -3,6 +3,7 @@ using Api.Controllers.Attributes;
 using ApplicationCore.Constants;
 using ApplicationCore.Handlers.Cart.Add;
 using ApplicationCore.Handlers.Cart.ChangeCount;
+using ApplicationCore.Handlers.Cart.Clear;
 using ApplicationCore.Handlers.Cart.Get;
 using ApplicationCore.Handlers.Cart.Remove;
 using ApplicationCore.Models.Cart;
@@ -57,5 +58,12 @@ public class CartController : ControllerBase
     public Task ChangeCount(CartChangeCountModel model)
     {
         return _mediator.Send(new CartChangeCountCommand(model));
+    }
+
+    [HttpPost(Routes.Cart.Clear)]
+    [Authorization(Roles.Consumer)]
+    public Task ClearCart()
+    {
+        return _mediator.Send(new ClearCartCommand());
     }
 }

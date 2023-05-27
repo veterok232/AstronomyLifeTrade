@@ -13,7 +13,7 @@ export const onAddToCart = async (productId: string) => {
     }
 
     await addProductToCart(productId);
-    notifications.defaultSuccess();
+    notifications.localizedSuccess("AddToCartSuccess");
 };
 
 export const onAddToFavorites = async (productId: string) => {

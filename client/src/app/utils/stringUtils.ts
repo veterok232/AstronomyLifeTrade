@@ -19,3 +19,7 @@ export const equalsIgnoreCase = (a: string, b: string): boolean => a?.toUpperCas
 export const pascalToCamelCase = (input: string) => input.charAt(0).toLowerCase() + input.substring(1);
 
 export const camelToPascalCase = (input: string) => input.charAt(0).toUpperCase() + input.substring(1);
+
+export function generateElementId() {
+    return `id_${generateRandomString()}`;
+}

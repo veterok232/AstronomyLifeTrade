@@ -6,15 +6,15 @@ public class PersonalData : Entity
     
     public string LastName { get; set; }
     
-    public Guid AddressId { get; set; }
+    public Guid? AddressId { get; set; }
     
-    public Address Address { get; set; }
+    public Address? Address { get; set; }
     
-    public DateTime Birthday { get; set; }
+    public DateTime? Birthday { get; set; }
     
     public string Email { get; set; }
     
-    public string Gender { get; set; }
+    public string? Gender { get; set; }
     
     public string Phone { get; set; }
     
@@ -22,7 +22,7 @@ public class PersonalData : Entity
     
     public Assignment Assignment { get; set; }
     
-    public Guid LegalDetailsId { get; set; }
+    public Guid? LegalDetailsId { get; set; }
     
-    public LegalDetails LegalDetails { get; set; }
+    public LegalDetails? LegalDetails { get; set; }
 }

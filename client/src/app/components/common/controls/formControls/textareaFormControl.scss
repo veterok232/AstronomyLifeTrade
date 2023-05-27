@@ -1,0 +1,8 @@
+.form-group {
+    textarea {
+        border: 1px solid $color-grey-light-8;
+        box-sizing: border-box;
+        border-radius: 5px;
+        min-height: 6rem;
+    }
+}

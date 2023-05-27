@@ -14,9 +14,9 @@ public class PersonalDataConfig : IEntityTypeConfiguration<PersonalData>
             .WithMany()
             .HasForeignKey(c => c.AddressId);
         
-        builder.HasOne(c => c.Assignment)
-            .WithMany()
-            .HasForeignKey(c => c.AssignmentId);
+        builder.HasOne(pd => pd.Assignment)
+            .WithOne(a => a.PersonalData)
+            .HasForeignKey<PersonalData>(pd => pd.AssignmentId);
         
         builder.HasOne(c => c.LegalDetails)
             .WithMany()

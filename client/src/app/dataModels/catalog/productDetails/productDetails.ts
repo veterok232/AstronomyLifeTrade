@@ -18,4 +18,5 @@ export interface ProductDetails {
     rating: ProductRating;
     shortDescription: string;
     characteristics: CharacteristicModel[];
+    productImagesIds: string[];
 }

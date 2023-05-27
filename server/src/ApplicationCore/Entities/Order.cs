@@ -15,9 +15,11 @@ public class Order : Entity, IHasCreatedAt, IHasModifiedAt
     
     public PaymentMethod PaymentMethod { get; set; }
     
-    public Guid ManagerAssignmentId { get; set; }
+    public DeliveryType DeliveryType { get; set; }
     
-    public Assignment ManagerAssignment { get; set; }
+    public Guid? ManagerAssignmentId { get; set; }
+    
+    public Assignment? ManagerAssignment { get; set; }
     
     public DateTime CreatedAt { get; set; }
 

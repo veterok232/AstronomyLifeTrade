@@ -1,0 +1,37 @@
+.labeled-field {
+    padding-bottom: 24px;
+
+    .field-key {
+        color: $color-middle-grey;
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 14px;
+    }
+
+    .field-value {
+        font-size: 14px;
+        line-height: 24px;
+        margin-bottom: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.horizontal-labeled-field {
+    .field-key {
+        color: $color-middle-grey;
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 14px;
+    }
+
+    .field-value {
+        font-size: 14px;
+        line-height: 24px;
+        margin-bottom: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

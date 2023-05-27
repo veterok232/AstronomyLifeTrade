@@ -1,9 +1,11 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Handlers.Common;
+using ApplicationCore.Models;
 using ApplicationCore.Models.Cart;
 using ApplicationCore.Models.Catalog;
 using ApplicationCore.Models.Catalog.Search;
 using ApplicationCore.Models.Identity;
+using ApplicationCore.Models.Orders;
 using AutoMapper;
 
 namespace ApplicationCore;
@@ -24,5 +26,14 @@ public class ApplicationCoreMappingProfile : Profile
             .ForMember(d => d.CartItems, o => o.MapFrom(s => s.CartItems));
 
         CreateMap<CartItem, CartItemModel>();
+        CreateMap<Address, AddressModel>();
+        
+        CreateMap<User, OrderCustomerInfo>()
+            .ForMember(d => d.Email, o => o.MapFrom(s => s.Assignment.PersonalData.Email))
+            .ForMember(d => d.Phone, o => o.MapFrom(s => s.Assignment.PersonalData.Phone))
+            .ForMember(d => d.Address, o => o.MapFrom(s => s.Assignment.PersonalData.Address));
+        
+        CreateMap<CartItem, OrderItem>()
+            .ForMember(d => d.UnitPrice, o => o.MapFrom(s => s.Product.Price));
     }
 }

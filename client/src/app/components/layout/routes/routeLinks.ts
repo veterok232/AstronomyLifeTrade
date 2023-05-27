@@ -26,5 +26,10 @@ export const routeLinks = {
     },
     cart: {
         root: "/cart",
-    }
+    },
+    orders: {
+        root: "/orders",
+        makeOrder: "orders/make-order",
+        orderDetails: "/orders/order-details/:orderId",
+    },
 };

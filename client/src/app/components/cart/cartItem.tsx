@@ -22,8 +22,8 @@ export const CartItemElement = (props: Props) => {
     }, [props.item.product.price, props.item.quantity]);
 
     return (
-        <Row className="cart-item w-100">
-            <Col className="col-2 my-auto">
+        <Row className="cart-item w-100 mx-2">
+            <Col className="col-2 my-auto p-3">
                 <img className="cart-item-image" src="static/images/products/1.jpg"/>
             </Col>
             <Col className="col-4 my-auto">

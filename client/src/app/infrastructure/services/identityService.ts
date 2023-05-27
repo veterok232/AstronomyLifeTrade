@@ -78,10 +78,10 @@ export async function refreshToken(silent?: boolean): Promise<number> {
 }
 
 export const logOut = async () => {
-    await logout();
     removeIdentityData();
     crossWindowEventBroker.publish(Constants.crossWindowEvents.logOutCompleted);
-    window.location.href = routeLinks.account.login;
+    window.location.href = routeLinks.catalog.root;
+    await logout();
 };
 
 export async function login(email: string, password: string): Promise<IdentityData> {

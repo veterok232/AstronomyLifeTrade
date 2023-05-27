@@ -53,8 +53,8 @@ export const FilterCard = (props: Props) => {
             <hr />
             <div className="px-lg-4">
                 {fullView && props.advancedSearchContent}
-                <Button color="primary float-right" onClick={search}><Local id="Search" /></Button>
-                <Button className="bg-transparent text-primary float-right" onClick={props.resetFilter}><Local id="ClearAll" /></Button>
+                <Button color="primary float-right filter-button" onClick={search}><Local id="Search" /></Button>
+                <Button className="bg-transparent text-primary float-right filter-button mr-3" onClick={props.resetFilter}><Local id="ClearAll" /></Button>
             </div>
         </Collapse>
     </Card>);

@@ -57,14 +57,27 @@ public static class Routes
         public const string Remove = "remove";
 
         public const string ChangeCount = "change-count";
+        
+        public const string Clear = "clear-cart";
     }
 
     public static class File
     {
-        public const string Root = "file";
+        public const string Root = "files";
         
-        public const string Download = "download";
+        public const string Download = "download/{fileId}";
         
-        public const string DownloadAnonymously = "download-anonymously";
+        public const string DownloadAnonymously = "download-anonymously/{fileId}";
+        
+        public const string Upload = "upload";
+    }
+    
+    public static class Orders
+    {
+        public const string Root = "orders";
+        
+        public const string GetCustomerInfo = "get-customer-info";
+        
+        public const string MakeOrder = "make-order";
     }
 }

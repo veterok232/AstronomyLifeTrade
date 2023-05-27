@@ -50,8 +50,12 @@ internal class CatalogSearchService : ICatalogSearchService
         var list = await _telescopesRepository.Search(
             new TelescopesListSpecification(
                 GetTelescopesSearchData(searchModel)));
+        
+        var result = _mapper.Map<SearchResult<ProductListItem>>(list);
+        
+        
 
-        return _mapper.Map<SearchResult<ProductListItem>>(list);
+        return result;
     }
     
     private TelescopesSearchData GetTelescopesSearchData(TelescopeSearchModel model)

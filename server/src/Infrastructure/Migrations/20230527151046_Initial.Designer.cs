@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230517185237_Initial")]
+    [Migration("20230527151046_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,6 @@ namespace Infrastructure.Migrations
                         .HasColumnName("id");
 
                     b.Property<string>("Building")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("building");
 
@@ -76,7 +75,6 @@ namespace Infrastructure.Migrations
                         .HasColumnName("city");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("country");
 
@@ -85,13 +83,16 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("flat");
 
-                    b.Property<string>("PostalCode")
+                    b.Property<string>("FullAddress")
                         .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("full_address");
+
+                    b.Property<string>("PostalCode")
                         .HasColumnType("text")
                         .HasColumnName("postal_code");
 
                     b.Property<string>("Street")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("street");
 
@@ -120,6 +121,10 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("CreatedByUserId")
                         .HasColumnType("uuid")
                         .HasColumnName("created_by_user_id");
+
+                    b.Property<Guid?>("PersonalDataId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("personal_data_id");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -529,6 +534,33 @@ namespace Infrastructure.Migrations
                     b.ToTable("comment", (string)null);
                 });
 
+            modelBuilder.Entity("ApplicationCore.Entities.CommentFile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("CommentId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("comment_id");
+
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("file_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_comment_file");
+
+                    b.HasIndex("CommentId")
+                        .HasDatabaseName("ix_comment_file_comment_id");
+
+                    b.HasIndex("FileId")
+                        .HasDatabaseName("ix_comment_file_file_id");
+
+                    b.ToTable("comment_file", (string)null);
+                });
+
             modelBuilder.Entity("ApplicationCore.Entities.Currency", b =>
                 {
                     b.Property<Guid>("Id")
@@ -591,7 +623,6 @@ namespace Infrastructure.Migrations
                         .HasColumnName("id");
 
                     b.Property<Guid?>("AssignmentId")
-                        .IsRequired()
                         .HasColumnType("uuid")
                         .HasColumnName("assignment_id");
 
@@ -646,6 +677,60 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("ix_file_assignment_id");
 
                     b.ToTable("file", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("87b14130-8b4f-46af-a571-a2c5fdd6fefa"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "1",
+                            FileSizeInBytes = 250308L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "1671c525-3bee-453f-8a7b-6a2b64ba853c",
+                            StorageType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("7cba49fe-e562-487a-bfec-4ea235f35ab3"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "2",
+                            FileSizeInBytes = 256673L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "9d6dbaf4-60aa-41d8-be34-86357e074146",
+                            StorageType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("55515111-3b2a-4749-b48b-7e17faa2eaaf"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "3",
+                            FileSizeInBytes = 230563L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "588c7a91-a348-4a13-b9f1-0b544d7d7ae8",
+                            StorageType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("11db01d7-e42f-425c-b312-c3253b5402f3"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "4",
+                            FileSizeInBytes = 495704L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "abb6d9a7-9e43-4889-b09e-056ff0480a5b",
+                            StorageType = 1
+                        });
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.LegalDetails", b =>
@@ -730,7 +815,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<Guid>("ManagerAssignmentId")
+                    b.Property<int>("DeliveryType")
+                        .HasColumnType("integer")
+                        .HasColumnName("delivery_type");
+
+                    b.Property<Guid?>("ManagerAssignmentId")
                         .HasColumnType("uuid")
                         .HasColumnName("manager_assignment_id");
 
@@ -892,7 +981,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<Guid>("AddressId")
+                    b.Property<Guid?>("AddressId")
                         .HasColumnType("uuid")
                         .HasColumnName("address_id");
 
@@ -900,7 +989,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("assignment_id");
 
-                    b.Property<DateTime>("Birthday")
+                    b.Property<DateTime?>("Birthday")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("birthday");
 
@@ -915,7 +1004,6 @@ namespace Infrastructure.Migrations
                         .HasColumnName("first_name");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("gender");
 
@@ -924,7 +1012,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("last_name");
 
-                    b.Property<Guid>("LegalDetailsId")
+                    b.Property<Guid?>("LegalDetailsId")
                         .HasColumnType("uuid")
                         .HasColumnName("legal_details_id");
 
@@ -940,6 +1028,7 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("ix_personal_data_address_id");
 
                     b.HasIndex("AssignmentId")
+                        .IsUnique()
                         .HasDatabaseName("ix_personal_data_assignment_id");
 
                     b.HasIndex("LegalDetailsId")
@@ -1050,6 +1139,85 @@ namespace Infrastructure.Migrations
                             Quantity = 20,
                             ShortDescription = "компактный рефрактор для прогулок и путешествий.",
                             SpecialNote = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("26e52bab-4c7e-4f92-b46e-8708b1936302"),
+                            BrandId = new Guid("5bfaa88a-8b4c-4092-8c41-f9c2e3982ff1"),
+                            CategoryId = new Guid("df445d42-ca49-4fc5-9573-a14371daf34b"),
+                            Code = "T1",
+                            CreatedAt = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Телескоп Bresser Pollux 150/1400 EQ3 – длиннофокусный рефлектор среднего уровня с большой входной апертурой. Предназначен для астрономов-любителей, позволяет исследовать широкий спектр объектов списка Мессье и каталога NGC.Основной оптической системы прибора выступает классическая надежная схема Ньютона, включающая в себя основное параболическое и вторичное плоское диагональное зеркало. Телескоп при использовании не формирует хроматических/сферических аберраций, комплектуется парой окуляров Кельнера 4/20 миллиметров и линзой Барлоу 3х с посадочными диаметрами 1.25 дюйма. «Коробочная» комплектация формирует максимально обширный диапазон номинального увеличения в 70-1050 крат (при максимальном полезном приближении 300 крат без потерь качества изображения), содержит в себе практичный оптический искатель с центрированной красной точкой, облегчающей наведение устройства на участки неба и конкретные объекты.Оптическая труба управляется надежной и функциональной экваториальной монтировкой с механизмами тонких движений по обеим осям, высокой точностью позиционирования и возможностью опциональной установки привода. Она регламентирует простоту проведения астросъемки – как любительского уровня, с применением комплектной окулярной насадки с присосками для фиксации смартфона, так и профессионального, через опциональный Т2 адаптер и резьбовое кольцо М42, совместимое с цифровыми зеркальными фотоаппаратами, снабженными байонетом К.",
+                            Equipment = "Рефлектор Bresser Pollux 150/1400 в базовой конфигурации;\r\n                          Экваториальная монтировка EQ3;\r\n                          Прочная алюминиевая тренога с регулировкой по высоте и секцией для аксессуаров;\r\n                          Два окуляра;\r\n                          Линза Барлоу;\r\n                          Оптический искатель с красной точкой;\r\n                          Универсальный накладной окулярный адаптер для смартфона на присосках;\r\n                          Инструкция и гарантийный талон.",
+                            Manufacturer = "Германия",
+                            ModifiedAt = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Телескоп Bresser Pollux 150/1400 EQ3",
+                            Price = 3359.60m,
+                            Quantity = 9,
+                            ShortDescription = "Длиннофокусный рефлектор среднего уровня с большой входной апертурой.",
+                            SpecialNote = "Выбор магазина!"
+                        });
+                });
+
+            modelBuilder.Entity("ApplicationCore.Entities.ProductFile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("FileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("file_id");
+
+                    b.Property<int>("ProductFileType")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_file_type");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_product_file");
+
+                    b.HasIndex("FileId")
+                        .HasDatabaseName("ix_product_file_file_id");
+
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_product_file_product_id");
+
+                    b.ToTable("product_file", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f398e48d-3c6c-4c9b-90f1-463263d3091a"),
+                            FileId = new Guid("87b14130-8b4f-46af-a571-a2c5fdd6fefa"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302")
+                        },
+                        new
+                        {
+                            Id = new Guid("8e25b766-1361-43ea-8084-2428d0699975"),
+                            FileId = new Guid("7cba49fe-e562-487a-bfec-4ea235f35ab3"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302")
+                        },
+                        new
+                        {
+                            Id = new Guid("639a3b65-3376-4927-9c37-8d76e9d715c2"),
+                            FileId = new Guid("55515111-3b2a-4749-b48b-7e17faa2eaaf"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302")
+                        },
+                        new
+                        {
+                            Id = new Guid("eab8c7de-e063-4720-a15b-623cdfc25652"),
+                            FileId = new Guid("11db01d7-e42f-425c-b312-c3253b5402f3"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302")
                         });
                 });
 
@@ -1564,6 +1732,27 @@ namespace Infrastructure.Migrations
                             TripodMaterial = "",
                             Type = 2,
                             Weight = 20m
+                        },
+                        new
+                        {
+                            Id = new Guid("9b9fbff4-3a3a-4a71-b1d7-1a69872919d7"),
+                            Aperture = 150m,
+                            ApertureRatio = 9.3m,
+                            CreatedAt = new DateTime(2023, 1, 3, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EyepieceFittingDiameter = 1.25m,
+                            FocusDistance = 1400m,
+                            MaxUsefulScale = 1050m,
+                            MinUsefulScale = 70m,
+                            MountingType = 1,
+                            ProductId = new Guid("26e52bab-4c7e-4f92-b46e-8708b1936302"),
+                            ScaleMax = 70m,
+                            ScaleMin = 1050m,
+                            Seeker = "с красной точкой",
+                            TelescopeControlType = 1,
+                            TelescopeUserLevel = 3,
+                            TripodHeight = "",
+                            TripodMaterial = "стальная",
+                            Type = 1
                         });
                 });
 
@@ -1824,6 +2013,27 @@ namespace Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ApplicationCore.Entities.CommentFile", b =>
+                {
+                    b.HasOne("ApplicationCore.Entities.Comment", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_comment_file_comment_comment_id");
+
+                    b.HasOne("ApplicationCore.Entities.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_comment_file_file_file_id");
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("File");
+                });
+
             modelBuilder.Entity("ApplicationCore.Entities.CurrencyExchange", b =>
                 {
                     b.HasOne("ApplicationCore.Entities.Currency", "FromCurrency")
@@ -1850,8 +2060,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("ApplicationCore.Entities.Assignment", "Assignment")
                         .WithMany("AvatarFiles")
                         .HasForeignKey("AssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_file_assignment_assignment_id");
 
                     b.Navigation("Assignment");
@@ -1881,8 +2089,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("ApplicationCore.Entities.Assignment", "ManagerAssignment")
                         .WithMany()
                         .HasForeignKey("ManagerAssignmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_order_assignment_manager_assignment_id");
 
                     b.Navigation("ConsumerAssignment");
@@ -1958,13 +2164,11 @@ namespace Infrastructure.Migrations
                     b.HasOne("ApplicationCore.Entities.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_personal_data_address_address_id");
 
                     b.HasOne("ApplicationCore.Entities.Assignment", "Assignment")
-                        .WithMany()
-                        .HasForeignKey("AssignmentId")
+                        .WithOne("PersonalData")
+                        .HasForeignKey("ApplicationCore.Entities.PersonalData", "AssignmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_personal_data_assignment_assignment_id");
@@ -1972,8 +2176,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("ApplicationCore.Entities.LegalDetails", "LegalDetails")
                         .WithMany()
                         .HasForeignKey("LegalDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_personal_data_legal_details_legal_details_id");
 
                     b.Navigation("Address");
@@ -2002,6 +2204,27 @@ namespace Infrastructure.Migrations
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ApplicationCore.Entities.ProductFile", b =>
+                {
+                    b.HasOne("ApplicationCore.Entities.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_file_file_file_id");
+
+                    b.HasOne("ApplicationCore.Entities.Product", "Product")
+                        .WithMany("Files")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_product_file_product_product_id");
+
+                    b.Navigation("File");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.ProductItem", b =>
@@ -2141,6 +2364,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("ApplicationCore.Entities.Assignment", b =>
                 {
                     b.Navigation("AvatarFiles");
+
+                    b.Navigation("PersonalData");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Cart", b =>
@@ -2161,6 +2386,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("ApplicationCore.Entities.Product", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Files");
 
                     b.Navigation("ProductItems");
                 });

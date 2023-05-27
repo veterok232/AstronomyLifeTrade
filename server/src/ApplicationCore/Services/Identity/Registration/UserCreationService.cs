@@ -19,6 +19,7 @@ internal class UserCreationService : IUserCreationService
     private readonly IUserCreationAvailabilityChecker _userCreationAvailabilityChecker;
     private readonly UserManager<User> _userManager;
     private readonly IRepository<Assignment> _assignmentRepository;
+    private readonly IRepository<PersonalData> _personalDataRepository;
 
     public UserCreationService(
         IRepository<User> userRepository,
@@ -26,7 +27,8 @@ internal class UserCreationService : IUserCreationService
         IMapper mapper,
         IUserCreationAvailabilityChecker userCreationAvailabilityChecker,
         UserManager<User> userManager,
-        IRepository<Assignment> assignmentRepository)
+        IRepository<Assignment> assignmentRepository,
+        IRepository<PersonalData> personalDataRepository)
     {
         _userRepository = userRepository;
         _userPasswordService = userPasswordService;
@@ -34,6 +36,7 @@ internal class UserCreationService : IUserCreationService
         _userCreationAvailabilityChecker = userCreationAvailabilityChecker;
         _userManager = userManager;
         _assignmentRepository = assignmentRepository;
+        _personalDataRepository = personalDataRepository;
     }
 
     public async Task<Assignment> Create(UserRegistrationModel model)
@@ -45,7 +48,7 @@ internal class UserCreationService : IUserCreationService
 
         var createdUser = _mapper.Map<User>(model);
         var assignment = await CreateAssignment(model, createdUser);
-        
+
         _userPasswordService.AssignUserPassword(createdUser, model.Password);
         
         await _userRepository.Add(createdUser);
@@ -61,6 +64,25 @@ internal class UserCreationService : IUserCreationService
         assignment.RoleId = RolesInitData.ConsumerRoleId;
         assignment.Phone = model.Phone;
         assignment.CreatedByUserId = UsersInitData.SystemUserId;
+
+        var personalData = new PersonalData
+        {
+            Id = Guid.NewGuid(),
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            AddressId = default,
+            Address = null,
+            Birthday = null,
+            Email = model.Email,
+            Gender = null,
+            Phone = model.Phone,
+            Assignment = assignment,
+            LegalDetailsId = null,
+            LegalDetails = null,
+        };
+
+        assignment.PersonalDataId = personalData.Id;
+        assignment.PersonalData = personalData;
 
         return await _assignmentRepository.Add(assignment);
     }

@@ -39,4 +39,6 @@ public class Product : Entity, IHasCreatedAt, IHasModifiedAt, IHasDeletedAt
     public ICollection<ProductItem> ProductItems { get; set; }
     
     public ICollection<Comment> Comments { get; set; }
+    
+    public ICollection<ProductFile> Files { get; set; }
 }

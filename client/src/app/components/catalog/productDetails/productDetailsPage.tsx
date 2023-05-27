@@ -15,6 +15,9 @@ import { TelescopeCharacteristicsSection } from "./telescopeCharacteristicsSecti
 import { categoryCodes } from "../../../dataModels/enums/categoryCodes";
 import { getProductDetails } from "../../../api/catalog/catalogApi";
 import { CardCharacteristic } from "../product/cardCharacteristic";
+import { getFileAnonymousDownloadLink } from "../../../api/file/filesApi";
+import { Constants } from "../../constants";
+import { isEmpty } from "lodash";
 
 const sliderSettings = {
     dots: true,
@@ -25,6 +28,14 @@ const sliderSettings = {
     slidesToScroll: 1,
     arrows: true,
   };
+
+const getProductImageUrl = (imageFileId?: string) => {
+if (!imageFileId) {
+    return Constants.defaultProductImagePath;
+}
+
+return getFileAnonymousDownloadLink(imageFileId);
+};
 
 export const ProductDetailsPage = () => {
     const { productId } = useParams<{ productId: string }>();
@@ -48,18 +59,16 @@ export const ProductDetailsPage = () => {
             <Row className="product-details top-box row-cols-2 p-4 mb-3">
                 <Col className="col-9">
                     <Slider {...sliderSettings}>
-                        <div>
-                            <img className="product-details product-image m-auto" src={`static/images/products/${1}.jpg`} />
-                        </div>
-                        <div>
-                            <img className="product-details product-image m-auto" src={`static/images/products/${2}.jpg`} />
-                        </div>
-                        <div>
-                            <img className="product-details product-image m-auto" src={`static/images/products/${3}.jpg`} />
-                        </div>
-                        <div>
-                            <img className="product-details product-image m-auto" src={`static/images/products/${4}.jpg`} />
-                        </div>
+                        {!isEmpty(productDetails?.productImagesIds)
+                            ? productDetails.productImagesIds?.map((imageId, i) => (
+                                <div key={i}>
+                                    <img className="product-details product-image m-auto" src={getProductImageUrl(imageId)} />
+                                </div>))
+                            :
+                                <div>
+                                    <img className="product-details product-image m-auto" src={getProductImageUrl(null)} />
+                                </div>
+                        }
                     </Slider>
                 </Col>
                 <Col className="col-3">
