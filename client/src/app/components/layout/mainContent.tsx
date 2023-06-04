@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { isAuthorizedAsOneOf } from "../../infrastructure/services/auth/authService";
 import { routeLinks } from "./routes/routeLinks";
-import { RouteItem, commonRoutes, customerRoutes, internalRoutes, managerRoutes } from "./routes/routes";
+import { RouteItem, commonRoutes, customerRoutes, internalRoutes, administratorRoutes } from "./routes/routes";
 import React, { useEffect } from "react";
 import { viewStore } from "../../infrastructure/stores/viewStore";
 import { getDefaultPageRoute } from "../../utils/routeUtils";
@@ -21,7 +21,7 @@ const ProtectedComponent = (props: RouteItem) => {
 };
 
 export const MainContent = () => {
-    const routes = internalRoutes.concat(customerRoutes).concat(managerRoutes).concat(commonRoutes);
+    const routes = internalRoutes.concat(customerRoutes).concat(administratorRoutes).concat(commonRoutes);
     const location = useLocation();
 
     useEffect(() => {

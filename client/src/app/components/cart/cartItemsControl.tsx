@@ -20,7 +20,7 @@ export const CartItemsControl = (props: Props) => {
     return (
         <FieldArray name="cart.cartItems" className="m-0 w-100">
             {({ fields }) => (
-                <Row className="p-0">
+                <Row className="px-2 pb-2">
                     {fields.map((name, i) => (
                         withParent(CartItemElement, name, {
                             item: props.cartItems[i],

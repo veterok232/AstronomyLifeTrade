@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230527151046_Initial")]
+    [Migration("20230529042329_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,7 +79,6 @@ namespace Infrastructure.Migrations
                         .HasColumnName("country");
 
                     b.Property<string>("Flat")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("flat");
 
@@ -89,6 +88,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("full_address");
 
                     b.Property<string>("PostalCode")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("postal_code");
 
@@ -730,6 +730,71 @@ namespace Infrastructure.Migrations
                             MimeType = "image/jpeg",
                             Reference = "abb6d9a7-9e43-4889-b09e-056ff0480a5b",
                             StorageType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("b8ce5948-a954-455a-9b35-9262732f5253"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "1",
+                            FileSizeInBytes = 49934L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "66ad078d-aec6-42a1-b181-813749755e5b",
+                            StorageType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("73c424e6-f136-4475-a157-0c298366b964"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "2",
+                            FileSizeInBytes = 53867L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "235598eb-cfee-4f12-a088-e7e707830c4e",
+                            StorageType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("3a750d77-80d6-40eb-ad94-4a5cf2d9547c"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "3",
+                            FileSizeInBytes = 50336L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "3e60e6b0-b478-41be-908e-b884416eb555",
+                            StorageType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("35c71e96-3967-411e-9eba-b12119c9bb99"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "1",
+                            FileSizeInBytes = 39755L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "ed66e85a-722f-48ef-918e-ac552fc36aa7",
+                            StorageType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("9135be23-a4b6-488d-8cec-164f5c59cfba"),
+                            AttachmentType = 2,
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Extension = ".jpg",
+                            FileName = "1",
+                            FileSizeInBytes = 169124L,
+                            IsAttached = true,
+                            MimeType = "image/jpeg",
+                            Reference = "3de0a642-b806-4664-8165-37efda5719d1",
+                            StorageType = 1
                         });
                 });
 
@@ -1157,6 +1222,60 @@ namespace Infrastructure.Migrations
                             Quantity = 9,
                             ShortDescription = "Длиннофокусный рефлектор среднего уровня с большой входной апертурой.",
                             SpecialNote = "Выбор магазина!"
+                        },
+                        new
+                        {
+                            Id = new Guid("9dd4a5ef-bb70-4acd-8c3b-1f5942bedcd0"),
+                            BrandId = new Guid("445faffb-0213-42f4-ab19-a22834ec3cb6"),
+                            CategoryId = new Guid("df445d42-ca49-4fc5-9573-a14371daf34b"),
+                            Code = "T3",
+                            CreatedAt = new DateTime(2023, 1, 4, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Телескоп Levenhuk Skyline PLUS 120S – рефлектор Ньютона со сферическим главным зеркалом диаметром 114 мм. В него можно наблюдать Луну, планеты Солнечной системы, туманности, галактики, звездные скопления и многое другое. Благодаря хорошей светосиле для изучения доступны яркие объекты каталогов Мессье и NGC. В ближнем космосе телескоп поможет увидеть полярные шапки на Марсе, изменения погоды на Венере, кольца Сатурна, спутники Юпитера и даже далекие Уран и Нептун, но без особых деталей.\n\nТелескоп подойдет и начинающим, и опытным любителям астрономии. Он установлен на монтировку экваториального типа, которая позволяет быстро наводиться на интересующие вас объекты и не терять их из виду даже во время длительных наблюдений. На освоение управления требуется время, но амбициозный новичок вряд ли посчитает это препятствием. Монтировка крепится к алюминиевой треноге, высоту ножек которой можно регулировать. Есть лоток для аксессуаров.\n\nВ комплект поставки включены необходимые для наблюдений аксессуары – приобретать дополнительные не понадобится. Здесь есть два разнофокусных окуляра и двукратная линза Барлоу. С их помощью легко подобрать оптимальное увеличение для изучения разных объектов космоса. Искатель оптический и дает 6-кратное увеличение.\n\nОсновные особенности:\n\nРефлектор Ньютона на экваториальной монтировке\nОтличный выбор для изучения дальнего космоса, Луны и планет Солнечной системы\nПростое и удобное ведение астрономических объектов по небосклону\nБогатая комплектация, полностью раскрывающая возможности оптики\nУстойчивая алюминиевая тренога с регулировкой высоты",
+                            Equipment = "Телескоп Levenhuk Skyline PLUS 120S в сборке;\r\n                          Экваториальная монтировка EQ1 с противовесом и ручками тонких движений;\r\n                          Оптический искатель 6х24;\r\n                          Линза Барлоу 2х;\r\n                          Два окуляра 10/25 миллиметров с посадкой 1.25 дюйма;\r\n                          Тренога с лотком под аксессуары;\r\n                          Инструкция и гарантийный талон.",
+                            Manufacturer = "КНР для Levenhuk, Inc. (США)",
+                            ModifiedAt = new DateTime(2023, 1, 4, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Телескоп Levenhuk Skyline PLUS 120S",
+                            Price = 1439.00m,
+                            Quantity = 5,
+                            ShortDescription = "Рефлектор Ньютона со сферическим главным зеркалом диаметром 114 мм.",
+                            SpecialNote = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("bb3de5c0-daa1-4b80-8a01-6558005db3c5"),
+                            BrandId = new Guid("5bfaa88a-8b4c-4092-8c41-f9c2e3982ff1"),
+                            CategoryId = new Guid("df445d42-ca49-4fc5-9573-a14371daf34b"),
+                            Code = "T4",
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Оптическая труба Bresser Messier NT-203s/800 – это надежный и функциональный рефлектор для опытных астрономов-любителей. Позволяет рассматривать широкий спектр объектов дальнего космоса, в том числе имеющих слабую светимость.\n\nОснова оптической конструкции прибора – два высококачественных зеркала. Базисный параболический модуль с апертурой 203 миллиметра дополняется плоским диагональным аналогом с диаметром 86 миллиметров. Такая конфигурация предопределяет отсутствие хроматических и сферических аберраций, отличный показатель светосильности и мощную разрешающую способность вплоть до 0.56 угловых секунд.\n\nОптический модуль поддерживает максимальное полезное приближение до 406 крат без потери качества изображения, снабжен реечным фокусером со световой апертурой 2.5 дюйма, штатным окуляром 26 миллиметров и искателем 8х50, упрощающим первичное позиционирование трубы на выбранный участок неба.\n\nКлючевые особенности:\n\nОптическая система с большой входной апертурой;\nРеечный фокусер 2.5 дюйма;\nМощный искатель, удобно закрепляющийся на О-кронштейне.",
+                            Equipment = "Оптическая труба Bresser Messier NT-203s/800;\r\n                          Окуляр 26 миллиметров;\r\n                          Оптический искатель;\r\n                          Адаптера 1.25/2 дюйма;\r\n                          Крепежные кольца с ручкой и держателем;\r\n                          Инструкция и гарантийный талон.",
+                            Manufacturer = "Германия",
+                            ModifiedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Труба оптическая Bresser Messier NT-203s/800",
+                            Price = 3455.00m,
+                            Quantity = 2,
+                            ShortDescription = "Надежный и функциональный рефлектор для опытных астрономов-любителей",
+                            SpecialNote = ""
+                        },
+                        new
+                        {
+                            Id = new Guid("f6112b01-2549-4a80-98a8-8bb1eaeca160"),
+                            BrandId = new Guid("1a73828e-952c-488d-b5d9-25309e33b619"),
+                            CategoryId = new Guid("df445d42-ca49-4fc5-9573-a14371daf34b"),
+                            Code = "T5",
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Телескоп Sky-Watcher BK 1309EQ2 – оптический прибор среднего уровня для астронома-любителя с входной апертурой 130 миллиметров. Предназначен для изучения большинства объектов каталога NGC с хорошей, умеренной или слабой светимостью.\n\nРефлектор Ньютона состоит из основного сферического и вторичного плоского диагонального зеркала, комплектуется двумя сменными окулярами 10 и 25 миллиметров, а также линзой Барлоу. Модуль имеет максимальное полезное увеличение до 260 крат без ухудшения качества изображения, снабжен штатным реечным фокусером.\n\nОсновной тубус регулируется экваториальной монтировкой с двумя степенями свободы. Она имеет механизм тонких движений, опционально поддерживает установку моторного привода на ось прямого восхождения (приобретается отдельно). Прочная тренога из облегченного алюминиевого сплава регулируется по высоте и стабильно удерживает телескоп на любой горизонтальной поверхности.",
+                            Equipment = "Телескоп Sky-Watcher BK 1309 в базовой сборке;\r\n                          Экваториальная монтировка EQ2;\r\n                          Алюминиевая тренога с лотком для аксессуаров;\r\n                          Оптический искатель;\r\n                          Два окуляра;\r\n                          Инструкция и гарантийный талон.",
+                            Manufacturer = "КНР",
+                            ModifiedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Name = "Телескоп Sky-Watcher BK 1309EQ2",
+                            Price = 1702.00m,
+                            Quantity = 1,
+                            ShortDescription = "Jптический прибор среднего уровня для астронома-любителя с входной апертурой 130 миллиметров",
+                            SpecialNote = ""
                         });
                 });
 
@@ -1218,6 +1337,41 @@ namespace Infrastructure.Migrations
                             FileId = new Guid("11db01d7-e42f-425c-b312-c3253b5402f3"),
                             ProductFileType = 1,
                             ProductId = new Guid("26e52bab-4c7e-4f92-b46e-8708b1e4f302")
+                        },
+                        new
+                        {
+                            Id = new Guid("61cd738b-7252-4a2f-a781-b41548facd56"),
+                            FileId = new Guid("b8ce5948-a954-455a-9b35-9262732f5253"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("9dd4a5ef-bb70-4acd-8c3b-1f5942bedcd0")
+                        },
+                        new
+                        {
+                            Id = new Guid("01f4f842-ea0b-4512-b6ab-3a31173c1c20"),
+                            FileId = new Guid("73c424e6-f136-4475-a157-0c298366b964"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("9dd4a5ef-bb70-4acd-8c3b-1f5942bedcd0")
+                        },
+                        new
+                        {
+                            Id = new Guid("094f9482-f6fd-4975-b62a-1fb8d69875a8"),
+                            FileId = new Guid("3a750d77-80d6-40eb-ad94-4a5cf2d9547c"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("9dd4a5ef-bb70-4acd-8c3b-1f5942bedcd0")
+                        },
+                        new
+                        {
+                            Id = new Guid("b7d4c91f-6c5b-4ef8-981b-8a267c8806f0"),
+                            FileId = new Guid("35c71e96-3967-411e-9eba-b12119c9bb99"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("bb3de5c0-daa1-4b80-8a01-6558005db3c5")
+                        },
+                        new
+                        {
+                            Id = new Guid("781934a5-8b08-42f2-aebf-af718c7ab199"),
+                            FileId = new Guid("9135be23-a4b6-488d-8cec-164f5c59cfba"),
+                            ProductFileType = 1,
+                            ProductId = new Guid("f6112b01-2549-4a80-98a8-8bb1eaeca160")
                         });
                 });
 
@@ -1753,6 +1907,65 @@ namespace Infrastructure.Migrations
                             TripodHeight = "",
                             TripodMaterial = "стальная",
                             Type = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("76d45a33-1852-4f7a-8ec5-0ff472db6b1d"),
+                            Aperture = 114m,
+                            ApertureRatio = 8.0m,
+                            CreatedAt = new DateTime(2023, 1, 4, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EyepieceFittingDiameter = 1.25m,
+                            FocusDistance = 900m,
+                            MaxUsefulScale = 228m,
+                            MountingType = 4,
+                            ProductId = new Guid("9dd4a5ef-bb70-4acd-8c3b-1f5942bedcd0"),
+                            ScaleMax = 228m,
+                            Seeker = "6x24, оптический",
+                            TelescopeControlType = 1,
+                            TelescopeUserLevel = 2,
+                            TripodHeight = "650–1200",
+                            TripodMaterial = "алюминиевая",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("ac88f3e7-4983-45be-9974-a05b0946975f"),
+                            Aperture = 203m,
+                            ApertureRatio = 4m,
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EyepieceFittingDiameter = 1.25m,
+                            FocusDistance = 800m,
+                            MaxUsefulScale = 406m,
+                            MountingType = 1,
+                            ProductId = new Guid("bb3de5c0-daa1-4b80-8a01-6558005db3c5"),
+                            ScaleMax = 406m,
+                            Seeker = "8x50, оптический",
+                            TelescopeControlType = 1,
+                            TelescopeUserLevel = 3,
+                            TripodHeight = "нет",
+                            TripodMaterial = "нет",
+                            Type = 1,
+                            Weight = 15m
+                        },
+                        new
+                        {
+                            Id = new Guid("3e8c66c1-5f34-4550-b3aa-39a4f50a975a"),
+                            Aperture = 130m,
+                            ApertureRatio = 4m,
+                            CreatedAt = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            EyepieceFittingDiameter = 1.25m,
+                            FocusDistance = 900m,
+                            MaxUsefulScale = 260m,
+                            MountingType = 1,
+                            ProductId = new Guid("f6112b01-2549-4a80-98a8-8bb1eaeca160"),
+                            ScaleMax = 406m,
+                            Seeker = "8x50, оптический",
+                            TelescopeControlType = 1,
+                            TelescopeUserLevel = 2,
+                            TripodHeight = "нет",
+                            TripodMaterial = "нет",
+                            Type = 1,
+                            Weight = 15m
                         });
                 });
 

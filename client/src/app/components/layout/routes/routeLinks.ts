@@ -7,6 +7,7 @@ export const routeLinks = {
         login: "/account/login",
         register: "/account/register",
         profile: "/account/profile",
+        managerProfile: "/account/manager-profile",
         setupPassword: "/account/setup-password/:token",
         selectAssignment: "/account/select-assignments",
         forgotPassword: "/account/forgot-password",
@@ -31,5 +32,8 @@ export const routeLinks = {
         root: "/orders",
         makeOrder: "orders/make-order",
         orderDetails: "/orders/order-details/:orderId",
+    },
+    astronomicalCalculator: {
+        root: "/astronomical-calculator",
     },
 };

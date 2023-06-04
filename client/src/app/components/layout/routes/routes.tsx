@@ -1,5 +1,7 @@
 import { Roles } from "../../../infrastructure/services/auth/roles";
 import { AccountProfilePage } from "../../accountProfile/accountProfile";
+import { ManagerProfile } from "../../accountProfile/managerProfile";
+import { AstronomicalCalculatorPage } from "../../astronomicalCalculator/astronomicalCalculatorPage";
 import { CartPage } from "../../cart/cartPage";
 import { CatalogMainPage } from "../../catalog/catalogMainPage";
 import { CatalogTelescopesPage } from "../../catalog/catalogTelescopesPage";
@@ -33,10 +35,12 @@ export const customerRoutes: Array<RouteItem> = [
     { path: routeLinks.cart.root, component: CartPage, onlyForRoles: [Roles.consumer] },
     { path: routeLinks.account.profile, component: AccountProfilePage, onlyForRoles: [Roles.consumer] },
     { path: routeLinks.orders.makeOrder, component: MakeOrderPage, onlyForRoles: [Roles.consumer] },
+    { path: routeLinks.astronomicalCalculator.root, component: AstronomicalCalculatorPage, onlyForRoles: [Roles.consumer] },
 ];
 
-export const managerRoutes: Array<RouteItem> = [
-    { path: routeLinks.orders.root, component: OrdersPage },
+export const administratorRoutes: Array<RouteItem> = [
+    { path: routeLinks.orders.root, component: OrdersPage, onlyForRoles: [Roles.manager, Roles.staff] },
+    { path: routeLinks.account.managerProfile, component: ManagerProfile, onlyForRoles: [Roles.manager] },
 ];
 
 export const internalRoutes: Array<RouteItem> = [

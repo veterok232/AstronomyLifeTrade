@@ -4,5 +4,5 @@ public class ProductRatingModel
 {
     public double Rating { get; set; }
     
-    public int CommentsCount { get; set; }
+    public int? CommentsCount { get; set; }
 }

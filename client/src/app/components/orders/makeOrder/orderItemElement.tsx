@@ -6,6 +6,8 @@ import { IconicRemoveCartItemButton } from "../../common/controls/buttons/Iconic
 import { CardPrice } from "../../common/presentation/cardPrice";
 import { Money } from "../../common/presentation/money";
 import { LabeledField } from "../../common/presentation/labeledField";
+import { isEmpty } from "lodash";
+import { ProductImage } from "../../layout/catalog/productImage";
 
 interface Props {
     item: CartItem;
@@ -23,7 +25,10 @@ export const OrderItemElement = (props: Props) => {
     return (
         <Row className="cart-item w-100 mx-1">
             <Col className="col-2 my-auto p-3">
-                <img className="cart-item-image" src="static/images/products/1.jpg"/>
+                <ProductImage
+                    className="cart-item-image"
+                    productId={props.item.product.productId}
+                    productImageId={!isEmpty(props.item.product.imageFilesIds) && props.item.product.imageFilesIds[0]} />
             </Col>
             <Col className="col-3 my-auto">
                 <Row className="my-auto">

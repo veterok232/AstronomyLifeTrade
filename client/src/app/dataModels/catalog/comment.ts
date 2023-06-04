@@ -1,8 +1,6 @@
-import { ProductRating } from "./product/productRating";
-
 export interface Comment {
     text: string;
-    rating: ProductRating;
+    rating: number;
     createdAt: Date;
     userName: string;
     userLastName: string;

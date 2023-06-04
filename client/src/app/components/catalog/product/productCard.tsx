@@ -31,22 +31,22 @@ export const ProductCard = (props: Props) => {
                 <h5 className="card-title mb-1"><Link className="text-secondary" to={getLinkToProductDetails(props.product.productId)}>{props.product.name}</Link></h5>
                 <div className="card-text">
                     <ProductRatingSection
-                        productRating={props.product.rating} />
-                    {props.product.characteristics?.map((characteristic, ind) =>
+                        productRating={props.product.productRating} />
+                    {props.product.characteristicsModels?.map((characteristic, ind) =>
                         <CardCharacteristic key={ind} characteristic={characteristic}/>)}
                     {props.product.specialNote &&
                         <p><b>{props.product.specialNote}</b></p>
                     }
-                    <p className="mt-2">{props.product.shortDescription}</p>
+                    <p className="section-description mt-2">{props.product.shortDescription}</p>
                 </div>
                 <Row className="mt-auto align-items-center">
-                    <Col className="align-self-center pr-0">
+                    <Col className="col-7 align-self-center pr-0">
                         <CardPrice
                             value={props.product.price}
                             currency={CurrencyType.BYN}
                             showColouredBox />
                     </Col>
-                    <Col className="align-self-center">
+                    <Col className="col-5 align-self-center">
                         <CardActionsSection
                             onAddToCart={props.onAddToCart}
                             onAddToFavorites={props.onAddToFavorites}/>

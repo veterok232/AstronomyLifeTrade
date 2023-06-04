@@ -13,6 +13,6 @@ export interface ProductListItem {
     name: string;
     shortDescription: string;
     specialNote: string;
-    characteristics: CharacteristicModel[];
-    rating: ProductRating;
+    characteristicsModels: CharacteristicModel[];
+    productRating: ProductRating;
 }

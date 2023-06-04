@@ -53,8 +53,6 @@ internal class CatalogSearchService : ICatalogSearchService
         
         var result = _mapper.Map<SearchResult<ProductListItem>>(list);
         
-        
-
         return result;
     }
     

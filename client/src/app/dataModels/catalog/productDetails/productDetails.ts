@@ -1,3 +1,4 @@
+import { FileModel } from "../../fileModel";
 import { BrandModel } from "../brandModel";
 import { CategoryModel } from "../categoryModel";
 import { CharacteristicModel } from "../characteristicModel";
@@ -14,9 +15,9 @@ export interface ProductDetails {
     manufacturer: string;
     quantity: number;
     equipment: string;
-    comments: Comment[];
     rating: ProductRating;
     shortDescription: string;
     characteristics: CharacteristicModel[];
     productImagesIds: string[];
+    productFiles: FileModel[];
 }

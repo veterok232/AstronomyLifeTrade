@@ -1,0 +1,170 @@
+$form-select-class: ".form-group-select";
+
+.form-group {
+    select:not(.react-datepicker__month-select):not(.react-datepicker__year-select) {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+
+        &::-ms-expand {
+            display: none;
+        }
+    }
+
+    &__select-wrapper {
+        &:before {
+            pointer-events: none;
+            cursor: pointer;
+            content: "\e313";
+            font-family: "Material Icons";
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: $input-height;
+            line-height: $input-height;
+            text-align: center;
+        }
+
+        &:focus-within {
+            &:before {
+                color: $primary;
+            }
+        }
+
+        position: relative;
+    }
+
+    #{$form-select-class} {
+        input:last-of-type {
+            margin: 0;
+        }
+
+        &__control {
+            min-height: $input-height;
+
+            &:focus-within {
+                border: 1px solid $primary;
+                box-shadow: none;
+            }
+
+            &--is-focused {
+                #{$form-select-class}__dropdown-indicator {
+                    &:before {
+                        color: $primary;
+                    }
+                }
+            }
+        }
+
+        &.warning {
+            #{$form-select-class}__control {
+                border-color: $color-yellow-5;
+            }
+
+            #{$form-select-class}__dropdown-indicator {
+                &:before {
+                    color: $color-yellow-5;
+                }
+            }
+        }
+
+        &.error {
+            #{$form-select-class}__control {
+                border-color: $color-secondary-alt;
+            }
+
+            #{$form-select-class}__dropdown-indicator {
+                &:before {
+                    color: $color-secondary-alt;
+                }
+            }
+        }
+
+        &__value-container {
+            padding: 0.5rem 0 0.5rem 0.75rem;
+            margin: -1px 0;
+
+            :last-child {
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        &__multi-value {
+            background-color: rgba($primary, 0.1);
+        }
+
+        &__option {
+            background-color: $light;
+
+            &:hover {
+                background-color: rgba($primary, 0.1);
+            }
+
+            &--is-selected {
+                color: $color-header-dark;
+            }
+        }
+
+        &__menu {
+            z-index: 9;
+
+            @include media-breakpoint-down(md) {
+                box-shadow: none;
+                margin-top: 4px;
+                padding-bottom: 5px;
+
+                &-list {
+                    box-shadow: $react-default-dropdown-shadow;
+                    border-radius: 4px;
+                }
+            }
+        }
+
+        &__indicator {
+            &:before {
+                font-family: "Material Icons";
+                padding-right: 16px;
+                text-align: center;
+                font-size: 25px;
+            }
+
+            padding: 0;
+
+            svg {
+                display: none;
+            }
+        }
+
+        &__clear-indicator {
+            &:before {
+                content: "\e5cd";
+            }
+        }
+
+        &__dropdown-indicator {
+            &:before {
+                content: "\e313";
+                color: $color-middle-grey;
+            }
+        }
+
+        &__indicator-separator {
+            display: none;
+        }
+
+        &__multi-value__remove {
+            &:hover {
+                color: $color-secondary-alt;
+                background-color: transparent;
+            }
+        }
+
+        &__placeholder,
+        &__single-value {
+            font-size: 16px;
+            line-height: 22px;
+        }
+    }
+}

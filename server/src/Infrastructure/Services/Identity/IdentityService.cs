@@ -75,13 +75,13 @@ internal class IdentityService : IIdentityService
     {
         if (user == null)
         {
-            return "Incorrect email or password!";
+            return "Неправильный адрес электронной почты или пароль!";
         }
 
         bool isValidPassword = await _userManager.CheckPasswordAsync(user, loginData.Password);
         if (!isValidPassword)
         {
-            return "Incorrect email or password!";
+            return "Неправильный адрес электронной почты или пароль!";
         }
 
         return null;

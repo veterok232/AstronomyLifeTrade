@@ -1,4 +1,6 @@
-﻿namespace ApplicationCore.Models.Catalog;
+﻿using ApplicationCore.Models.Files;
+
+namespace ApplicationCore.Models.Catalog;
 
 public class ProductDetails
 {
@@ -22,11 +24,13 @@ public class ProductDetails
 
     public string Equipment { get; set; }
     
-    public ICollection<CommentModel> Comments { get; set; }
+    public ICollection<CommentModel>? Comments { get; set; }
     
     public ProductRatingModel Rating { get; set; }
     
     public ICollection<CharacteristicModel> Characteristics { get; set; }
     
-    public ICollection<Guid> ProductImagesIds { get; set; }
+    public ICollection<Guid>? ProductImagesIds { get; set; }
+    
+    public ICollection<FileModel>? ProductFiles { get; set; }
 }

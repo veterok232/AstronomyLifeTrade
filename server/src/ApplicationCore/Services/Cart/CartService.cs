@@ -103,7 +103,7 @@ public class CartService : ICartService
 
         var cartItem = customerCart.CartItems.First(ci => ci.ProductId == productId);
 
-        customerCart.Quantity--;
+        customerCart.Quantity -= cartItem.Quantity;
         customerCart.TotalAmount -= cartItem.Product.Price * cartItem.Quantity;
         customerCart.CartItems.Remove(cartItem);
 
@@ -118,7 +118,7 @@ public class CartService : ICartService
         
         var cartItem = customerCart.CartItems.First(ci => ci.ProductId == model.ProductId);
 
-        customerCart.Quantity++;
+        customerCart.Quantity += model.Count - cartItem.Quantity;
         customerCart.TotalAmount = cartItem.Product.Price * model.Count;
         cartItem.Quantity = model.Count;
 
@@ -131,6 +131,8 @@ public class CartService : ICartService
             new CustomerCartSpecification(_authContextAccessor.AssignmentId.Value));
         
         customerCart.CartItems.Clear();
+        customerCart.Quantity = 0;
+        customerCart.TotalAmount = 0;
         
         await _cartRepository.Update(customerCart);
     }

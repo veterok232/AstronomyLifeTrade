@@ -11,6 +11,7 @@
 
 .cart-items-header {
     background-color: white;
+    height: 40px;
 }
 
 .cart-items-footer {
@@ -24,4 +25,8 @@
 
 .total-cart-price-label {
     font-size: 28px;
+}
+
+.cart-button {
+    width: 160px;
 }

@@ -14,7 +14,7 @@ internal class TelescopesByTelescopeTypeFilter : IEntityFilter<Telescope, Telesc
     public Expression<Func<Telescope, bool>> GetFilterPredicate(TelescopeSearchModel model)
     {
         return model.TelescopeTypes.IsNullOrEmpty()
-            ? null
+            ? _ => false
             : t => model.TelescopeTypes.Contains(t.Type.Value);
     }
 }

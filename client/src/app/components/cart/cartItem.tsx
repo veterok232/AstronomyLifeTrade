@@ -6,6 +6,8 @@ import { CardPrice } from "../common/presentation/cardPrice";
 import { CurrencyType } from "../../dataModels/enums/currencyType";
 import { IntegerUpDownFormControl } from "../common/controls/formControls/maskedFormControls/integerUpDownFormControl";
 import { Money } from "../common/presentation/money";
+import { isEmpty } from "lodash";
+import { ProductImage } from "../layout/catalog/productImage";
 
 interface Props {
     item: CartItem;
@@ -22,9 +24,12 @@ export const CartItemElement = (props: Props) => {
     }, [props.item.product.price, props.item.quantity]);
 
     return (
-        <Row className="cart-item w-100 mx-2">
+        <Row className="cart-item w-100 mx-1">
             <Col className="col-2 my-auto p-3">
-                <img className="cart-item-image" src="static/images/products/1.jpg"/>
+                <ProductImage
+                    className="cart-item-image"
+                    productId={props.item.product.productId}
+                    productImageId={!isEmpty(props.item.product.imageFilesIds) && props.item.product.imageFilesIds[0]} />
             </Col>
             <Col className="col-4 my-auto">
                 <Row className="my-auto">

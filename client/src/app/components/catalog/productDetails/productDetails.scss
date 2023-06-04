@@ -1,6 +1,6 @@
 .product-details {
     &.product-image {
-        width: 350px;
+        width: 500px;
         height: 500px;
     }
 
@@ -10,6 +10,15 @@
     }
 
     &.top-box {
-        background-color: $color-header-light;
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.05);
+        background-color: #ffffff;
+    }
+
+    .slick-next:before, .slick-prev:before {
+        color: black;
+    }
+
+    .slick-next:hover, .slick-prev:hover {
+        cursor: pointer;
     }
 }

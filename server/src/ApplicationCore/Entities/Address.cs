@@ -8,9 +8,9 @@ public class Address : Entity
     
     public string? Country { get; set; }
     
-    public string Flat { get; set; }
+    public string? Flat { get; set; }
     
-    public string? PostalCode { get; set; }
+    public string PostalCode { get; set; }
     
     public string? Street { get; set; }
     

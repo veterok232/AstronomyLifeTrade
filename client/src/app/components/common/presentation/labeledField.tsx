@@ -3,6 +3,7 @@ import { Col, Label, Row } from "reactstrap";
 import { Local } from "../../localization/local";
 
 interface Props {
+    className?: string;
     labelKey: string;
     value: string | number | JSX.Element;
     isHorizontalView?: boolean;
@@ -10,7 +11,7 @@ interface Props {
 
 export const LabeledField = (props: Props) => {
     return (
-        <>
+        <Row className={props.className}>
             {!props.isHorizontalView &&
                 <div className="labeled-field">
                     <Label className="field-key mb-1">
@@ -23,18 +24,18 @@ export const LabeledField = (props: Props) => {
             }
             {props.isHorizontalView &&
                 <Row className="justify-content-between horizontal-labeled-field">
-                    <Col className="float-left">
-                        <Label className="field-key float-left mb-1">
+                    <Col className="d-flex justify-content-start align-items-center">
+                        <Label className="field-key my-0">
                             <Local id={props.labelKey} />
                         </Label>
                     </Col>
-                    <Col className="align-items-center">
-                        <span className="field-value my-auto d-block float-right">
+                    <Col className="d-flex align-items-center justify-content-end w-100">
+                        <span className="field-value my-0 float-right">
                             {props.value}
                         </span>
                     </Col>
                 </Row>
                 }
-        </>
+        </Row>
     );
 };

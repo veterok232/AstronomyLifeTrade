@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/require-await */
 import React, { useMemo, useState } from "react";
 import { localizer } from "../localization/localizer";
@@ -96,7 +97,7 @@ export const CatalogTelescopesPage = () => {
             <Row>
                 <Col xs={4} >
                     <h1 className="ui-page-header pt-2"><Local id="Telescopes" /></h1>
-                    <Form>
+                    {/* <Form>
                         <Input
                             type="file"
                             className=""
@@ -104,7 +105,7 @@ export const CatalogTelescopesPage = () => {
                             onChange={uploadFiles}
                             multiple
                         />
-                    </Form>
+                    </Form> */}
 
                 </Col>
             </Row>

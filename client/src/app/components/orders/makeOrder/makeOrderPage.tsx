@@ -60,6 +60,11 @@ export const MakeOrderPage = () => {
     }, []);
 
     const onSubmit = async (formData: OrderFormData) => {
+        if (formData.cart.cartItems.length < 1) {
+            notifications.localizedError("NeedToAddProductToOrder");
+            return;
+        }
+
         const result = await makeOrder({
             ...formData,
             cartItemsIds: formData.cart.cartItems.map(ci => ci.id),

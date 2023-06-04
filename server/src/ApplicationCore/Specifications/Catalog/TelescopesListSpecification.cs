@@ -3,7 +3,6 @@ using System.Linq.Expressions;
 using ApplicationCore.Entities;
 using ApplicationCore.Models.Catalog;
 using ApplicationCore.Models.Catalog.Search;
-using ApplicationCore.Specifications.Common;
 
 namespace ApplicationCore.Specifications.Catalog;
 
@@ -21,5 +20,6 @@ internal class TelescopesListSpecification : TelescopesListBaseSpecification
         new()
         {
             { "CreatedAt", t => t.Product.CreatedAt },
+            { "Price", t => t.Product.Price },
         };
 }

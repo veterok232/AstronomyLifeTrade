@@ -22,7 +22,7 @@ export const getProducts = (): GetProductsResult => {
             name: "gfgdfg",
             shortDescription: "sdfsdfdf",
             specialNote: "",
-            characteristics: [{
+            characteristicsModels: [{
                 name: "ssdftring",
                 value: "sing",
             }, {
@@ -32,7 +32,7 @@ export const getProducts = (): GetProductsResult => {
                 name: "ssdftring",
                 value: "sing",
             }],
-            rating: {
+            productRating: {
                 rating: 2,
                 commentsCount: 12,
             }
@@ -54,7 +54,7 @@ export const getProducts = (): GetProductsResult => {
             name: "gfgdfg",
             shortDescription: "sdfsdfdf",
             specialNote: "",
-            characteristics: [{
+            characteristicsModels: [{
                 name: "ssdftring",
                 value: "sing",
             }, {
@@ -64,7 +64,7 @@ export const getProducts = (): GetProductsResult => {
                 name: "ssdftring",
                 value: "sing",
             }],
-            rating: {
+            productRating: {
                 rating: 2,
                 commentsCount: 12,
             }
@@ -86,7 +86,7 @@ export const getProducts = (): GetProductsResult => {
             name: "gfgdfg",
             shortDescription: "sdfsdfdf",
             specialNote: "",
-            characteristics: [{
+            characteristicsModels: [{
                 name: "ssdftring",
                 value: "sing",
             }, {
@@ -96,7 +96,7 @@ export const getProducts = (): GetProductsResult => {
                 name: "ssdftring",
                 value: "sing",
             }],
-            rating: {
+            productRating: {
                 rating: 2,
                 commentsCount: 12,
             }
@@ -118,7 +118,7 @@ export const getProducts = (): GetProductsResult => {
             name: "gfgdfg",
             shortDescription: "sdfsdfdf",
             specialNote: "",
-            characteristics: [{
+            characteristicsModels: [{
                 name: "ssdftring",
                 value: "sing",
             }, {
@@ -128,7 +128,7 @@ export const getProducts = (): GetProductsResult => {
                 name: "ssdftring",
                 value: "sing",
             }],
-            rating: {
+            productRating: {
                 rating: 2,
                 commentsCount: 12,
             }
@@ -150,7 +150,7 @@ export const getProducts = (): GetProductsResult => {
             name: "gfgdfg",
             shortDescription: "sdfsdfdf",
             specialNote: "",
-            characteristics: [{
+            characteristicsModels: [{
                 name: "ssdftring",
                 value: "sing",
             }, {
@@ -160,7 +160,7 @@ export const getProducts = (): GetProductsResult => {
                 name: "ssdftring",
                 value: "sing",
             }],
-            rating: {
+            productRating: {
                 rating: 2,
                 commentsCount: 12,
             }
@@ -182,7 +182,7 @@ export const getProducts = (): GetProductsResult => {
             name: "gfgdfg",
             shortDescription: "sdfsdfdf",
             specialNote: "",
-            characteristics: [{
+            characteristicsModels: [{
                 name: "ssdftring",
                 value: "sing",
             }, {
@@ -192,7 +192,7 @@ export const getProducts = (): GetProductsResult => {
                 name: "ssdftring",
                 value: "sing",
             }],
-            rating: {
+            productRating: {
                 rating: 2,
                 commentsCount: 12,
             }
@@ -214,7 +214,7 @@ export const getProducts = (): GetProductsResult => {
             name: "gfgdfg",
             shortDescription: "sdfsdfdf",
             specialNote: "",
-            characteristics: [{
+            characteristicsModels: [{
                 name: "ssdftring",
                 value: "sing",
             }, {
@@ -224,7 +224,7 @@ export const getProducts = (): GetProductsResult => {
                 name: "ssdftring",
                 value: "sing",
             }],
-            rating: {
+            productRating: {
                 rating: 2,
                 commentsCount: 12,
             }
@@ -246,7 +246,7 @@ export const getProducts = (): GetProductsResult => {
             name: "gfgdfg",
             shortDescription: "sdfsdfdf",
             specialNote: "",
-            characteristics: [{
+            characteristicsModels: [{
                 name: "ssdftring",
                 value: "sing",
             }, {
@@ -256,7 +256,7 @@ export const getProducts = (): GetProductsResult => {
                 name: "ssdftring",
                 value: "sing",
             }],
-            rating: {
+            productRating: {
                 rating: 2,
                 commentsCount: 12,
             }

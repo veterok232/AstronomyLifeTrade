@@ -75,31 +75,35 @@ const getTelescopeControlType = (type: TelescopeControlType) => {
 };
 
 export const TelescopeCharacteristicsSection = (props: Props) => {
-    return (<>
-        <h4><Local id="Characteristics"/></h4>
-        <Row>
-            <Col>
-                <DetailsCharacteristic name="Апертура (мм)" value={props.details.aperture.toString()} />
-                <DetailsCharacteristic name="Светосила (относительное отверстие)" value={props.details.apertureRatio.toString()}  />
-                <DetailsCharacteristic name="Посадочный диаметр окуляров (дюймов)" value={props.details.eyepieceFittingDiameter.toString()}  />
-                <DetailsCharacteristic name="Фокусное расстояние (мм)" value={props.details.focusDistance.toString()}  />
-                <DetailsCharacteristic name="Максимальное полезное увеличение (крат.)" value={props.details.maxUsefulScale.toString()}  />
-                <DetailsCharacteristic name="Минимальное полезное увеличение (крат.)" value={props.details.minUsefulScale.toString()}  />
-                <DetailsCharacteristic name="Тип монтировки" value={getMountingType(props.details.mountingType)}  />
-                <DetailsCharacteristic name="Тип управления телескопом" value={getTelescopeControlType(props.details.telescopeControlType)}  />
-                <DetailsCharacteristic name="Окуляры" value={getEyepieces(props.details.telescopeEyepieces)}  />
-            </Col>
-            <Col>
-                <DetailsCharacteristic name="Увеличение максимальное (крат.)" value={props.details.scaleMax.toString()}  />
-                <DetailsCharacteristic name="Увеличение минимальное (крат.)" value={props.details.scaleMin.toString()}  />
-                <DetailsCharacteristic name="Искатель" value={props.details.seeker.toString()}  />
-                <DetailsCharacteristic name="Высота штатива" value={props.details.tripodHeight.toString()}  />
-                <DetailsCharacteristic name="Материал штатива" value={props.details.tripodMaterial.toString()}  />
-                <DetailsCharacteristic name="Тип телескопа" value={getTelescopeType(props.details.type)} />
-                <DetailsCharacteristic name="Пользовательский уровень" value={getUserLevel(props.details.telescopeUserLevel)}  />
-                <DetailsCharacteristic name="Вес" value={props.details.weight?.toString()}  />
-            </Col>
-        </Row>
-    </>
-    );
+    return (
+    <Row className="order-step-card p-3 mb-2">
+        <Col>
+            <Row className="mb-2">
+                <h1 className="ui-section-header pt-2"><Local id="Characteristics"/></h1>
+            </Row>
+            <Row>
+                <Col>
+                    <DetailsCharacteristic name="Апертура (мм)" value={props.details.aperture?.toString()} />
+                    <DetailsCharacteristic name="Светосила (относительное отверстие)" value={props.details.apertureRatio?.toString()}  />
+                    <DetailsCharacteristic name="Посадочный диаметр окуляров (дюймов)" value={props.details.eyepieceFittingDiameter?.toString()}  />
+                    <DetailsCharacteristic name="Фокусное расстояние (мм)" value={props.details.focusDistance?.toString()}  />
+                    <DetailsCharacteristic name="Максимальное полезное увеличение (крат.)" value={props.details.maxUsefulScale?.toString()}  />
+                    <DetailsCharacteristic name="Минимальное полезное увеличение (крат.)" value={props.details.minUsefulScale?.toString()}  />
+                    <DetailsCharacteristic name="Тип монтировки" value={getMountingType(props.details.mountingType)}  />
+                    <DetailsCharacteristic name="Тип управления телескопом" value={getTelescopeControlType(props.details.telescopeControlType)}  />
+                    <DetailsCharacteristic name="Окуляры" value={getEyepieces(props.details.telescopeEyepieces)}  />
+                </Col>
+                <Col>
+                    <DetailsCharacteristic name="Увеличение максимальное (крат.)" value={props.details.scaleMax?.toString()}  />
+                    <DetailsCharacteristic name="Увеличение минимальное (крат.)" value={props.details.scaleMin?.toString()}  />
+                    <DetailsCharacteristic name="Искатель" value={props.details.seeker?.toString()}  />
+                    <DetailsCharacteristic name="Высота штатива" value={props.details.tripodHeight?.toString()}  />
+                    <DetailsCharacteristic name="Материал штатива" value={props.details.tripodMaterial?.toString()}  />
+                    <DetailsCharacteristic name="Тип телескопа" value={getTelescopeType(props.details.type)} />
+                    <DetailsCharacteristic name="Пользовательский уровень" value={getUserLevel(props.details.telescopeUserLevel)}  />
+                    <DetailsCharacteristic name="Вес" value={props.details.weight?.toString()}  />
+                </Col>
+            </Row>
+        </Col>
+    </Row>);
 };

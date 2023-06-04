@@ -11,5 +11,6 @@ public class GetCustomerCartSpecification : Specification<Entities.Cart>
         AddInclude($"{nameof(Entities.Cart.CartItems)}.{nameof(CartItem.Product)}.{nameof(Product.Brand)}");
         AddInclude($"{nameof(Entities.Cart.CartItems)}.{nameof(CartItem.Product)}.{nameof(Product.Category)}");
         AddInclude($"{nameof(Entities.Cart.CartItems)}.{nameof(CartItem.Product)}.{nameof(Product.Comments)}");
+        AddInclude($"{nameof(Entities.Cart.CartItems)}.{nameof(CartItem.Product)}.{nameof(Product.Files)}");
     }
 }

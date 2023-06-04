@@ -14,6 +14,7 @@ import { TelescopeUserLevel } from "../../../dataModels/enums/telescope/telescop
 import { TelescopeControlType } from "../../../dataModels/enums/telescope/telescopeControlType";
 import { MountingType } from "../../../dataModels/enums/telescope/mountingType";
 import { TextFormControl } from "../../common/controls/formControls/textFormControl";
+import { Col, Row } from "reactstrap";
 
 interface Props {
     onApply: (model: TelescopesFilterData) => void;
@@ -44,7 +45,7 @@ interface FormSpecificFilterData {
     isEquatorialEQ1Mounting?: boolean;
 }
 
-export interface TelescopesFilterDataFilterFormData extends TelescopesFilterData {
+export interface FilterFormData extends TelescopesFilterData {
     formSpecifics: FormSpecificFilterData;
 }
 
@@ -79,7 +80,7 @@ const telescopesControlTypes = {
     autoguidance: "Autoguidance",
 };
 
-const convertFilterToFormData = (filterData: TelescopesFilterData): TelescopesFilterDataFilterFormData => {
+const convertFilterToFormData = (filterData: TelescopesFilterData): FilterFormData => {
     return {
         formSpecifics: {
             isTelescopeRefractorType: filterData?.telescopeTypes.some(t => t === TelescopeType.Refractor),
@@ -107,7 +108,7 @@ const convertFilterToFormData = (filterData: TelescopesFilterData): TelescopesFi
     };
 };
 
-const convertFormToFilterData = (formData: TelescopesFilterDataFilterFormData): TelescopesFilterData => {
+const convertFormToFilterData = (formData: FilterFormData): TelescopesFilterData => {
     const { formSpecifics, ...restFilterData } = formData;
 
     return {
@@ -143,27 +144,27 @@ const convertFormToFilterData = (formData: TelescopesFilterDataFilterFormData): 
 
 export const TelescopesFilter = (props: Props) => {
     const [fullView, setFullView] = useState(false);
-    const [formState, setFormState] = useState<TelescopesFilterDataFilterFormData>(
+    const [formState, setFormState] = useState<FilterFormData>(
         convertFilterToFormData(props.filterFromQuery || props.defaultFilter));
 
     const location = useLocation();
 
     useEffect(() => {
         const recurringPaymentRequestsFilter = filterDataStore
-            .getFilterData<TelescopesFilterDataFilterFormData>(location.key);
+            .getFilterData<FilterFormData>(location.key);
 
         if (recurringPaymentRequestsFilter) {
             applyFilter(recurringPaymentRequestsFilter);
         }
     }, []);
 
-    const applyFilter = (value: TelescopesFilterDataFilterFormData) => {
+    const applyFilter = (value: FilterFormData) => {
         setFormState(value);
         props.onApply(convertFormToFilterData(value));
     };
 
-    const onSubmitFilter = (value: TelescopesFilterDataFilterFormData) => {
-        filterDataStore.saveFilterData<TelescopesFilterDataFilterFormData>(value, location.key);
+    const onSubmitFilter = (value: FilterFormData) => {
+        filterDataStore.saveFilterData<FilterFormData>(value, location.key);
         applyFilter(value);
     };
 
@@ -175,7 +176,7 @@ export const TelescopesFilter = (props: Props) => {
     return (<FinalForm
         onSubmit={onSubmitFilter}
         initialValues={formState}
-        render={({ invalid, ...renderProps }: FormRenderProps<TelescopesFilterDataFilterFormData>) => {
+        render={({ invalid, ...renderProps }: FormRenderProps<FilterFormData>) => {
             const onTelescopeTypeChange = () => !fullView && renderProps.handleSubmit();
             const primarySearchContent = <>
                 <div className="group-items">
@@ -206,11 +207,17 @@ export const TelescopesFilter = (props: Props) => {
 
             const advancedSearchContent = <>
                 <FilterSection headerKey="ByPrice">
-                    <div className="group-items">
-                        <TextFormControl name="priceMin" />
-                        <span>-</span>
-                        <TextFormControl name="priceMax" />
-                    </div>
+                    <Row className="group-items">
+                        <Col className="col-5 d-flex align-items-center">
+                            <TextFormControl name="priceMin" className="filter-price" />
+                        </Col>
+                        <Col className="col-1 d-flex align-items-center">
+                            <span> — </span>
+                        </Col>
+                        <Col className="d-flex align-items-center">
+                            <TextFormControl name="priceMax" className="filter-price" />
+                        </Col>
+                    </Row>
                 </FilterSection>
                 <FilterSection headerKey="ByBrand">
                     <div className="group-items">

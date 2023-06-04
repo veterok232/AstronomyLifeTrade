@@ -72,12 +72,44 @@ public static class Routes
         public const string Upload = "upload";
     }
     
+    public static class Comments
+    {
+        public const string Root = "comments";
+        
+        public const string Get = "get/{productId}";
+        
+        public const string Publish = "publish";
+    }
+    
     public static class Orders
     {
         public const string Root = "orders";
         
+        public const string Search = "search";
+        
+        public const string Details = "details/{orderId}";
+        
         public const string GetCustomerInfo = "get-customer-info";
         
         public const string MakeOrder = "make-order";
+        
+        public const string PostponeOrder = "postpone-order/{orderId}";
+        
+        public const string CancelOrder = "cancel-order/{orderId}";
+        
+        public const string ApproveOrder = "approve-order/{orderId}";
+        
+        public const string CloseOrder = "close-order/{orderId}";
+    }
+    
+    public static class AccountProfile
+    {
+        public const string Root = "account-profile";
+        
+        public const string GetUserInfo = "get-user-info";
+        
+        public const string SaveUserInfo = "save-user-info";
+        
+        public const string SaveUserAddress = "save-user-address";
     }
 }

@@ -1,0 +1,62 @@
+$form-control-class: ".form-control";
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+    width: 100%;
+}
+
+.form-group {
+    .react-datepicker__input-container {
+        input {
+            margin-bottom: 0;
+        }
+
+        position: relative;
+
+        &:before {
+            position: absolute;
+            right: 14px;
+            top: 14px;
+            content: "\e935";
+            font-family: "Material Icons";
+            color: $color-middle-grey;
+            pointer-events: none;
+            font-size: 22px;
+            line-height: 22px;
+        }
+
+        &:focus-within {
+            &:before {
+                color: $primary;
+            }
+        }
+    }
+
+    .react-datepicker-popper {
+        z-index: 4;
+        width: max-content;
+    }
+}
+
+.form-group {
+    .form-control--warning .react-datepicker__input-container {
+        &:before {
+            color: $color-yellow-5;
+        }
+
+        .form-control {
+            border-color: $color-yellow-5;
+        }
+    }
+
+    .form-control--error .react-datepicker__input-container {
+        &:before {
+            color: $color-secondary-alt;
+        }
+
+        .form-control {
+            border-color: $color-secondary-alt;
+        }
+    }
+}
