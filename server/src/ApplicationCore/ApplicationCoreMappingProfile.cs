@@ -26,6 +26,9 @@ public class ApplicationCoreMappingProfile : Profile
         CreateMap<Brand, BrandModel>();
         CreateMap<Category, CategoryModel>();
         CreateMap<TelescopeSearchModel, TelescopesSearchData>();
+        CreateMap<BinocularSearchModel, BinocularsSearchData>();
+        CreateMap<ProductsSearchModel, ProductsSearchData>();
+        CreateMap<AccessoriesSearchModel, AccessoriesSearchData>();
         CreateMap(typeof(SearchResult<>), typeof(SearchResult<>));
         CreateMap<UserRegistrationModel, User>();
         
@@ -51,9 +54,9 @@ public class ApplicationCoreMappingProfile : Profile
         
         CreateMap<Order, OrderDetailsModel>()
             .ForMember(d => d.Quantity, o => o.MapFrom(s => s.OrderItems.Count))
-            .ForMember(d => d.CustomerFirstName, o => o.MapFrom(s => s.ConsumerAssignment.PersonalData.FirstName))
-            .ForMember(d => d.CustomerLastName, o => o.MapFrom(s => s.ConsumerAssignment.PersonalData.LastName))
-            .ForMember(d => d.Address, o => o.MapFrom(s => s.ConsumerAssignment.PersonalData.Address));
+            .ForMember(d => d.CustomerFirstName, o => o.MapFrom(s => s.FirstName))
+            .ForMember(d => d.CustomerLastName, o => o.MapFrom(s => s.LastName))
+            .ForMember(d => d.Address, o => o.MapFrom(s => s.Address));
         
         CreateMap<OrderItem, OrderItemModel>();
         
@@ -62,5 +65,12 @@ public class ApplicationCoreMappingProfile : Profile
             .ForMember(d => d.UserLastName, o => o.MapFrom(s => s.Assignment.PersonalData.LastName));
 
         CreateMap<CommentModel, Comment>();
+        CreateMap<CreateProductModel, Product>();
+        CreateMap<TelescopeCharacteristics, Telescope>();
+        CreateMap<EditProductModel, Product>()
+            .IgnoreProperties(d => d.Quantity);
+        CreateMap<GetUserOrdersModel, OrdersSearchData>();
+        CreateMap<BinocularCharacteristics, Binocular>();
+        CreateMap<AccessoryCharacteristics, Accessory>();
     }
 }

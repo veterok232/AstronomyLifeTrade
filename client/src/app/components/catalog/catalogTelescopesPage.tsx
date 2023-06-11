@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 import React, { useMemo, useState } from "react";
 import { localizer } from "../localization/localizer";
-import { Col, Form, Input, Row } from "reactstrap";
+import { Button, Col, Form, Input, Row } from "reactstrap";
 import { Local } from "../localization/local";
 import { ProductListItem } from "../../dataModels/catalog/productListItem";
 import useAsyncEffect from "use-async-effect";
@@ -22,10 +22,14 @@ import Sorting from "../common/controls/sorting/sorting";
 import { Pageable } from "../../dataModels/common/pageable";
 import { TelescopesFilter } from "./filters/telescopesFilter";
 import { searchTelescopes } from "../../api/catalog/catalogApi";
-import { onAddToCart, onAddToFavorites } from "./catalogActions";
+import { onAddToCart, onAddToFavorites, onDeleteProduct } from "./catalogActions";
 import { TelescopeType } from "../../dataModels/enums/telescope/telescopeType";
 import { generateRandomString } from "../../utils/stringUtils";
 import { uploadFile } from "../../api/file/filesApi";
+import { sharedHistory } from "../../infrastructure/sharedHistory";
+import { getRoute } from "../../utils/routeUtils";
+import { routeLinks } from "../layout/routes/routeLinks";
+import { isStaff } from "../../infrastructure/services/auth/authService";
 
 const defaultFilter: TelescopesFilterData = {
     telescopeTypes: [
@@ -94,20 +98,18 @@ export const CatalogTelescopesPage = () => {
 
     return (
         <div className="catalog-page">
-            <Row>
+            <Row className="mb-3">
                 <Col xs={4} >
                     <h1 className="ui-page-header pt-2"><Local id="Telescopes" /></h1>
-                    {/* <Form>
-                        <Input
-                            type="file"
-                            className=""
-                            key={fileInputKey}
-                            onChange={uploadFiles}
-                            multiple
-                        />
-                    </Form> */}
-
                 </Col>
+                {isStaff() &&
+                    <Col>
+                        <Button
+                            onClick={() => sharedHistory.push(getRoute(routeLinks.catalog.createProduct))}
+                            className="float-right">
+                            <Local id="CreateProduct" />
+                        </Button>
+                    </Col>}
             </Row>
             <p className="catalog category-description">
                 {localizer.get("TelescopesCategoryDescription")}
@@ -130,7 +132,9 @@ export const CatalogTelescopesPage = () => {
                                 key={ind}
                                 product={product}
                                 onAddToFavorites={async () => await onAddToFavorites(product.productId)}
-                                onAddToCart={async () => await onAddToCart(product.productId)} />)
+                                onAddToCart={async () => await onAddToCart(product.productId)}
+                                onEditProduct={() => sharedHistory.push(getRoute(routeLinks.catalog.editProduct, product.productId))}
+                                onDeleteProduct={async () => await onDeleteProduct(product.productId)} />)
                         : <NoData />}
                 </Row>
             </div>

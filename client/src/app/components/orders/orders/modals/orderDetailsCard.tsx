@@ -23,7 +23,7 @@ export const OrderDetailsCard = (props: Props) => {
     }
 
     return (
-        <Row className="order-details-item w-100 ml-2">
+        <Row className="order-details-item w-100 ml-2 mb-4">
             <Col>
                 <Row className="order-item-header">
                     <Col className="d-flex align-items-center ml-3 p-0">

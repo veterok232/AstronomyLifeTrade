@@ -85,9 +85,7 @@ const RichSelectControl = (props: RichSelectControlProps) => {
                             val && ((Array.isArray(val) && val.map((v: LabeledValue) => v.value)) || val.value)
                         );
                         if (props.onChange) {
-                            props.onChange(
-                                val && (val.value === undefined ? val.map((v: LabeledValue) => v.value) : val.value)
-                            );
+                            props.onChange(val.value);
                         }
                     },
                     onInputChange: (inputValue: string) => {

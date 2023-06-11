@@ -4,10 +4,11 @@ import { IconicSearchButton } from "../../common/controls/buttons/iconicSearchBu
 import { TextFormControl } from "../../common/controls/formControls/textFormControl";
 import { Form as FinalForm, FormRenderProps } from "react-final-form";
 import { Col, Form, Row } from "reactstrap";
+import { FormApi } from "final-form";
 
 interface Props {
     className?: string;
-    onSearch: () => void;
+    onSearch: (searchString: string) => void;
 }
 
 interface SearchFormData {
@@ -15,18 +16,31 @@ interface SearchFormData {
 }
 
 export const CatalogSearchBar = (props: Props) => {
+    const onSearch = (searchString: string, form: FormApi<SearchFormData, Partial<SearchFormData>>) => {
+        if (!searchString) {
+            return;
+        }
+
+        props.onSearch(searchString);
+        form.reset();
+    };
+
     return (
         <div>
-            <FinalForm onSubmit={props.onSearch}
-                render={({ values, ...renderProps }: FormRenderProps<SearchFormData>) => {
+            <FinalForm onSubmit={() => null}
+                render={({ values, form, ...renderProps }: FormRenderProps<SearchFormData>) => {
                     return (
                     <Form className="d-flex">
                         <Row className="align-items-center mx-4">
                             <Col className="align-content-center m-0 p-0">
-                                <TextFormControl className="search-bar search m-0 p-0" name="seachString" />
+                                <TextFormControl
+                                    className="search-bar search m-0 p-0" name="searchString"
+                                    placeholder="Например, телескоп" />
                             </Col>
                             <Col className="align-content-center m-0 p-0">
-                                <IconicSearchButton className="search-bar search-button m-0 p-0" onSearch={props.onSearch}/>
+                                <IconicSearchButton
+                                    className="search-bar search-button m-0 p-0"
+                                    onSearch={() => onSearch(values.searchString, form)} />
                             </Col>
                         </Row>
                     </Form>);

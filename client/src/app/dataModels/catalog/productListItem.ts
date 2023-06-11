@@ -15,4 +15,5 @@ export interface ProductListItem {
     specialNote: string;
     characteristicsModels: CharacteristicModel[];
     productRating: ProductRating;
+    code: string;
 }

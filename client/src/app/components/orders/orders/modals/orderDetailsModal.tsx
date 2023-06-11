@@ -17,6 +17,7 @@ import { showConfirmation } from "../../../common/confirmationModal";
 
 interface Props {
     orderId: string;
+    fromOrdersHistory?: boolean;
 }
 
 interface OrderDetailsFormData {
@@ -29,6 +30,13 @@ const closeModal = () => {
 
 export const OrderDetailsModal = (props: Props) => {
     const [orderDetails, setOrderDetails] = useState<OrderDetailsModel>();
+
+    const shouldHideRemoveButton = () => {
+        return orderDetails?.orderItems.length === 1 ||
+            orderDetails?.orderStatus === OrderStatus.Approved ||
+            orderDetails?.orderStatus === OrderStatus.Cancelled ||
+            orderDetails?.orderStatus === OrderStatus.Closed;
+    };
 
     const onRemoveItem = async (index: number) => {
         await removeOrderItem({
@@ -97,43 +105,63 @@ export const OrderDetailsModal = (props: Props) => {
                     }}
                     mutators={{...arrayMutators}}
                     render={({ values, handleSubmit }: FormRenderProps<OrderDetailsFormData>) => (
-                        <Form onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit} className="w-100">
                             <OrderDetailsCard
                                 orderDetails={orderDetails}
                                 ind={0} />
+                            {(orderDetails?.customerNotes && !props.fromOrdersHistory) &&
+                                <Row className="customer-comment-card w-100 ml-2">
+                                    <Col>
+                                        <Row className="comment-header py-1 pl-3">
+                                            <Col className="pl-0">
+                                                <span className="ui-section-header"><Local id="CustomerComment" /></span>
+                                            </Col>
+                                        </Row>
+                                        <Row className="comment-body py-1 pl-3">
+                                            <Col className="pl-0">
+                                                <p>{orderDetails.customerNotes}</p>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            }
                             <OrderDetailsItemsControl orderItems={values.orderDetails?.orderItems}
-                                onRemoveItem={onRemoveItem} />
-                            <Row className="order-step-card p-3 mb-2">
-                                <Col>
-                                    <Row className="mb-2">
-                                        {orderDetails?.orderStatus === OrderStatus.Pending &&
-                                            <Button className="order-action-button button-postpone mr-2"
-                                                onClick={() => onPostponeOrder(props.orderId)}>
-                                                    {localizer.get("PostponeOrder")}
-                                            </Button>
-                                        }
-                                        {(orderDetails?.orderStatus === OrderStatus.Pending || orderDetails?.orderStatus === OrderStatus.Postponed ||
-                                          orderDetails?.orderStatus === OrderStatus.Approved) &&
-                                            <Button className="order-action-button button-cancel mr-2"
-                                                onClick={() => onCancelOrder(props.orderId)}>
-                                                    {localizer.get("CancelOrder")}
-                                            </Button>
-                                        }
-                                        {(orderDetails?.orderStatus === OrderStatus.Pending || orderDetails?.orderStatus === OrderStatus.Postponed) &&
-                                            <Button className="order-action-button button-approve mr-2"
-                                                onClick={() => onApproveOrder(props.orderId)}>
-                                                    {localizer.get("ApproveOrder")}
-                                            </Button>
-                                        }
-                                        {(orderDetails?.orderStatus === OrderStatus.Approved) &&
-                                            <Button className="order-action-button button-close mr-2"
-                                                onClick={() => onCloseOrder(props.orderId)}>
-                                                    {localizer.get("CloseOrder")}
-                                            </Button>
-                                        }
-                                    </Row>
-                                </Col>
-                            </Row>
+                                onRemoveItem={onRemoveItem}
+                                hideRemoveButton={props.fromOrdersHistory || shouldHideRemoveButton()}
+                                closeModal={closeModal}/>
+                            {!props.fromOrdersHistory &&
+                                <Row className="order-step-card p-3 mb-2">
+                                    <Col>
+                                        <Row className="mb-2">
+                                            {orderDetails?.orderStatus === OrderStatus.Pending &&
+                                                <Button className="order-action-button button-postpone mr-2"
+                                                    onClick={() => onPostponeOrder(props.orderId)}>
+                                                        {localizer.get("PostponeOrder")}
+                                                </Button>
+                                            }
+                                            {(orderDetails?.orderStatus === OrderStatus.Pending || orderDetails?.orderStatus === OrderStatus.Postponed ||
+                                            orderDetails?.orderStatus === OrderStatus.Approved) &&
+                                                <Button className="order-action-button button-cancel mr-2"
+                                                    onClick={() => onCancelOrder(props.orderId)}>
+                                                        {localizer.get("CancelOrder")}
+                                                </Button>
+                                            }
+                                            {(orderDetails?.orderStatus === OrderStatus.Pending || orderDetails?.orderStatus === OrderStatus.Postponed) &&
+                                                <Button className="order-action-button button-approve mr-2"
+                                                    onClick={() => onApproveOrder(props.orderId)}>
+                                                        {localizer.get("ApproveOrder")}
+                                                </Button>
+                                            }
+                                            {(orderDetails?.orderStatus === OrderStatus.Approved) &&
+                                                <Button className="order-action-button button-close mr-2"
+                                                    onClick={() => onCloseOrder(props.orderId)}>
+                                                        {localizer.get("CloseOrder")}
+                                                </Button>
+                                            }
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            }
                         </Form>)}
                 />
             </ModalBody>

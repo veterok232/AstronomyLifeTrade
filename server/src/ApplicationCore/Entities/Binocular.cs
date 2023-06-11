@@ -16,11 +16,11 @@ public class Binocular : Entity
     
     public decimal FovMax { get; set; }
     
-    public decimal HasAdapter { get; set; }
+    public string HasAdapter { get; set; }
     
-    public decimal HasCase { get; set; }
+    public string HasCase { get; set; }
     
-    public decimal HasMoistureProtection { get; set; }
+    public string HasMoistureProtection { get; set; }
     
     public decimal InterpupillaryDistanseMin { get; set; }
     
@@ -45,9 +45,7 @@ public class Binocular : Entity
     public decimal ScaleMin { get; set; }
     
     public decimal ScaleMax { get; set; }
-    
-    public BinocularSize Size { get; set; }
-    
+
     public decimal Weight { get; set; }
     
     public Guid ProductId { get; set; }

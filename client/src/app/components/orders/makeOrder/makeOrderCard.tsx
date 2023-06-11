@@ -24,7 +24,7 @@ export const MakeOrderCard = (props: Props) => {
         <Row className="make-order-card-section">
             <Col>
                 <LabeledField labelKey={"TotalAmount"}
-                    value={<CardPrice className="p-1 mx-auto" value={props.totalAmount} currency={CurrencyType.BYN} />} />
+                    value={<CardPrice className="mx-auto" value={props.totalAmount} currency={CurrencyType.BYN} />} />
             </Col>
         </Row>
         <Row className="make-order-card-section">

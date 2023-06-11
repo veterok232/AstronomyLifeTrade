@@ -1,5 +1,7 @@
 import { ListResult } from "../../dataModels/common/listResult";
+import { Pageable } from "../../dataModels/common/pageable";
 import { Result } from "../../dataModels/common/result";
+import { Sortable } from "../../dataModels/common/sortable";
 import { MakeOrderModel } from "../../dataModels/orders/makeOrder/makeOrderModel";
 import { OrderCustomerInfo } from "../../dataModels/orders/makeOrder/orderCustomerInfo";
 import { OrderDetailsModel } from "../../dataModels/orders/orderDetailsModel";
@@ -32,6 +34,13 @@ export async function getOrderCustomerInfo(): Promise<OrderCustomerInfo> {
     });
 }
 
+export async function getUserOrders(searchRequest: Sortable & Pageable): Promise<ListResult<OrderListItem>> {
+    return httpGet({
+        url: `${resourceName}/user-orders?${stringifyObjectToQueryString(searchRequest)}`,
+        disableSuccessfulToast: true,
+    });
+}
+
 export async function makeOrder(data: MakeOrderModel): Promise<Result<number>> {
     return httpPost({
         url: `${resourceName}/make-order`,
@@ -44,7 +53,6 @@ export async function removeOrderItem(data: RemoveOrderItemModel) {
     return httpPost({
         url: `${resourceName}/remove-order-item`,
         body: data,
-        disableSuccessfulToast: true,
     });
 }
 

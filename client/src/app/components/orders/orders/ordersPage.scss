@@ -1,0 +1,12 @@
+.customer-comment-card {
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
+    .comment-body {
+        background-color: rgb(255, 253, 232);
+    }
+
+    .comment-header {
+        background-color: rgb(252, 252, 211);
+    }
+}

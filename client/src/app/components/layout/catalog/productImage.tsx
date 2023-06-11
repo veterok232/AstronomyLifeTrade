@@ -29,7 +29,7 @@ export const ProductImage = (props: Props) => {
     return (
         <Link to={getLinkToProductDetails(props.productId)} >
             <ImagePreview
-                className={`card-product-image ${props.className}`}
+                className={`${props.className}`}
                 image={productImageUrl} />
         </Link>
     );

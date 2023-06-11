@@ -1,12 +1,14 @@
 import { isConsumer, isManager, isStaff } from "../../infrastructure/services/auth/authService";
 import { sharedHistory } from "../../infrastructure/sharedHistory";
 import { contextStore } from "../../infrastructure/stores/contextStore";
-import { getRoute } from "../../utils/routeUtils";
+import { addQueryParameter, getRoute } from "../../utils/routeUtils";
 import { routeLinks } from "../layout/routes/routeLinks";
 import { notifications } from "../toast/toast";
 
-export const onSearch = () => {
-
+export const onSearch = (searchString: string) => {
+    sharedHistory.push(getRoute(addQueryParameter(
+        routeLinks.catalog.search,
+        { searchString: searchString })));
 };
 
 export const onCartOpen = () => {
@@ -63,4 +65,14 @@ export const onManagerProfileOpen = () => {
     }
 
     sharedHistory.push(getRoute(routeLinks.account.managerProfile));
+};
+
+export const onStaffProfileOpen = () => {
+    if (!isStaff()) {
+        notifications.localizedWarning("NeedToAuthorize");
+        sharedHistory.push(getRoute(routeLinks.account.login));
+        return;
+    }
+
+    sharedHistory.push(getRoute(routeLinks.account.staffProfile));
 };

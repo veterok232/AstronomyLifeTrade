@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Enums;
 using ApplicationCore.Models.Catalog;
+using ApplicationCore.Models.Files;
 using ApplicationCore.Specifications.Common;
 
 namespace ApplicationCore.Specifications.Catalog;
@@ -13,8 +14,8 @@ public class TelescopeDetailsByProductIdSpecification : DataTransformSpecificati
             {
                 Brand = new BrandModel
                 {
-                    BrandId = t.Product.Brand.Id,
-                    BrandName = t.Product.Brand.Name,
+                    Id = t.Product.Brand.Id,
+                    Name = t.Product.Brand.Name,
                 },
                 Category = new CategoryModel
                 {
@@ -81,6 +82,13 @@ public class TelescopeDetailsByProductIdSpecification : DataTransformSpecificati
                 ProductImagesIds = t.Product.Files
                     .Where(f => f.ProductFileType == ProductFileType.Image)
                     .Select(f => f.FileId).ToList(),
+                ProductFiles = t.Product.Files
+                    .Where(f => f.ProductFileType == ProductFileType.File)
+                    .Select(f => new FileModel
+                    {
+                        Id = f.FileId,
+                        Name = f.File.FullFileName,
+                    }).ToList(),
             },
             t => t.ProductId == productId)
     {

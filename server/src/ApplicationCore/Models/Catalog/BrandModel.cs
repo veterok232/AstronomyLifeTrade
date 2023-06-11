@@ -1,8 +1,12 @@
-﻿namespace ApplicationCore.Models.Catalog;
+﻿using ApplicationCore.Enums;
+
+namespace ApplicationCore.Models.Catalog;
 
 public class BrandModel
 {
-    public Guid BrandId { get; set; }
+    public Guid Id { get; set; }
     
-    public string? BrandName { get; set; }
+    public string? Name { get; set; }
+    
+    public CategoryType? CategoryType { get; set; }
 }

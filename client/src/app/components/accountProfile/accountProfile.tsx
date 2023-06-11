@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Form as FinalForm, FormRenderProps } from "react-final-form";
 import { Local } from "../localization/local";
 import { Button, Col, Form, Row } from "reactstrap";
@@ -20,6 +20,20 @@ import { LabeledValue } from "../common/controls/labeledValue";
 import { Address } from "../../dataModels/address";
 import { showNotificationIfInvalid } from "../common/controls/validation/formValidators";
 import { parseISO } from "date-fns";
+import { ListResult } from "../../dataModels/common/listResult";
+import { OrderListItem } from "../../dataModels/orders/orderListItem";
+import { FilterData, ListRequestHandler } from "../common/lists/listRequestHandler";
+import { SortOrder } from "../../dataModels/enums/sortOrder";
+import { Constants } from "../constants";
+import { Sortable } from "../../dataModels/common/sortable";
+import { Pageable } from "../../dataModels/common/pageable";
+import { calculatePageNumber } from "../../utils/paginationUtils";
+import { OrderCard } from "../orders/orders/orderCard";
+import { NoData } from "../common/presentation/noData";
+import { modalsStore } from "../../infrastructure/stores/modalsStore";
+import { modalsTypes } from "../layout/modals/modalsTypes";
+import { getUserOrders } from "../../api/orders/ordersApi";
+import { PaginationControl } from "../common/controls/pagination/paginationControl";
 
 const genderOptions: LabeledValue[] = [{
     label: "Мужской",
@@ -32,8 +46,33 @@ const genderOptions: LabeledValue[] = [{
     value: "Other",
 }];
 
+const defaultSorting: Sortable = {
+    sortBy: "OrderNumber",
+    direction: SortOrder.Descending,
+};
+
+const defaultPaging: Pageable = {
+    pageNumber: 1,
+    pageSize: Constants.paging.ordersHistoryPageSize,
+};
+
 export const AccountProfilePage = () => {
     const [userInfo, setUserInfo] = useState<UserInfoModel>();
+    const [orders, setOrders] = useState<ListResult<OrderListItem>>();
+
+    async function loadOrders(request: FilterData<{}>) {
+        setOrders(await getUserOrders(request));
+    }
+
+    const listHandler = useMemo(() =>
+        new ListRequestHandler<{}>(
+            {}, defaultPaging, defaultSorting, loadOrders), []);
+
+    useAsyncEffect(async () => {
+        await loadOrders(listHandler.getRequest());
+    }, []);
+
+    const pagesCount = calculatePageNumber(orders?.totalCount, Constants.paging.ordersHistoryPageSize);
 
     useAsyncEffect(async () => {
         const userInfo = await getUserInfo();
@@ -43,7 +82,12 @@ export const AccountProfilePage = () => {
         });
     }, []);
 
-    const onSubmit = async (userInfo: UserInfoModel) => {
+    const onSaveUserInfo = async (userInfo: UserInfoModel, valid: boolean) => {
+        if (!valid) {
+            showNotificationIfInvalid(valid);
+            return;
+        }
+
         await saveUserInfo({ ...userInfo });
     };
 
@@ -56,9 +100,20 @@ export const AccountProfilePage = () => {
         sharedHistory.push(getRoute(routeLinks.catalog.root));
     };
 
+    const onShowOrderDetails = (orderId: string) => {
+        modalsStore.openModal({
+            modalType: modalsTypes.orderDetailsModal,
+            modalProps: {
+                orderId: orderId,
+                fromOrdersHistory: true,
+            },
+            size: "xl",
+        });
+    };
+
     return (
         <FinalForm
-        onSubmit={onSubmit}
+        onSubmit={() => null}
         initialValues={userInfo}
         mutators={{...arrayMutators}}
         render={({ values, handleSubmit, valid }: FormRenderProps<UserInfoModel>) => (
@@ -115,7 +170,7 @@ export const AccountProfilePage = () => {
                         </Row>
                         <Row className="mt-3">
                             <Col>
-                                <Button type="submit" className="float-right" onClick={() => showNotificationIfInvalid(valid)}>
+                                <Button className="float-right" onClick={() => onSaveUserInfo(values, valid)}>
                                     <Local id="SaveChanges" />
                                 </Button>
                             </Col>
@@ -153,6 +208,23 @@ export const AccountProfilePage = () => {
                         <Row className="mb-2">
                             <h1 className="ui-section-header pt-2"><Local id="OrdersHistory" /></h1>
                         </Row>
+                        <Row className="p-3">
+                            {orders?.totalCount > 0
+                                ? orders.items.map((order, ind) =>
+                                    <OrderCard
+                                        key={ind}
+                                        ind={ind}
+                                        order={order}
+                                        onShowOrderDetails={() => onShowOrderDetails(order.id)} />)
+                                : <NoData localizationKey="NoOrdersYet"/>}
+                        </Row>
+                        {pagesCount > 1 &&
+                            <div className="mt-3 justify-content-center">
+                                <PaginationControl
+                                    totalPages={pagesCount}
+                                    onChange={x => listHandler.applyListOptions({ pageNumber: x })}
+                                    extPageHandler={listHandler.pageHandler} />
+                            </div>}
                     </Col>
                 </Row>
             </Form>)}

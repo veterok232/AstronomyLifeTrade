@@ -7,13 +7,14 @@ interface Props {
     labelKey: string;
     value: string | number | JSX.Element;
     isHorizontalView?: boolean;
+    supressMargins?: boolean;
 }
 
 export const LabeledField = (props: Props) => {
     return (
         <Row className={props.className}>
             {!props.isHorizontalView &&
-                <div className="labeled-field">
+                <div className={`labeled-field ${props.supressMargins && "pb-0"}`}>
                     <Label className="field-key mb-1">
                         <Local id={props.labelKey} />
                     </Label>

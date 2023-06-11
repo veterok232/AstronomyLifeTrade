@@ -30,6 +30,7 @@ export const Constants = {
     },
     paging: {
         defaultPageSize: 10,
+        ordersHistoryPageSize: 3,
         maxPagingControlItemsCount: 5,
         itemsBeforeEllipsisCount: 3,
         defaultPageSizeOptions: [

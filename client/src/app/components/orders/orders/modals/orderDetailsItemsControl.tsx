@@ -9,6 +9,8 @@ import { OrderDetailsItemElement } from "./orderDetailsItemElement";
 interface Props {
     orderItems: OrderItem[];
     onRemoveItem: (index: number) => Promise<void>;
+    hideRemoveButton?: boolean;
+    closeModal: () => void;
 }
 
 export const OrderDetailsItemsControl = (props: Props) => {
@@ -24,10 +26,12 @@ export const OrderDetailsItemsControl = (props: Props) => {
                         withParent(OrderDetailsItemElement, name, {
                             item: props.orderItems[i],
                             ind: i,
+                            hideRemoveButton: props.hideRemoveButton,
                             onRemoveItem: async () => {
                                 await props.onRemoveItem(i);
                                 fields.remove(i);
                             },
+                            closeModal: props.closeModal,
                         }
                     )))}
                 </Row>

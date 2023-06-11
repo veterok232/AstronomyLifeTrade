@@ -35,9 +35,31 @@ public static class Routes
 
         public const string GetPopularProducts = "get-popular-products";
 
+        public const string GetBrands = "get-brands";
+        
+        public const string GetCategories = "get-categories";
+
         public const string SearchTelescopes = "telescopes";
         
+        public const string SearchBinoculars = "binoculars";
+        
+        public const string SearchAccessories = "accessories";
+        
+        public const string SearchProducts = "search";
+        
         public const string ProductDetails = "product-details/{productId}";
+        
+        public const string CreateProduct = "create-product";
+        
+        public const string EditProduct = "edit-product";
+        
+        public const string EditProductCharacteristics = "edit-product-characteristics";
+        
+        public const string CreateProductCharacteristics = "create-product-characteristics";
+        
+        public const string ProductForEdit = "product-for-edit/{productId}";
+        
+        public const string DeleteProduct = "delete-product/{productId}";
 
         public const string GetProductRating = "get-product-rating/{productId}";
 
@@ -87,6 +109,8 @@ public static class Routes
         
         public const string Search = "search";
         
+        public const string UserOrders = "user-orders";
+        
         public const string Details = "details/{orderId}";
         
         public const string GetCustomerInfo = "get-customer-info";
@@ -100,6 +124,8 @@ public static class Routes
         public const string ApproveOrder = "approve-order/{orderId}";
         
         public const string CloseOrder = "close-order/{orderId}";
+        
+        public const string RemoveOrderItem = "remove-order-item";
     }
     
     public static class AccountProfile
@@ -107,6 +133,17 @@ public static class Routes
         public const string Root = "account-profile";
         
         public const string GetUserInfo = "get-user-info";
+        
+        public const string SaveUserInfo = "save-user-info";
+        
+        public const string SaveUserAddress = "save-user-address";
+    }
+    
+    public static class AstronomicalCalculator
+    {
+        public const string Root = "astronomical-calculator";
+        
+        public const string GetMostMatchingTelescopes = "get-most-matching-telescopes";
         
         public const string SaveUserInfo = "save-user-info";
         

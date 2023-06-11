@@ -77,6 +77,7 @@ export const inputMasks = {
 export function getLimitedIntegerMask(limit?: number): InputMask {
     return createNumberMask({
         ...getLimitedIntegerMaskConfig(limit),
+        allowNegative: true,
     });
 }
 
@@ -93,10 +94,10 @@ export function getLimitedDecimalMask(integerPartLimit?: number, decimalPartLimi
     });
 }
 
-export function getCurrencyMask(integerPartLimit?: number, hideDollarPrefix = false, allowNegative = false): InputMask {
+export function getCurrencyMask(integerPartLimit?: number, hideCurrencyPrefix = false, allowNegative = false): InputMask {
     return createNumberMask({
         ...getLimitedDecimalMaskConfig(integerPartLimit),
-        prefix: hideDollarPrefix ? "" : "$",
+        suffix: hideCurrencyPrefix ? "" : " руб.",
         allowNegative,
     });
 }

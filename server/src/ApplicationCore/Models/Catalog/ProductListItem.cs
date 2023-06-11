@@ -18,6 +18,8 @@ public class ProductListItem
     
     public string SpecialNote { get; set; }
     
+    public string Code { get; set; }
+    
     public ICollection<CharacteristicModel>? CharacteristicsModels { get; set; }
     
     public ProductRatingModel? ProductRating { get; set; }

@@ -222,16 +222,19 @@ namespace Infrastructure.Migrations
                         .HasColumnType("numeric")
                         .HasColumnName("fov_min");
 
-                    b.Property<decimal>("HasAdapter")
-                        .HasColumnType("numeric")
+                    b.Property<string>("HasAdapter")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("has_adapter");
 
-                    b.Property<decimal>("HasCase")
-                        .HasColumnType("numeric")
+                    b.Property<string>("HasCase")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("has_case");
 
-                    b.Property<decimal>("HasMoistureProtection")
-                        .HasColumnType("numeric")
+                    b.Property<string>("HasMoistureProtection")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("has_moisture_protection");
 
                     b.Property<decimal>("InterpupillaryDistanseMax")
@@ -281,10 +284,6 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("ScaleMin")
                         .HasColumnType("numeric")
                         .HasColumnName("scale_min");
-
-                    b.Property<int>("Size")
-                        .HasColumnType("integer")
-                        .HasColumnName("size");
 
                     b.Property<decimal>("Weight")
                         .HasColumnType("numeric")
@@ -870,6 +869,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("address_id");
+
                     b.Property<Guid>("ConsumerAssignmentId")
                         .HasColumnType("uuid")
                         .HasColumnName("consumer_assignment_id");
@@ -878,9 +881,28 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<string>("CustomerNotes")
+                        .HasColumnType("text")
+                        .HasColumnName("customer_notes");
+
                     b.Property<int>("DeliveryType")
                         .HasColumnType("integer")
                         .HasColumnName("delivery_type");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
 
                     b.Property<Guid?>("ManagerAssignmentId")
                         .HasColumnType("uuid")
@@ -904,12 +926,21 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("payment_method");
 
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
+
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("numeric")
                         .HasColumnName("total_amount");
 
                     b.HasKey("Id")
                         .HasName("pk_order");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_order_address_id");
 
                     b.HasIndex("ConsumerAssignmentId")
                         .HasDatabaseName("ix_order_consumer_assignment_id");
@@ -1165,8 +1196,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("short_description");
 
+                    b.Property<int>("SoldCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("sold_count");
+
                     b.Property<string>("SpecialNote")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("special_note");
 
@@ -1201,6 +1235,7 @@ namespace Infrastructure.Migrations
                             Price = 703.60m,
                             Quantity = 20,
                             ShortDescription = "компактный рефрактор для прогулок и путешествий.",
+                            SoldCount = 0,
                             SpecialNote = ""
                         },
                         new
@@ -1219,6 +1254,7 @@ namespace Infrastructure.Migrations
                             Price = 3359.60m,
                             Quantity = 9,
                             ShortDescription = "Длиннофокусный рефлектор среднего уровня с большой входной апертурой.",
+                            SoldCount = 0,
                             SpecialNote = "Выбор магазина!"
                         },
                         new
@@ -1237,6 +1273,7 @@ namespace Infrastructure.Migrations
                             Price = 1439.00m,
                             Quantity = 5,
                             ShortDescription = "Рефлектор Ньютона со сферическим главным зеркалом диаметром 114 мм.",
+                            SoldCount = 0,
                             SpecialNote = ""
                         },
                         new
@@ -1255,6 +1292,7 @@ namespace Infrastructure.Migrations
                             Price = 3455.00m,
                             Quantity = 2,
                             ShortDescription = "Надежный и функциональный рефлектор для опытных астрономов-любителей",
+                            SoldCount = 0,
                             SpecialNote = ""
                         },
                         new
@@ -1273,6 +1311,7 @@ namespace Infrastructure.Migrations
                             Price = 1702.00m,
                             Quantity = 1,
                             ShortDescription = "Jптический прибор среднего уровня для астронома-любителя с входной апертурой 130 миллиметров",
+                            SoldCount = 0,
                             SpecialNote = ""
                         });
                 });
@@ -2290,6 +2329,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("ApplicationCore.Entities.Order", b =>
                 {
+                    b.HasOne("ApplicationCore.Entities.Address", "Address")
+                        .WithOne()
+                        .HasForeignKey("ApplicationCore.Entities.Order", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_order_address_address_id");
+
                     b.HasOne("ApplicationCore.Entities.Assignment", "ConsumerAssignment")
                         .WithMany()
                         .HasForeignKey("ConsumerAssignmentId")
@@ -2301,6 +2347,8 @@ namespace Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("ManagerAssignmentId")
                         .HasConstraintName("fk_order_assignment_manager_assignment_id");
+
+                    b.Navigation("Address");
 
                     b.Navigation("ConsumerAssignment");
 

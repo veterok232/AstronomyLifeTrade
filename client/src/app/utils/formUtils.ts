@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldMetaState } from "react-final-form";
 import { convertUtcDateToLocal } from "./dateTimeUtils";
@@ -39,6 +40,16 @@ export function objToFormData(obj: any): FormData {
     const formData = new FormData();
 
     for (const key in obj) {
+        if (obj[key] instanceof FileList) {
+            const fileList = obj[key];
+
+            for (let i = 0; i < fileList.length; i++) {
+                formData.append(key, fileList[i]);
+            }
+
+            continue;
+        }
+
         if (Array.isArray(obj[key])) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             getArrayItem(key, obj[key]).forEach((item: KeyValuePair) => appendItem(formData, item));

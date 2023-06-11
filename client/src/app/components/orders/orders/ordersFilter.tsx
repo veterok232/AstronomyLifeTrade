@@ -157,7 +157,7 @@ export const OrdersFilter = (props: Props) => {
 
             return (<FilterCard
                 fullViewState={[fullView, setFullView]}
-                primarySearchTitle="Filter_TelescopeType"
+                primarySearchTitle="Filter_OrderStatus"
                 primarySearchContent={primarySearchContent}
                 advancedSearchContent={advancedSearchContent}
                 handleSubmit={renderProps.handleSubmit}

@@ -2,7 +2,7 @@ import React from "react";
 import MenuToggle from "../menuToggle/menuToggle";
 import { CatalogSearchBar } from "../catalogSearch/catalogSearchBar";
 import { HeaderActionButtons } from "./headerActionButtons";
-import { onSearch, onCartOpen, onAstronomicalCalculatorOpen, onFavoritesOpen, onUserProfileOpen, onOrdersOpen, onManagerProfileOpen } from "../../actions/generalActions";
+import { onSearch, onCartOpen, onAstronomicalCalculatorOpen, onFavoritesOpen, onUserProfileOpen, onOrdersOpen, onManagerProfileOpen, onStaffProfileOpen } from "../../actions/generalActions";
 import { Link } from "react-router-dom";
 import { getDefaultPageRoute } from "../../../utils/routeUtils";
 import { Greetings } from "../greetings";
@@ -23,7 +23,8 @@ export const Header = () => {
                 onFavoritesOpen={onFavoritesOpen}
                 onUserProfileOpen={onUserProfileOpen}
                 onOrdersOpen={onOrdersOpen}
-                onManagerProfileOpen={onManagerProfileOpen} />
+                onManagerProfileOpen={onManagerProfileOpen}
+                onStaffProfileOpen={onStaffProfileOpen} />
         </header>
     );
 };

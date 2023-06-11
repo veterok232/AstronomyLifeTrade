@@ -24,7 +24,7 @@ public class CommentsController : ControllerBase
     }
     
     [HttpGet(Routes.Comments.Get)]
-    [Authorization(Roles.Consumer)]
+    [AllowAnonymous]
     public Task<CommentsModel> Get(Guid productId)
     {
         return _mediator.Send(new GetProductCommentsQuery(productId));

@@ -28,4 +28,6 @@ public class OrderDetailsModel
     public AddressModel Address { get; set; }
     
     public ICollection<OrderItemModel> OrderItems { get; set; }
+    
+    public string? CustomerNotes { get; set; }
 }

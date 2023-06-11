@@ -8,6 +8,7 @@ export const routeLinks = {
         register: "/account/register",
         profile: "/account/profile",
         managerProfile: "/account/manager-profile",
+        staffProfile: "/account/staff-profile",
         setupPassword: "/account/setup-password/:token",
         selectAssignment: "/account/select-assignments",
         forgotPassword: "/account/forgot-password",
@@ -21,9 +22,13 @@ export const routeLinks = {
         telescopes: {
             category: "/catalog/telescopes",
         },
+        search: "/catalog/search",
         binoculars: "/catalog/binoculars",
         accessories: "catalog/accessories",
         productDetails: "catalog/product-details/:productId",
+        editProduct: "catalog/create-product/:productId",
+        deleteProduct: "catalog/delete-product/:productId",
+        createProduct: "catalog/create-product",
     },
     cart: {
         root: "/cart",

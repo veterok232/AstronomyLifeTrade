@@ -3,9 +3,10 @@ import { TelescopeControlType } from "../../enums/telescope/telescopeControlType
 import { TelescopeType } from "../../enums/telescope/telescopeType";
 import { TelescopeUserLevel } from "../../enums/telescope/telescopeUserLevel";
 import { TelescopeEyepiece } from "../telescopeEyepiece";
+import { ProductCharacteristics } from "./productCharacteristics";
 import { ProductDetails } from "./productDetails";
 
-export interface TelescopeDetails extends ProductDetails {
+export interface TelescopeDetails extends ProductDetails, ProductCharacteristics {
     aperture?: number;
     apertureRatio?: number;
     eyepieceFittingDiameter?: number;

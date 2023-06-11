@@ -40,10 +40,16 @@ public class MakeOrderService : IMakeOrderService
         return ResultBuilder.BuildSucceeded(await _orderRepository.Add(new Order
         {
             ConsumerAssignmentId = _authContextAccessor.AssignmentId.Value,
+            FirstName = model.CustomerInfo.FirstName,
+            LastName = model.CustomerInfo.LastName,
+            PhoneNumber = model.CustomerInfo.Phone,
+            Email = model.CustomerInfo.Email,
+            Address = _mapper.Map<Address>(model.CustomerInfo.Address),
             OrderStatus = OrderStatus.Pending,
             TotalAmount = model.TotalAmount,
             PaymentMethod = model.PaymentMethod,
             DeliveryType = model.DeliveryType,
+            CustomerNotes = model.CustomerNotes,
             ManagerAssignmentId = null,
             CreatedAt = DateTime.UtcNow,
             ModifiedAt = DateTime.UtcNow,

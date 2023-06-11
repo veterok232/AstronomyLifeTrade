@@ -24,7 +24,7 @@ public class Product : Entity, IHasCreatedAt, IHasModifiedAt, IHasDeletedAt
 
     public string ShortDescription { get; set; }
     
-    public string SpecialNote { get; set; }
+    public string? SpecialNote { get; set; }
     
     public string Description { get; set; }
     
@@ -41,4 +41,6 @@ public class Product : Entity, IHasCreatedAt, IHasModifiedAt, IHasDeletedAt
     public ICollection<Comment> Comments { get; set; }
     
     public ICollection<ProductFile> Files { get; set; }
+    
+    public int SoldCount { get; set; }
 }

@@ -13,6 +13,7 @@ public class OrderDetailsByOrderIdSpecification : Specification<Order>
         AddIncludes(
             o => o.ConsumerAssignment.PersonalData,
             o => o.ConsumerAssignment.PersonalData.Address,
+            o => o.Address,
             o => o.OrderItems);
         
         AddInclude($"{nameof(Order.OrderItems)}.{nameof(OrderItem.Product)}.{nameof(Product.Comments)}");

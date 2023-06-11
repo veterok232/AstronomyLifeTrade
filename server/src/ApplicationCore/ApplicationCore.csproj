@@ -32,4 +32,9 @@
       <PackageReference Include="RobotsTxtCore" Version="2.2.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Services\Catalog\Search\Accessories\Filters" />
+      <Folder Include="Services\Catalog\Search\Binoculars\Filters" />
+    </ItemGroup>
+
 </Project>

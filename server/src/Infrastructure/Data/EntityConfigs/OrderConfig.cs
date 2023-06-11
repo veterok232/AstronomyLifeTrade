@@ -20,6 +20,10 @@ public class OrderConfig : IEntityTypeConfiguration<Order>
             .WithMany()
             .HasForeignKey(c => c.ManagerAssignmentId);
         
+        builder.HasOne(c => c.Address)
+            .WithOne()
+            .HasForeignKey<Order>(c => c.AddressId);
+        
         builder.Property(p => p.OrderNumber).HasDefaultValueSql(
                 DbSequenceUtils.CreateSequenceFormula(
                     DbConfigConstants.Sequences.OrderNumberSequence))

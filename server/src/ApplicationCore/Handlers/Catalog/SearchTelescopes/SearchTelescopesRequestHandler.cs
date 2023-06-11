@@ -1,5 +1,4 @@
-﻿using ApplicationCore.Handlers.Catalog.GetPopularProducts;
-using ApplicationCore.Handlers.Common;
+﻿using ApplicationCore.Handlers.Common;
 using ApplicationCore.Interfaces.Catalog.Search;
 using ApplicationCore.Models.Catalog;
 using MediatR;

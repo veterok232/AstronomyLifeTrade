@@ -5,7 +5,9 @@ using ApplicationCore.Handlers.Common;
 using ApplicationCore.Handlers.Orders.Actions;
 using ApplicationCore.Handlers.Orders.Details;
 using ApplicationCore.Handlers.Orders.GetCustomerInfo;
+using ApplicationCore.Handlers.Orders.GetUserOrders;
 using ApplicationCore.Handlers.Orders.MakeOrder;
+using ApplicationCore.Handlers.Orders.RemoveOrderItem;
 using ApplicationCore.Handlers.Orders.Search;
 using ApplicationCore.Models.Common;
 using ApplicationCore.Models.Orders;
@@ -34,8 +36,15 @@ public class OrdersController : ControllerBase
         return _mediator.Send(new SearchOrdersRequest(model));
     }
     
+    [HttpGet(Routes.Orders.UserOrders)]
+    [Authorization(Roles.Consumer)]
+    public Task<SearchResult<OrderListItem>> GetUserOrders([FromQuery] GetUserOrdersModel model)
+    {
+        return _mediator.Send(new GetUserOrdersQuery(model));
+    }
+    
     [HttpGet(Routes.Orders.Details)]
-    [Authorization(Roles.Manager, Roles.Staff)]
+    [Authorization(Roles.Consumer, Roles.Manager, Roles.Staff)]
     public Task<OrderDetailsModel> Details(Guid orderId)
     {
         return _mediator.Send(new GetOrderDetailsModelQuery(orderId));
@@ -81,5 +90,12 @@ public class OrdersController : ControllerBase
     public Task CloseOrder(Guid orderId)
     {
         return _mediator.Send(new CloseOrderCommand(orderId));
+    }
+    
+    [HttpPost(Routes.Orders.RemoveOrderItem)]
+    [Authorization(Roles.Manager, Roles.Staff)]
+    public Task RemoveOrderItem(RemoveOrderItemModel model)
+    {
+        return _mediator.Send(new RemoveOrderItemCommand(model));
     }
 }

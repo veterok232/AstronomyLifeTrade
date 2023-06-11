@@ -9,6 +9,14 @@ import { LabeledValue } from "../common/controls/labeledValue";
 import { isNumber } from "lodash";
 import { CalculatorParameter } from "../common/presentation/calculatorParameter";
 import { showNotificationIfInvalid } from "../common/controls/validation/formValidators";
+import { ProductListItem } from "../../dataModels/catalog/productListItem";
+import { getMostMatchingTelescopes } from "../../api/astronomicalCalculator/astronomicalCalculatorApi";
+import { ProductCard } from "../catalog/product/productCard";
+import { onAddToCart, onAddToFavorites, onDeleteProduct } from "../catalog/catalogActions";
+import { getRoute } from "../../utils/routeUtils";
+import { sharedHistory } from "../../infrastructure/sharedHistory";
+import { routeLinks } from "../layout/routes/routeLinks";
+import { NoData } from "../common/presentation/noData";
 
 interface AstronomicalCalculatorResult {
     scale: number;
@@ -95,8 +103,9 @@ function log10(x: number)
 
 export const AstronomicalCalculatorPage = () => {
     const [calculationResult, setCalculationResult] = useState<AstronomicalCalculatorResult>();
+    const [products, setProducts] = useState<ProductListItem[]>();
 
-    const onSubmit = (data: AstronomicalCalculatorFormData) => {
+    const onSubmit = async (data: AstronomicalCalculatorFormData) => {
         const Pmax = 2.0 * data.aperture;
         const Praz = 1.4 * data.aperture;
         const Pbig = 1.0 * data.aperture;
@@ -170,12 +179,19 @@ export const AstronomicalCalculatorPage = () => {
         };
 
         setCalculationResult(calculationResult);
+
+        const matchingTelescopes = await getMostMatchingTelescopes({
+            aperture: data.aperture,
+            focusDistance: data.focusDistance,
+            maxScale: Pmax,
+        });
+
+        setProducts(matchingTelescopes);
     };
 
     return (
         <FinalForm
         onSubmit={onSubmit}
-        initialValues={null}
         render={({ handleSubmit, valid }: FormRenderProps<AstronomicalCalculatorFormData>) => (
             <Form onSubmit={handleSubmit}>
                 <Row className="mb-3">
@@ -288,6 +304,26 @@ export const AstronomicalCalculatorPage = () => {
                             </Row>
                         </Col>
                     </Row>
+                    <Row className="order-step-card p-3 mb-2">
+                        <Col>
+                            <Row className="mb-2">
+                                <h1 className="ui-section-header pt-2"><Local id="MostMatchingTelescopes" /></h1>
+                            </Row>
+                            <Row className="">
+                                {products?.length > 0
+                                    ? products.map((product, ind) =>
+                                        <ProductCard
+                                            className="col-2"
+                                            key={ind}
+                                            product={product}
+                                            onAddToFavorites={async () => await onAddToFavorites(product.productId)}
+                                            onAddToCart={async () => await onAddToCart(product.productId)}
+                                            onEditProduct={() => sharedHistory.push(getRoute(routeLinks.catalog.editProduct, product.productId))}
+                                            onDeleteProduct={async () => await onDeleteProduct(product.productId)} />)
+                                    : <NoData localizationKey="Calculator_NoTelescopesFound"/>}
+                            </Row>
+                        </Col>
+                    </Row>
                 </>}
                 <Row className="order-step-card p-3 mb-2">
                     <Col>
@@ -341,7 +377,7 @@ export const AstronomicalCalculatorPage = () => {
                                 <b>Предельная величина звезд</b>, которую можно увидеть в этот телескоп при отличных условиях наблюдения.
                                 </p>
                                 <p>
-                                Кратеры такого размера можно увидеть на Луне в этот телескоп при отличных условиях наблюдения.
+                                <b>Размер кратеров на Луне</b> - кратеры такого размера можно увидеть на Луне в этот телескоп при отличных условиях наблюдения.
                                 </p>
                             </Col>
                         </Row>

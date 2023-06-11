@@ -8,6 +8,8 @@ import { IntegerUpDownFormControl } from "../common/controls/formControls/masked
 import { Money } from "../common/presentation/money";
 import { isEmpty } from "lodash";
 import { ProductImage } from "../layout/catalog/productImage";
+import { Link } from "react-router-dom";
+import { getLinkToProductDetails } from "../../api/catalog/catalogApi";
 
 interface Props {
     item: CartItem;
@@ -33,12 +35,16 @@ export const CartItemElement = (props: Props) => {
             </Col>
             <Col className="col-4 my-auto">
                 <Row className="my-auto">
-                    <Col className="col-10 my-auto pr-1">{props.item.product.name}</Col>
+                    <Col className="col-10 my-auto pr-1">
+                        <Link className="text-secondary" to={getLinkToProductDetails(props.item.product.productId)}>
+                            {props.item.product.name}
+                        </Link>
+                    </Col>
                     <Col className="col-2 my-auto pl-0"><IconicRemoveCartItemButton className="p-0" onClick={props.onRemoveItem} /></Col>
                 </Row>
             </Col>
             <Col className="col-2 m-auto">
-                <CardPrice className="p-1 mx-auto" value={props.item.product.price} currency={CurrencyType.BYN} />
+                <CardPrice className="mx-auto" value={props.item.product.price} currency={CurrencyType.BYN} />
             </Col>
             <Col className="col-2 m-auto">
                 <IntegerUpDownFormControl minValue={1} maxValue={10} name={"quantity"}

@@ -17,4 +17,5 @@ export interface OrderDetailsModel {
     paymentMethod: PaymentMethod;
     address?: Address;
     orderItems: OrderItem[];
+    customerNotes?: string;
 }

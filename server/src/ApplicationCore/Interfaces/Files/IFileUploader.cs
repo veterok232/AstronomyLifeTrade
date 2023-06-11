@@ -4,7 +4,7 @@ using File = ApplicationCore.Entities.File;
 
 namespace ApplicationCore.Interfaces.Files;
 
-internal interface IFileUploader
+public interface IFileUploader
 {
     Task<File> Upload(ReadableFileModel model, AttachmentType attachmentType, bool isAttached = true);
 }

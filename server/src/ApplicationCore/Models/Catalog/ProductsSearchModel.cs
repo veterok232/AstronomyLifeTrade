@@ -5,9 +5,7 @@ namespace ApplicationCore.Models.Catalog;
 
 public class ProductsSearchModel : ISortable, IPageable
 {
-    public decimal? PriceMin { get; set; }
-    
-    public decimal? PriceMax { get; set; }
+    public string? SearchString { get; set; }
 
     public string SortBy { get; set; }
     

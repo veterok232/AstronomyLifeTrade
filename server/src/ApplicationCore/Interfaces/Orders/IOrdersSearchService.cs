@@ -8,4 +8,6 @@ public interface IOrdersSearchService
     Task<SearchResult<OrderListItem>> Search(OrdersSearchModel model);
     
     Task<OrderDetailsModel> GetDetails(Guid orderId);
+    
+    Task<SearchResult<OrderListItem>> SearchUserOrders(GetUserOrdersModel model);
 }

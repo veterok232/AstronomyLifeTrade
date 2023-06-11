@@ -16,6 +16,7 @@ import { NoData } from "../../common/presentation/noData";
 import { TextAreaFormControl } from "../../common/controls/formControls/textareaFormControl";
 import { Local } from "../../localization/local";
 import { getProductComments, publishComment } from "../../../api/comments/commentsApi";
+import { isConsumer } from "../../../infrastructure/services/auth/authService";
 
 export interface CommentsModel {
     comments: Comment[];
@@ -87,9 +88,7 @@ export const CommentsSection = (props: Props) => {
                                 </Col>
                                 <Col className="col-11 pl-4">
                                     <Row>
-                                        {comments?.averageRating &&
-                                            <Rating size="medium" name="commentsModel.averageRating" value={comments?.averageRating ?? 0} readOnly precision={0.1} />
-                                        }
+                                        <Rating size="medium" name="commentsModel.averageRating" value={comments?.averageRating ?? 0} readOnly precision={0.1} />
                                     </Row>
                                     <Row>
                                         <LabeledField className="ml-2" labelKey={"AverageRating"} value={`Отзывов: ${comments?.commentsCount ?? 0}`} />
@@ -98,33 +97,35 @@ export const CommentsSection = (props: Props) => {
                             </Row>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col>
-                            <Row className="mb-2">
-                                <Col className="pl-0">
-                                    <h1 className="leave-comment-section pt-2"><Local id="LeaveYourComment"/></h1>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="pl-0">
-                                    <Rating name={"userComment.rating"} precision={1}
-                                        onChange={(e, val) => setRating(val)} />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="pl-0">
-                                    <TextAreaFormControl name={"userComment.text"} placeholder="Оставьте свой отзыв об этом товаре" />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="pl-0">
-                                    <Button type="submit" className="float-right">
-                                        <Local id="PublishComment"/>
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                    {isConsumer() &&
+                        <Row>
+                            <Col>
+                                <Row className="mb-2">
+                                    <Col className="pl-0">
+                                        <h1 className="leave-comment-section pt-2"><Local id="LeaveYourComment"/></h1>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col className="pl-0">
+                                        <Rating name={"userComment.rating"} precision={1}
+                                            onChange={(e, val) => setRating(val)} />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col className="pl-0">
+                                        <TextAreaFormControl name={"userComment.text"} placeholder="Оставьте свой отзыв об этом товаре" />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col className="pl-0">
+                                        <Button type="submit" className="float-right">
+                                            <Local id="PublishComment"/>
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    }
                     {comments?.commentsCount > 0
                         ? <FieldArray name="commentsModel.comments" className="m-0 w-100">
                                 {({ fields }) => (

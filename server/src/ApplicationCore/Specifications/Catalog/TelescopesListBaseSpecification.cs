@@ -17,8 +17,8 @@ internal abstract class TelescopesListBaseSpecification : DataTransformSpecifica
                 ProductId = t.ProductId,
                 Brand = new BrandModel
                 {
-                    BrandId = t.Product.BrandId,
-                    BrandName = t.Product.Brand.Name,
+                    Id = t.Product.BrandId,
+                    Name = t.Product.Brand.Name,
                 },
                 Category = new CategoryModel
                 {
@@ -62,6 +62,7 @@ internal abstract class TelescopesListBaseSpecification : DataTransformSpecifica
                 Quantity = t.Product.Quantity,
                 ShortDescription = t.Product.ShortDescription,
                 SpecialNote = t.Product.SpecialNote,
+                Code = t.Product.Code,
                 ImageFilesIds = t.Product.Files
                     .Where(f => f.ProductFileType == ProductFileType.Image)
                     .Select(f => f.FileId).ToList(),

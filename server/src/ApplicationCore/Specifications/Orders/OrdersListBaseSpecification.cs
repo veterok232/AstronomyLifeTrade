@@ -17,8 +17,8 @@ internal abstract class OrdersListBaseSpecification : DataTransformSpecification
                 TotalAmount = o.TotalAmount,
                 Quantity = o.OrderItems.Count,
                 CreatedAt = o.CreatedAt,
-                CustomerFirstName = o.ConsumerAssignment.PersonalData.FirstName,
-                CustomerLastName = o.ConsumerAssignment.PersonalData.LastName,
+                CustomerFirstName = o.FirstName,
+                CustomerLastName = o.LastName,
                 OrderNumber = o.OrderNumber
             },
             criteria)

@@ -1,9 +1,9 @@
 import React, { useState} from "react";
-import { Row, Col, Card, CardBody, Button } from "reactstrap";
+import { Row, Col, Card, CardBody } from "reactstrap";
 import useAsyncEffect from "use-async-effect";
 import { ProductDetails } from "../../../dataModels/catalog/productDetails/productDetails";
 import { Local } from "../../localization/local";
-import { onAddToFavorites, onAddToCart } from "../catalogActions";
+import { onAddToFavorites, onAddToCart, onDeleteProduct } from "../catalogActions";
 import { useParams } from "react-router-dom";
 import { CurrencyType } from "../../../dataModels/enums/currencyType";
 import { CardPrice } from "../../common/presentation/cardPrice";
@@ -15,15 +15,24 @@ import { TelescopeCharacteristicsSection } from "./telescopeCharacteristicsSecti
 import { categoryCodes } from "../../../dataModels/enums/categoryCodes";
 import { getProductDetails } from "../../../api/catalog/catalogApi";
 import { CardCharacteristic } from "../product/cardCharacteristic";
-import { downloadFile, getFileAnonymousDownloadLink } from "../../../api/file/filesApi";
+import { getFileAnonymousDownloadLink } from "../../../api/file/filesApi";
 import { Constants } from "../../constants";
 import { isEmpty } from "lodash";
 import { NoData } from "../../common/presentation/noData";
-import { isConsumer } from "../../../infrastructure/services/auth/authService";
+import { isAuthorizedAsOneOf } from "../../../infrastructure/services/auth/authService";
 import { sharedHistory } from "../../../infrastructure/sharedHistory";
 import { getRoute } from "../../../utils/routeUtils";
 import { routeLinks } from "../../layout/routes/routeLinks";
 import { CommentsSection } from "../comments/commentsSection";
+import { Link } from "react-router-dom";
+import { Roles } from "../../../infrastructure/services/auth/roles";
+import { notifications } from "../../toast/toast";
+import { LabeledField } from "../../common/presentation/labeledField";
+import { PresentLabel } from "../../common/presentation/presentLabel";
+import { BinocularDetails } from "../../../dataModels/catalog/productDetails/binocularDetails";
+import { BinocularCharacteristicsSection } from "./binocularCharacteristicsSection";
+import { AccessoryCharacteristicsSection } from "./accessoryCharacteristicsSection";
+import { AccessoryDetails } from "../../../dataModels/catalog/productDetails/accessoryDetails";
 
 const sliderSettings = {
     dots: true,
@@ -49,6 +58,10 @@ export const ProductDetailsPage = () => {
     const getCharacteristicsSection = () => {
         if (productDetails?.category?.code === categoryCodes.telescopes) {
             return <TelescopeCharacteristicsSection details={productDetails as TelescopeDetails} />;
+        } else if (productDetails?.category?.code === categoryCodes.binoculars) {
+            return <BinocularCharacteristicsSection details={productDetails as BinocularDetails} />;
+        } else if (productDetails?.category?.code === categoryCodes.accessories) {
+            return <AccessoryCharacteristicsSection details={productDetails as AccessoryDetails} />;
         }
     };
 
@@ -56,23 +69,27 @@ export const ProductDetailsPage = () => {
         setProductDetails(await getProductDetails(productId));
     }, []);
 
-    const onDownloadFile = async (fileId: string) => {
-        if (!isConsumer()) {
+    const onDownloadFile = () => {
+        if (!isAuthorizedAsOneOf([Roles.consumer, Roles.manager, Roles.staff])) {
+            notifications.localizedWarning("NeedToAuthorize");
             sharedHistory.push(getRoute(routeLinks.account.login));
         }
-
-        await downloadFile(fileId);
     };
 
     return (
         <div className="product-details">
-            <Row className="mb-3">
+            <Row>
                 <Col>
-                    <h1 className="ui-page-header pt-2">{productDetails?.name}</h1>
+                    <h1 className="ui-page-header pt-2 pb-0">{productDetails?.name}</h1>
+                </Col>
+            </Row>
+            <Row className="mb-3 pl-1">
+                <Col>
+                    <span className="sub-header-element">Бренд: {productDetails?.brand.name}</span>
                 </Col>
             </Row>
             <Row className="product-details top-box row-cols-2 p-4 mb-3">
-                <Col className="col-9">
+                <Col className="col-9 px-5">
                     <Slider {...sliderSettings}>
                         {!isEmpty(productDetails?.productImagesIds)
                             ? productDetails.productImagesIds?.map((imageId, i) => (
@@ -86,18 +103,34 @@ export const ProductDetailsPage = () => {
                         }
                     </Slider>
                 </Col>
-                <Col className="col-3">
-                    <Card className="product-card mb-2  mx-auto">
+                <Col className="col-3 ">
+                    <Card className="product-card product-details-card mb-2 mx-auto">
                         <CardBody className="d-flex flex-column">
                         <div className="card-text">
+                            <Row>
+                                <Col>
+                                    <LabeledField
+                                        className="m-0 pb-0"
+                                        labelKey={"Article"}
+                                        value={productDetails?.code}
+                                        supressMargins />
+                                </Col>
+                                <Col className="pl-0 d-flex align-items-center">
+                                    {productDetails?.quantity === 0
+                                        ? <PresentLabel icon="highlight_off" labelKey="NotInPresence" className="text-danger" />
+                                        : <PresentLabel icon="check_circle_outline" labelKey="HaveInPresence" className="text-success" />}
+                                </Col>
+                            </Row>
+
                             <ProductRatingSection
-                                productRating={productDetails?.rating} />
+                                className="mb-2"
+                                productRating={productDetails?.rating} size="medium" />
                             {productDetails?.characteristics?.map((characteristic, ind) =>
-                                <CardCharacteristic key={ind} characteristic={characteristic}/>)}
+                                <CardCharacteristic className="details-characteristic" key={ind} characteristic={characteristic}/>)}
                                 <p className="mt-2">{productDetails?.shortDescription}</p>
                             </div>
                             <Row className="mt-auto align-items-center">
-                                <Col className="col-7 align-self-center">
+                                <Col className="col-7 align-self-center pl-0">
                                     <CardPrice
                                         value={productDetails?.price}
                                         currency={CurrencyType.BYN}
@@ -106,7 +139,9 @@ export const ProductDetailsPage = () => {
                                 <Col className="col-5 align-self-center">
                                     <CardActionsSection
                                         onAddToCart={() => onAddToCart(productId)}
-                                        onAddToFavorites={() => onAddToFavorites(productId)}/>
+                                        onAddToFavorites={() => onAddToFavorites(productId)}
+                                        onEditProduct={() => sharedHistory.push(getRoute(routeLinks.catalog.editProduct, productId))}
+                                        onDeleteProduct={async () => await onDeleteProduct(productId)} />
                                 </Col>
                             </Row>
                         </CardBody>
@@ -145,14 +180,33 @@ export const ProductDetailsPage = () => {
                     <Row className="mb-2">
                         <h1 className="ui-section-header pt-2"><Local id="Instructions"/></h1>
                     </Row>
+                    {!isAuthorizedAsOneOf([Roles.consumer, Roles.manager, Roles.staff]) &&
+                    <Row className="section-description">
+                        <Col className="pl-0">
+                            <p>
+                                <Link to={getRoute(routeLinks.account.login)}>Войдите в аккаунт</Link>, чтобы скачать документы
+                            </p>
+                        </Col>
+                    </Row>}
                     <Row>
-                        {!isEmpty(productDetails?.productFiles)
-                            ? productDetails?.productFiles.map((productFile, index) => (
-                                <Button key={index} onClick={() => onDownloadFile(productFile.id)} className="btn btn-link">
-                                    <span>{index}. {productFile.name}</span>
-                                </Button>))
-                            : <NoData localizationKey="NoInstructions"/>
-                        }
+                        <Col className="pl-0">
+                            {!isEmpty(productDetails?.productFiles)
+                                ? productDetails?.productFiles.map((productFile, index) => (
+                                    <Row key={index}>
+                                        <Col>
+                                            <a
+                                                href={isAuthorizedAsOneOf([Roles.consumer, Roles.manager, Roles.staff]) &&
+                                                    getFileAnonymousDownloadLink(productFile.id)}
+                                                onClick={() => onDownloadFile()}
+                                                download={isAuthorizedAsOneOf([Roles.consumer, Roles.manager, Roles.staff])}>
+                                                <span>{index + 1}. {productFile.name}</span>
+                                            </a>
+                                        </Col>
+                                    </Row>
+                                    ))
+                                : <NoData localizationKey="NoInstructions"/>
+                            }
+                        </Col>
                     </Row>
                 </Col>
             </Row>

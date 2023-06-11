@@ -6,19 +6,18 @@ namespace ApplicationCore.Handlers.Catalog.GetPopularProducts;
 
 internal class GetPopularProductsRequestHandler : IRequestHandler<GetPopularProductsRequest, ICollection<ProductListItem>>
 {
-    private readonly ICatalogSearchService _catalogSearchService;
+    private readonly IProductsSearchService _productsSearchService;
 
-    public GetPopularProductsRequestHandler(
-        ICatalogSearchService catalogSearchService)
+    public GetPopularProductsRequestHandler(IProductsSearchService productsSearchService)
     {
-        _catalogSearchService = catalogSearchService;
+        _productsSearchService = productsSearchService;
     }
 
     public async Task<ICollection<ProductListItem>> Handle(
         GetPopularProductsRequest request,
         CancellationToken cancellationToken)
     {
-        var products = await _catalogSearchService.GetPopularProducts();
+        var products = await _productsSearchService.GetPopularProducts();
 
         return products;
     }

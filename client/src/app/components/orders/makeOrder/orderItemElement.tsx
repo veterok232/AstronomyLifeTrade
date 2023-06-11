@@ -8,6 +8,8 @@ import { Money } from "../../common/presentation/money";
 import { LabeledField } from "../../common/presentation/labeledField";
 import { isEmpty } from "lodash";
 import { ProductImage } from "../../layout/catalog/productImage";
+import { Link } from "react-router-dom";
+import { getLinkToProductDetails } from "../../../api/catalog/catalogApi";
 
 interface Props {
     item: CartItem;
@@ -32,13 +34,17 @@ export const OrderItemElement = (props: Props) => {
             </Col>
             <Col className="col-3 my-auto">
                 <Row className="my-auto">
-                    <Col className="col-10 my-auto pr-1">{props.item.product.name}</Col>
+                    <Col className="col-10 my-auto pr-1">
+                        <Link className="text-secondary" to={getLinkToProductDetails(props.item.product.productId)}>
+                            {props.item.product.name}
+                        </Link>
+                    </Col>
                 </Row>
             </Col>
             <Col className="col-2 m-auto">
                 <LabeledField
                     labelKey={"Price"}
-                    value={<CardPrice className="p-1 mx-auto" value={props.item.product.price} currency={CurrencyType.BYN} />} />
+                    value={<CardPrice className="mx-auto" value={props.item.product.price} currency={CurrencyType.BYN} />} />
             </Col>
             <Col className="col-2 m-auto">
                 <LabeledField

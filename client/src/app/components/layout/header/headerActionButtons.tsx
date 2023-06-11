@@ -15,6 +15,7 @@ interface Props {
     onAstronomicalCalculatorOpen: () => void;
     onOrdersOpen: () => void;
     onManagerProfileOpen: () => void;
+    onStaffProfileOpen: () => void;
 }
 
 export const HeaderActionButtons = (props: Props) => {
@@ -40,6 +41,14 @@ export const HeaderActionButtons = (props: Props) => {
                 </Col>
                 <Col className="align-content-center m-0 p-0">
                     <IconicUserProfileButton className="header__button m-0 p-0" onUserProfileOpen={props.onManagerProfileOpen} />
+                </Col>
+            </>}
+            {isStaff() && <>
+                <Col className="align-content-center m-0 p-0">
+                    <IconicOrdersButton className="header__button m-0 p-0" onOrdersOpen={props.onOrdersOpen} />
+                </Col>
+                <Col className="align-content-center m-0 p-0">
+                    <IconicUserProfileButton className="header__button m-0 p-0" onUserProfileOpen={props.onStaffProfileOpen} />
                 </Col>
             </>}
         </Row>

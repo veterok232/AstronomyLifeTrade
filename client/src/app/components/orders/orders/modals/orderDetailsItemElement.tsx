@@ -8,11 +8,16 @@ import { LabeledField } from "../../../common/presentation/labeledField";
 import { Money } from "../../../common/presentation/money";
 import { ProductImage } from "../../../layout/catalog/productImage";
 import { isEmpty } from "lodash";
+import { isManager, isStaff } from "../../../../infrastructure/services/auth/authService";
+import { Link } from "react-router-dom";
+import { getLinkToProductDetails } from "../../../../api/catalog/catalogApi";
 
 interface Props {
     item: OrderItem;
     ind: number;
     onRemoveItem: () => Promise<void>;
+    hideRemoveButton?: boolean;
+    closeModal: () => void;
 }
 
 export const OrderDetailsItemElement = (props: Props) => {
@@ -32,13 +37,24 @@ export const OrderDetailsItemElement = (props: Props) => {
             </Col>
             <Col className="col-3 my-auto">
                 <Row className="my-auto">
-                    <Col className="col-10 my-auto pr-1">{props.item.product.name}</Col>
+                    <Col className="my-auto pr-1">
+                        <Link onClick={props.closeModal} className="text-secondary" to={getLinkToProductDetails(props.item.product.productId)}>
+                            {props.item.product.name}
+                        </Link>
+                    </Col>
                 </Row>
+                <Row className="my-auto">
+                    <Col className="my-auto pr-1 secondary-value">Артикул: {props.item.product.code}</Col>
+                </Row>
+                {(isManager() || isStaff()) &&
+                    <Row className="my-auto">
+                        <Col className="my-auto pr-1 secondary-value">Остаток на складе: {props.item.product.quantity} шт.</Col>
+                    </Row>}
             </Col>
             <Col className="col-2 m-auto">
                 <LabeledField
                     labelKey={"Price"}
-                    value={<CardPrice className="p-1 mx-auto" value={props.item.product.price} currency={CurrencyType.BYN} />} />
+                    value={<CardPrice className="mx-auto" value={props.item.product.price} currency={CurrencyType.BYN} />} />
             </Col>
             <Col className="col-2 m-auto">
                 <LabeledField
@@ -51,7 +67,8 @@ export const OrderDetailsItemElement = (props: Props) => {
                     value={<Money className="mx-auto" amount={totalAmount} />} />
             </Col>
             <Col className="col-1 my-auto pl-0">
-                <IconicRemoveCartItemButton className="p-0" onClick={props.onRemoveItem} />
+                {!props.hideRemoveButton &&
+                    <IconicRemoveCartItemButton className="p-0" onClick={props.onRemoveItem} />}
             </Col>
         </Row>
     );

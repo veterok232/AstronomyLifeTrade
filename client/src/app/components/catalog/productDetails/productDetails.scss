@@ -21,4 +21,27 @@
     .slick-next:hover, .slick-prev:hover {
         cursor: pointer;
     }
+
+    .product-details-card {
+        width: 350px;
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.not-in-present-label {
+    color: #919191;
+    font-size: 13px;
+}
+
+.not-in-present-icon {
+    font-size: 13px;
+}
+
+.details-characteristic {
+    font-size: 14px;
+}
+
+.sub-header-element {
+    font-size: 16px;
+    color: #919191;
 }

@@ -1,5 +1,5 @@
 import { Pageable } from "../common/pageable";
 import { Sortable } from "../common/sortable";
-import { TelescopesFilterData } from "./telescopesFilterData";
+import { ProductsFilterData } from "./productsFilterData";
 
-export type TelescopesSearchRequest = TelescopesFilterData & Sortable & Pageable;
+export type ProductsSearchRequest = ProductsFilterData & Sortable & Pageable;

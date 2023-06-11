@@ -10,6 +10,7 @@ import { CardPrice } from "../../common/presentation/cardPrice";
 import { CurrencyType } from "../../../dataModels/enums/currencyType";
 import { CardActionsSection } from "./cardActionsSection";
 import { isEmpty } from "lodash";
+import { PresentLabel } from "../../common/presentation/presentLabel";
 
 interface Props {
     className?: string;
@@ -17,6 +18,8 @@ interface Props {
     product: ProductListItem;
     onAddToFavorites: () => void;
     onAddToCart: () => void;
+    onDeleteProduct: () => void;
+    onEditProduct: () => void;
     isInCart?: boolean;
 }
 
@@ -24,7 +27,7 @@ export const ProductCard = (props: Props) => {
     return (
         <Card className="product-card mr-3 mb-2">
             <ProductImage
-                className="card-img-top"
+                className="card-img-top card-product-image"
                 productId={props.product.productId}
                 productImageId={!isEmpty(props.product.imageFilesIds) && props.product.imageFilesIds[0]} />
             <CardBody className="d-flex flex-column">
@@ -39,8 +42,11 @@ export const ProductCard = (props: Props) => {
                     }
                     <p className="section-description mt-2">{props.product.shortDescription}</p>
                 </div>
+                {props.product.quantity === 0
+                    ? <PresentLabel icon="highlight_off" labelKey="NotInPresence" className="text-danger" />
+                    : <PresentLabel icon="check_circle_outline" labelKey="HaveInPresence" className="text-success" />}
                 <Row className="mt-auto align-items-center">
-                    <Col className="col-7 align-self-center pr-0">
+                    <Col className="col-7 align-self-center px-0">
                         <CardPrice
                             value={props.product.price}
                             currency={CurrencyType.BYN}
@@ -49,7 +55,9 @@ export const ProductCard = (props: Props) => {
                     <Col className="col-5 align-self-center">
                         <CardActionsSection
                             onAddToCart={props.onAddToCart}
-                            onAddToFavorites={props.onAddToFavorites}/>
+                            onAddToFavorites={props.onAddToFavorites}
+                            onDeleteProduct={props.onDeleteProduct}
+                            onEditProduct={props.onEditProduct} />
                     </Col>
                 </Row>
             </CardBody>

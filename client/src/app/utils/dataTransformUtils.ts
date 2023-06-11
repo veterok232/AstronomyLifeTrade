@@ -1,3 +1,4 @@
+import { LabeledValue } from "../components/common/controls/labeledValue";
 export function filterValues<TValue>(sourceDataMap: Array<[boolean, TValue]>): TValue[] {
     const resultArray: Array<TValue> = [];
 
@@ -8,4 +9,19 @@ export function filterValues<TValue>(sourceDataMap: Array<[boolean, TValue]>): T
     });
 
     return resultArray;
+}
+
+export function dataToOptions<T>(
+    data: Array<T>,
+    valueSelector: (d: T) => any,
+    textSelector: (d: T) => string,
+): LabeledValue[] {
+    return (
+        data?.map((d) => {
+            const option: any = { value: valueSelector(d) };
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            option["label"] = textSelector(d);
+            return option;
+        }) ?? []
+    );
 }

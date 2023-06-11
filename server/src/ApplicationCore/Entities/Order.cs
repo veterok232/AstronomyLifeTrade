@@ -28,4 +28,18 @@ public class Order : Entity, IHasCreatedAt, IHasModifiedAt
     public int OrderNumber { get; set; }
     
     public ICollection<OrderItem> OrderItems { get; set; }
+    
+    public string FirstName { get; set; }
+    
+    public string LastName { get; set; }
+    
+    public string PhoneNumber { get; set; }
+    
+    public string Email { get; set; }
+    
+    public Guid AddressId { get; set; }
+    
+    public Address Address { get; set; }
+    
+    public string? CustomerNotes { get; set; }
 }

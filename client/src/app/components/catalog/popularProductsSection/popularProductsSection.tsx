@@ -5,13 +5,13 @@ import { NoData } from "../../common/presentation/noData";
 import { ProductCard } from "../product/productCard";
 import useAsyncEffect from "use-async-effect";
 import { getPopularProducts } from "../../../api/catalog/catalogApi";
+import { sharedHistory } from "../../../infrastructure/sharedHistory";
+import { getRoute } from "../../../utils/routeUtils";
+import { routeLinks } from "../../layout/routes/routeLinks";
+import { onAddToCart, onAddToFavorites, onDeleteProduct } from "../catalogActions";
+import { Col, Row } from "reactstrap";
 
-interface Props {
-    onAddToFavorites: (productId: string) => void;
-    onAddToCart: (productId: string) => void;
-}
-
-export const PopularProductsSection = (props: Props) => {
+export const PopularProductsSection = () => {
     const [popularProductsList, setPopularProductsList] = useState<ProductListItem[]>();
 
     useAsyncEffect(async () => {
@@ -20,15 +20,24 @@ export const PopularProductsSection = (props: Props) => {
 
     return (
         <div>
-            <h1 className="page-header"><Local id="PopularProducts" /></h1>
-            {popularProductsList?.length > 0
-                ? popularProductsList?.map((product, ind) =>
-                    <ProductCard key={ind}
-                        product={product}
-                        onAddToCart={() => props.onAddToCart(product.productId)}
-                        onAddToFavorites={() => props.onAddToFavorites(product.productId)} />)
-                : <NoData />
-            }
+            <Row className="mb-3">
+                <Col>
+                    <h1 className="ui-page-header pt-2"><Local id="PopularProducts" /></h1>
+                </Col>
+            </Row>
+            <Row className="p-3">
+                {popularProductsList?.length > 0
+                    ? popularProductsList.map((product, ind) =>
+                        <ProductCard
+                            className="col-2"
+                            key={ind}
+                            product={product}
+                            onAddToFavorites={async () => await onAddToFavorites(product.productId)}
+                            onAddToCart={async () => await onAddToCart(product.productId)}
+                            onEditProduct={() => sharedHistory.push(getRoute(routeLinks.catalog.editProduct, product.productId))}
+                            onDeleteProduct={async () => await onDeleteProduct(product.productId)} />)
+                    : <NoData />}
+            </Row>
         </div>
     );
 };

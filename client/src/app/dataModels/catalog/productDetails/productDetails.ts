@@ -2,7 +2,6 @@ import { FileModel } from "../../fileModel";
 import { BrandModel } from "../brandModel";
 import { CategoryModel } from "../categoryModel";
 import { CharacteristicModel } from "../characteristicModel";
-import { Comment } from "../comment";
 import { ProductRating } from "../product/productRating";
 
 export interface ProductDetails {
