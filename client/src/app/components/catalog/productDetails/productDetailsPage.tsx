@@ -41,7 +41,7 @@ const sliderSettings = {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-  };
+};
 
 const getProductImageUrl = (imageFileId?: string) => {
     if (!imageFileId) {

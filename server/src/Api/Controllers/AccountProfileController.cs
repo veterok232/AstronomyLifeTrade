@@ -79,7 +79,7 @@ public class AccountProfileController : ControllerBase
     [Authorization(Roles.Staff)]
     public Task<Result> AssignAsAdministrator(Guid userAssignmentId)
     {
-        return _mediator.Send(new AssignAsManagerCommand(userAssignmentId));
+        return _mediator.Send(new AssignAsAdministratorCommand(userAssignmentId));
     }
     
     [HttpPost(Routes.AccountProfile.BlockUser)]

@@ -14,6 +14,6 @@ internal class TelescopesByControlTypeFilter : IEntityFilter<Telescope, Telescop
     {
         return model.TelescopeControlTypes.IsNullOrEmpty()
             ? null
-            : t => model.TelescopeControlTypes.Contains(t.TelescopeControlType.Value);
+            : t => model.TelescopeControlTypes.Contains(t.TelescopeControlType);
     }
 }

@@ -48,9 +48,11 @@ public class AccessoryDetailsByProductIdSpecification : DataTransformSpecificati
                 AccessoryType = t.AccessoryType,
                 ProductImagesIds = t.Product.Files
                     .Where(f => f.ProductFileType == ProductFileType.Image)
+                    .OrderBy(pf => pf.File.FileName)
                     .Select(f => f.FileId).ToList(),
                 ProductFiles = t.Product.Files
                     .Where(f => f.ProductFileType == ProductFileType.File)
+                    .OrderBy(pf => pf.File.FileName)
                     .Select(f => new FileModel
                     {
                         Id = f.FileId,

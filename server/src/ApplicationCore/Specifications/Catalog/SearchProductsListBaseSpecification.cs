@@ -46,6 +46,7 @@ internal abstract class SearchProductsListBaseSpecification : DataTransformSpeci
                 Code = t.Code,
                 ImageFilesIds = t.Files
                     .Where(f => f.ProductFileType == ProductFileType.Image)
+                    .OrderBy(pf => pf.File.FileName)
                     .Select(f => f.FileId).ToList(),
             },
             criteria)

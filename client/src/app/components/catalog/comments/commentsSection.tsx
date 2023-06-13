@@ -17,6 +17,8 @@ import { TextAreaFormControl } from "../../common/controls/formControls/textarea
 import { Local } from "../../localization/local";
 import { getProductComments, publishComment } from "../../../api/comments/commentsApi";
 import { isConsumer } from "../../../infrastructure/services/auth/authService";
+import { contextStore } from "../../../infrastructure/stores/contextStore";
+import { FormApi } from "final-form";
 
 export interface CommentsModel {
     comments: Comment[];
@@ -59,7 +61,9 @@ export const CommentsSection = (props: Props) => {
         setComments(await getProductComments(props.productId));
     }, []);
 
-    const onSubmit = async (formData: CommentsFormData) => {
+    const onSubmit = async (
+        formData: CommentsFormData,
+        form: FormApi<CommentsFormData, Partial<CommentsFormData>>) => {
         await publishComment({
             comment: {
                 ...formData.userComment,
@@ -67,6 +71,27 @@ export const CommentsSection = (props: Props) => {
             },
             productId: props.productId,
         });
+
+        comments.comments.push({
+            ...formData.userComment,
+            createdAt: new Date(),
+            userName: contextStore.firstName,
+            userLastName: contextStore.lastName,
+            rating: rating,
+        });
+        comments.commentsCount++;
+
+        let sumRating = 0;
+
+        for (let i = 0; i < comments.comments.length; i++) {
+            sumRating += comments.comments[i].rating;
+        }
+
+        comments.averageRating = Math.round(sumRating / comments.comments.length);
+
+        setComments(comments);
+        setRating(0);
+        form.reset();
     };
 
     return (
@@ -76,7 +101,7 @@ export const CommentsSection = (props: Props) => {
                 commentsModel: comments,
             }}
             mutators={{...arrayMutators}}
-            render={({ values, handleSubmit}: FormRenderProps<CommentsFormData>) => (
+            render={({ values, form, handleSubmit}: FormRenderProps<CommentsFormData>) => (
                 <Form onSubmit={handleSubmit} className="comments-section">
                     <Row>
                         <Col>
@@ -132,7 +157,7 @@ export const CommentsSection = (props: Props) => {
                                     <Row className="p-0">
                                         {fields.map((name, i) => (
                                             withParent(CommentCard, name, {
-                                                comment: values.commentsModel?.comments[i],
+                                                comment: comments?.comments[i],
                                                 ind: i,
                                                 onRemoveItem: () => {
                                                     //await props.onRemoveItem(i);

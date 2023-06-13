@@ -23,7 +23,7 @@ public class ApplicationCoreMappingProfile : Profile
             .ForMember(d => d.ProductId, o => o.MapFrom(s => s.Id))
             .ForMember(
                 d => d.ImageFilesIds,
-                o => o.MapFrom(s => s.Files.Where(pf => pf.ProductFileType == ProductFileType.Image).Select(pf => pf.FileId).ToList()));
+                o => o.MapFrom(s => s.Files.Where(pf => pf.ProductFileType == ProductFileType.Image).OrderBy(pf => pf.File.FileName).Select(pf => pf.FileId).ToList()));
         CreateMap<Brand, BrandModel>();
         CreateMap<Category, CategoryModel>();
         CreateMap<TelescopeSearchModel, TelescopesSearchData>();

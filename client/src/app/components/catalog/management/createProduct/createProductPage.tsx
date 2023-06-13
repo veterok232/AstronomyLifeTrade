@@ -232,7 +232,7 @@ export const CreateProductPage = () => {
                             </h1>
                         </Col>
                     </Row>
-                    <Row className="product-details top-box row-cols-2 p-4 mb-3">
+                    <Row className="order-step-card p-3 mb-2">
                         <Col className="pl-0">
                             <FileFormControl
                                 name={"productImages"}

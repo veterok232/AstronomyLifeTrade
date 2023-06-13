@@ -14,6 +14,6 @@ internal class TelescopesByUserLevelFilter : IEntityFilter<Telescope, TelescopeS
     {
         return model.UserLevels.IsNullOrEmpty()
             ? null
-            : t => model.UserLevels.Contains(t.TelescopeUserLevel.Value);
+            : t => model.UserLevels.Contains(t.TelescopeUserLevel);
     }
 }

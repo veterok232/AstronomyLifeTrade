@@ -47,6 +47,7 @@ internal abstract class AccessoriesListBaseSpecification : DataTransformSpecific
                 Code = t.Product.Code,
                 ImageFilesIds = t.Product.Files
                     .Where(f => f.ProductFileType == ProductFileType.Image)
+                    .OrderBy(pf => pf.File.FileName)
                     .Select(f => f.FileId).ToList(),
             },
             criteria)

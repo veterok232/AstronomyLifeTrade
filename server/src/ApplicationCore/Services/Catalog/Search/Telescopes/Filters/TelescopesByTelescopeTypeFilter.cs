@@ -15,6 +15,6 @@ internal class TelescopesByTelescopeTypeFilter : IEntityFilter<Telescope, Telesc
     {
         return model.TelescopeTypes.IsNullOrEmpty()
             ? _ => false
-            : t => model.TelescopeTypes.Contains(t.Type.Value);
+            : t => model.TelescopeTypes.Contains(t.Type);
     }
 }

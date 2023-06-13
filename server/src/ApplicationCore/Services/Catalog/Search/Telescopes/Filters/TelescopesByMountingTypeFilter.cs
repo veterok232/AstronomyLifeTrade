@@ -14,6 +14,6 @@ internal class TelescopesByMountingTypeFilter : IEntityFilter<Telescope, Telesco
     {
         return model.MountingTypes.IsNullOrEmpty()
             ? null
-            : t => model.MountingTypes.Contains(t.MountingType.Value);
+            : t => model.MountingTypes.Contains(t.MountingType);
     }
 }

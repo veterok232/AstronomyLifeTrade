@@ -2,6 +2,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { Comment } from "../../../dataModels/catalog/comment";
 import { Rating } from "@mui/material";
+import { localizer } from "../../localization/localizer";
 
 interface Props {
     comment: Comment;
@@ -25,7 +26,7 @@ export const CommentCard = (props: Props) => {
                 </Row>
                 <Row>
                     <Col>
-                        <span className="created-at">{props.comment?.createdAt.toString()}</span>
+                        <span className="created-at">{localizer.formatDateTime(props.comment?.createdAt)}</span>
                     </Col>
                 </Row>
                 <Row className="mt-2">

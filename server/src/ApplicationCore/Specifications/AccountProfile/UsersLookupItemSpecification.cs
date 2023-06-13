@@ -10,11 +10,18 @@ namespace ApplicationCore.Specifications.AccountProfile;
 
 public class UsersLookupItemSpecification : DataTransformSpecification<Assignment, NamedObject>
 {
+    private static Dictionary<string, string> LocalizedRoleNames = new()
+    {
+        { "Consumer", "Покупатель" },
+        { "Manager", "Менеджер" },
+        { "Staff", "Администратор" },
+    };
+
     private static readonly Expression<Func<Assignment, NamedObject>> TransformExpression = a =>
         new NamedObject()
         {
             Id = a.Id,
-            Name = $"{a.PersonalData.LastName} {a.PersonalData.FirstName} - {a.PersonalData.Email}",
+            Name = $"{a.PersonalData.LastName} {a.PersonalData.FirstName} ({LocalizedRoleNames[a.Role.Name]}) - {a.PersonalData.Email}",
         };
 
     public UsersLookupItemSpecification(UsersLookupItemsQueryModel model, Guid personalAssignmentId)
