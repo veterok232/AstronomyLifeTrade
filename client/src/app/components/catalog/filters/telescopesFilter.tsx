@@ -211,11 +211,12 @@ export const TelescopesFilter = (props: Props) => {
                         <Col className="col-5 d-flex align-items-center">
                             <TextFormControl name="priceMin" className="filter-price" />
                         </Col>
-                        <Col className="col-1 d-flex align-items-center">
+                        <Col className="col-1 d-flex align-items-center pb-3">
                             <span> — </span>
                         </Col>
                         <Col className="d-flex align-items-center">
                             <TextFormControl name="priceMax" className="filter-price" />
+                            <span className="d-flex align-items-center pb-3 pl-2"> руб. </span>
                         </Col>
                     </Row>
                 </FilterSection>
