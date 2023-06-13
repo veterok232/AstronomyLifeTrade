@@ -9,6 +9,8 @@ import { OrderStatusBadge } from "../orderStatusBadge";
 import { OrderDetailsModel } from "../../../../dataModels/orders/orderDetailsModel";
 import { PaymentMethod } from "../../../../dataModels/enums/paymentMethod";
 import { DeliveryType } from "../../../../dataModels/enums/deliveryType";
+import { isAuthorizedAsOneOf } from "../../../../infrastructure/services/auth/authService";
+import { Roles } from "../../../../infrastructure/services/auth/roles";
 
 interface Props {
     orderDetails: OrderDetailsModel;
@@ -58,6 +60,21 @@ export const OrderDetailsCard = (props: Props) => {
                         </Col>
                     }
                 </Row>
+                <Row className="ml-2">
+                    <Col className="col-4 pb-0">
+                        <LabeledField className="pb-0" labelKey={"CustomerEmail"} value={props.orderDetails.customerEmail} />
+                    </Col>
+                    <Col className="col-4 pb-0">
+                        <LabeledField className="pb-0" labelKey={"CustomerPhoneNumber"} value={`+${props.orderDetails.customerPhoneNumber}`} />
+                    </Col>
+                </Row>
+                {isAuthorizedAsOneOf([Roles.manager, Roles.staff]) &&
+                    <Row className="ml-2 pb-0">
+                        <Col className="col-2 pb-0">
+                            <LabeledField className="pb-0" labelKey={"ManagerFullName"} value={props.orderDetails.managerFullName ? props.orderDetails.managerFullName : "Нет"} />
+                        </Col>
+                    </Row>
+                }
             </Col>
         </Row>
     );

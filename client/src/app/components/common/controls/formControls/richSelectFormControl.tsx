@@ -84,9 +84,8 @@ const RichSelectControl = (props: RichSelectControlProps) => {
                         finalFormProps.input.onChange(
                             val && ((Array.isArray(val) && val.map((v: LabeledValue) => v.value)) || val.value)
                         );
-                        if (props.onChange) {
-                            props.onChange(val.value);
-                        }
+
+                        props.onChange?.(val?.value);
                     },
                     onInputChange: (inputValue: string) => {
                         if (inputValue && !props.multi) {

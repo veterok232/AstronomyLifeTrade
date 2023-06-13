@@ -32,17 +32,18 @@
     }
 
     .make-order-card {
-        height: 350px;
         width: 340px;
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.05);
         background-color: white;
     }
 
     .promocode-card {
-        height: 150px;
         width: 340px;
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.05);
         background-color: white;
     }
 }
 
+.promotion-fail-message {
+    color: $color-validation-error;
+}

@@ -124,7 +124,7 @@ export const CatalogAccessoriesPage = () => {
                                 onAddToFavorites={async () => await onAddToFavorites(product.productId)}
                                 onAddToCart={async () => await onAddToCart(product.productId)}
                                 onEditProduct={() => sharedHistory.push(getRoute(routeLinks.catalog.editProduct, product.productId))}
-                                onDeleteProduct={async () => await onDeleteProduct(product.productId)} />)
+                                onDeleteProduct={() => onDeleteProduct(product.productId)} />)
                         : <NoData />}
                 </Row>
             </div>

@@ -7,7 +7,7 @@ public class Promotion : Entity, IHasVersion, IHasCreatedAt, IHasModifiedAt
 {
     public string Name { get; set; }
 
-    public bool IsSpecial { get; set; }
+    public bool? IsSpecial { get; set; }
 
     public DateOnly StartDate { get; set; }
 
@@ -17,9 +17,9 @@ public class Promotion : Entity, IHasVersion, IHasCreatedAt, IHasModifiedAt
     
     public PromotionType PromotionType { get; set; }
     
-    public string PromoCode { get; set; }
+    public string? PromoCode { get; set; }
     
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     public Guid Version { get; set; }
     
@@ -27,5 +27,5 @@ public class Promotion : Entity, IHasVersion, IHasCreatedAt, IHasModifiedAt
     
     public DateTime ModifiedAt { get; set; }
     
-    public ICollection<PromotionProduct> Products { get; set; }
+    public ICollection<PromotionProduct>? Products { get; set; }
 }

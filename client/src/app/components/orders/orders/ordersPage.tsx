@@ -20,6 +20,7 @@ import { OrdersFilter } from "./ordersFilter";
 import { OrderCard } from "./orderCard";
 import { modalsStore } from "../../../infrastructure/stores/modalsStore";
 import { modalsTypes } from "../../layout/modals/modalsTypes";
+import { parseQueryStringToObject } from "../../../utils/requestParameterUtils";
 
 const defaultFilter: OrdersFilterData = {
     orderStatuses: [
@@ -39,7 +40,18 @@ const defaultPaging: Pageable = {
     pageSize: Constants.paging.defaultPageSize,
 };
 
-const getInitialFilter = () => defaultFilter;
+const getFilterDataFromQuery = (): OrdersFilterData => {
+    const params = parseQueryStringToObject(window.location.search);
+    const orderStatus = params["orderStatus"];
+
+    if (window.location.search) {
+        return {
+            orderStatuses: [parseInt(orderStatus) as OrderStatus],
+        } as OrdersFilterData;
+    }
+};
+
+const getInitialFilter = () => getFilterDataFromQuery() || defaultFilter;
 
 const onShowOrderDetails = (orderId: string) => {
     modalsStore.openModal({

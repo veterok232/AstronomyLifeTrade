@@ -1,5 +1,6 @@
-﻿using MediatR;
+﻿using ApplicationCore.Models.Common;
+using MediatR;
 
 namespace ApplicationCore.Handlers.Orders.Actions;
 
-public record ApproveOrderCommand(Guid OrderId) : IRequest;
+public record ApproveOrderCommand(Guid OrderId) : IRequest<Result>;

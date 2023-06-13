@@ -8,5 +8,6 @@ export interface OrderListItem {
     createdAt: Date;
     customerFirstName: string;
     customerLastName: string;
+    managerFullName?: string;
     orderNumber: number;
 }

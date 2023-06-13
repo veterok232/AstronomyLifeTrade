@@ -47,6 +47,7 @@ internal class GetContextHandler : IRequestHandler<Query<ContextResponse>, Conte
             RoleName = userAssignment?.Role?.Name,
             Lang = CultureInfo.CurrentCulture.Name,
             RefreshTokenExpirationDateTime = await GetSessionExpirationDate(),
+            AssignmentId = userAssignment?.Id,
         };
     }
 

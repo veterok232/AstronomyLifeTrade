@@ -144,7 +144,7 @@ public class CreateProductService : ICreateProductService
     {
         var product = await _productsRepository.GetById(productId);
 
-        product.DeletedAt = DateTime.Now;
+        product.DeletedAt = DateTime.UtcNow;
 
         await _productsRepository.Update(product);
 

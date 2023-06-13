@@ -25,9 +25,14 @@ export const OrderItemsControl = (props: Props) => {
                             item: props.cartItems[i],
                             ind: i,
                             onRemoveItem: async () => {
+                                if (fields.length <= 1) {
+                                    return;
+                                }
+
                                 await props.onRemoveItem(i);
                                 fields.remove(i);
                             },
+                            hideRemoveButton: fields.length <= 1,
                         }
                     )))}
                 </Row>

@@ -10,6 +10,7 @@ using ApplicationCore.Models.Catalog.Search;
 using ApplicationCore.Models.Comments;
 using ApplicationCore.Models.Identity;
 using ApplicationCore.Models.Orders;
+using ApplicationCore.Models.Promotions;
 using AutoMapper;
 
 namespace ApplicationCore;
@@ -56,8 +57,15 @@ public class ApplicationCoreMappingProfile : Profile
             .ForMember(d => d.Quantity, o => o.MapFrom(s => s.OrderItems.Count))
             .ForMember(d => d.CustomerFirstName, o => o.MapFrom(s => s.FirstName))
             .ForMember(d => d.CustomerLastName, o => o.MapFrom(s => s.LastName))
-            .ForMember(d => d.Address, o => o.MapFrom(s => s.Address));
-        
+            .ForMember(d => d.CustomerEmail, o => o.MapFrom(s => s.Email))
+            .ForMember(d => d.CustomerPhoneNumber, o => o.MapFrom(s => s.PhoneNumber))
+            .ForMember(d => d.Address, o => o.MapFrom(s => s.Address))
+            .ForMember(
+                d => d.ManagerFullName,
+                o => o.MapFrom(s => s.ManagerAssignmentId.HasValue
+                    ? $"{s.ManagerAssignment.PersonalData.LastName} {s.ManagerAssignment.PersonalData.FirstName}"
+                    : null));
+
         CreateMap<OrderItem, OrderItemModel>();
         
         CreateMap<Comment, CommentModel>()
@@ -70,7 +78,9 @@ public class ApplicationCoreMappingProfile : Profile
         CreateMap<EditProductModel, Product>()
             .IgnoreProperties(d => d.Quantity);
         CreateMap<GetUserOrdersModel, OrdersSearchData>();
-        CreateMap<BinocularCharacteristics, Binocular>();
+        CreateMap<BinocularCharacteristics, Binocular>()
+            .ForMember(d => d.Purpose, o => o.MapFrom(s => s.BinocularPurpose));
         CreateMap<AccessoryCharacteristics, Accessory>();
+        CreateMap<Promotion, PromotionModel>();
     }
 }

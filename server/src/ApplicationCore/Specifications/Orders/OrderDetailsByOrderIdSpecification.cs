@@ -14,7 +14,8 @@ public class OrderDetailsByOrderIdSpecification : Specification<Order>
             o => o.ConsumerAssignment.PersonalData,
             o => o.ConsumerAssignment.PersonalData.Address,
             o => o.Address,
-            o => o.OrderItems);
+            o => o.OrderItems,
+            o => o.ManagerAssignment.PersonalData);
         
         AddInclude($"{nameof(Order.OrderItems)}.{nameof(OrderItem.Product)}.{nameof(Product.Comments)}");
         AddInclude($"{nameof(Order.OrderItems)}.{nameof(OrderItem.Product)}.{nameof(Product.Category)}");

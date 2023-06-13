@@ -17,5 +17,9 @@ public class MakeOrderModel
     
     public string? CustomerNotes { get; set; }
     
-    public string? Promocode { get; set; }
+    public string? PromoCode { get; set; }
+
+    public decimal? PromoRate { get; set; }
+    
+    public decimal? PromoAmount { get; set; }
 }

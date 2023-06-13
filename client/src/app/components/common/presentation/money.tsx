@@ -5,8 +5,11 @@ interface Props {
     amount: number;
     className?: string;
     useGrouping?: boolean;
+    discountPercent?: number;
 }
 
 export function Money(props: Props) {
-    return <span className={props.className}>{`${localizer.formatMoney(props.amount, props.useGrouping)} руб.`}</span>;
+    const percentValue = props.discountPercent ? ` (${props.discountPercent}%)` : "";
+
+    return <span className={props.className}>{`${localizer.formatMoney(props.amount, props.useGrouping)} руб.${percentValue}`}</span>;
 }

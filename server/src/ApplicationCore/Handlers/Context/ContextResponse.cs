@@ -15,4 +15,6 @@ public class ContextResponse
     public string RoleName { get; set; }
 
     public DateTime? RefreshTokenExpirationDateTime { get; set; }
+    
+    public Guid? AssignmentId { get; set; }
 }

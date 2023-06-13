@@ -1,4 +1,4 @@
-.customer-comment-card {
+.in-order-card {
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 
@@ -8,5 +8,13 @@
 
     .comment-header {
         background-color: rgb(252, 252, 211);
+    }
+
+    .promocode-body {
+        background-color: rgb(238, 255, 232);
+    }
+
+    .promocode-header {
+        background-color: rgb(227, 252, 211);
     }
 }

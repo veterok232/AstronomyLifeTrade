@@ -19,6 +19,10 @@ public class OrderDetailsModel
     
     public string CustomerLastName { get; set; }
     
+    public string CustomerEmail { get; set; }
+    
+    public string CustomerPhoneNumber { get; set; }
+    
     public int OrderNumber { get; set; }
     
     public PaymentMethod PaymentMethod { get; set; }
@@ -30,4 +34,12 @@ public class OrderDetailsModel
     public ICollection<OrderItemModel> OrderItems { get; set; }
     
     public string? CustomerNotes { get; set; }
+    
+    public string? ManagerFullName { get; set; }
+    
+    public string? PromoCode { get; set; }
+    
+    public decimal? PromoRate { get; set; }
+    
+    public decimal? PromoAmount { get; set; }
 }

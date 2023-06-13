@@ -9,5 +9,7 @@ export interface MakeOrderModel {
     deliveryType?: DeliveryType;
     paymentMethod?: PaymentMethod;
     customerNotes?: string;
-    promocode?: string;
+    promoCode?: string;
+    promoRate?: number;
+    promoAmount?: number;
 }

@@ -153,6 +153,17 @@ export const OrdersFilter = (props: Props) => {
                         </Col>
                     </Row>
                 </FilterSection>
+                <FilterSection headerKey="">
+                    <Row className="group-items">
+                        <Col>
+                            <CheckboxFormControl
+                                name="isWithoutManager"
+                                label={"IsWithoutManagerLabel"}
+                                className="d-md-inline-block mr-3"
+                            />
+                        </Col>
+                    </Row>
+                </FilterSection>
             </>;
 
             return (<FilterCard

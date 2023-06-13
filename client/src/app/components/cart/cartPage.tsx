@@ -59,6 +59,13 @@ export const CartPage = () => {
 
     const onRemoveItem = async (index: number) => {
         await removeProductFromCart(cart.cartItems[index].product.productId);
+
+        cart.cartItems.splice(index, 1);
+
+        setCart({
+            ...cart,
+            cartItems: cart.cartItems,
+        });
     };
 
     const onChangeItemQuantity = async (index: number, quantity: number) => {

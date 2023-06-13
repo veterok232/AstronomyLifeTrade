@@ -14,6 +14,8 @@ import { OrderDetailsCard } from "./orderDetailsCard";
 import { localizer } from "../../../localization/localizer";
 import { OrderStatus } from "../../../../dataModels/enums/orderStatus";
 import { showConfirmation } from "../../../common/confirmationModal";
+import { notifications } from "../../../toast/toast";
+import { Money } from "../../../common/presentation/money";
 
 interface Props {
     orderId: string;
@@ -26,6 +28,10 @@ interface OrderDetailsFormData {
 
 const closeModal = () => {
     modalsStore.closeModal(modalsTypes.orderDetailsModal);
+};
+
+const getPromotionInfo = (orderDetails: OrderDetailsModel): JSX.Element => {
+    return <Money amount={orderDetails.promoAmount} discountPercent={orderDetails.promoRate * 100} />;
 };
 
 export const OrderDetailsModal = (props: Props) => {
@@ -42,6 +48,15 @@ export const OrderDetailsModal = (props: Props) => {
         await removeOrderItem({
             orderId: props.orderId,
             orderItemId: orderDetails.orderItems[index].id,
+        });
+
+        orderDetails.totalAmount -= orderDetails.orderItems[index].quantity * orderDetails.orderItems[index].product.price;
+        orderDetails.orderItems.splice(index, 1);
+
+        setOrderDetails({
+            ...orderDetails,
+            quantity: orderDetails.quantity - 1,
+            orderItems: orderDetails.orderItems,
         });
     };
 
@@ -73,7 +88,12 @@ export const OrderDetailsModal = (props: Props) => {
         showConfirmation({
             body: localizer.get("ApproveOrderConfirmation_Body"),
             onConfirmClick: async () => {
-                await approveOrder(orderId);
+                const result = await approveOrder(orderId);
+
+                if (!result.isSucceeded) {
+                    notifications.localizedError(result.errors[0]);
+                    return;
+                }
                 closeModal();
             }
         });
@@ -109,8 +129,24 @@ export const OrderDetailsModal = (props: Props) => {
                             <OrderDetailsCard
                                 orderDetails={orderDetails}
                                 ind={0} />
+                            {(orderDetails?.promoCode) &&
+                                <Row className="in-order-card w-100 ml-2 mb-4">
+                                    <Col>
+                                        <Row className="promocode-header py-1 pl-3">
+                                            <Col className="pl-0">
+                                                <span className="ui-section-header"><Local id="AppliedPromocode" /></span>
+                                            </Col>
+                                        </Row>
+                                        <Row className="promocode-body py-1 pl-3">
+                                            <Col className="pl-0">
+                                                <p>{orderDetails.promoCode} - {getPromotionInfo(orderDetails)}</p>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                </Row>
+                            }
                             {(orderDetails?.customerNotes && !props.fromOrdersHistory) &&
-                                <Row className="customer-comment-card w-100 ml-2">
+                                <Row className="in-order-card w-100 ml-2 mb-4">
                                     <Col>
                                         <Row className="comment-header py-1 pl-3">
                                             <Col className="pl-0">

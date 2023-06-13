@@ -42,12 +42,15 @@ export const CartItemElement = (props: Props) => {
                     </Col>
                     <Col className="col-2 my-auto pl-0"><IconicRemoveCartItemButton className="p-0" onClick={props.onRemoveItem} /></Col>
                 </Row>
+                <Row className="my-auto">
+                    <Col className="my-auto pr-1 secondary-value">Артикул: {props.item.product.code}</Col>
+                </Row>
             </Col>
             <Col className="col-2 m-auto">
                 <CardPrice className="mx-auto" value={props.item.product.price} currency={CurrencyType.BYN} />
             </Col>
             <Col className="col-2 m-auto">
-                <IntegerUpDownFormControl minValue={1} maxValue={10} name={"quantity"}
+                <IntegerUpDownFormControl minValue={1} maxValue={props.item.product.quantity} name={"quantity"}
                     onChange={async (val) => await props.onChangeItemQuantity(props.ind, val)}
                     applyChangesOnlyOnBlur={false} />
             </Col>

@@ -20,7 +20,7 @@ public static class ProductsInitData
             Equipment = "",
             CreatedAt = new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Utc),
             ModifiedAt = new DateTime(2023, 01, 01, 0, 0, 0, DateTimeKind.Utc),
-            DeletedAt = DateTime.MinValue,
+            DeletedAt = null,
         },
         new Product()
         {
@@ -45,7 +45,7 @@ public static class ProductsInitData
                           Инструкция и гарантийный талон.",
             CreatedAt = new DateTime(2023, 01, 03, 0, 0, 0, DateTimeKind.Utc),
             ModifiedAt = new DateTime(2023, 01, 03, 0, 0, 0, DateTimeKind.Utc),
-            DeletedAt = DateTime.MinValue,
+            DeletedAt = null,
         },
         new Product()
         {
@@ -69,7 +69,7 @@ public static class ProductsInitData
                           Инструкция и гарантийный талон.",
             CreatedAt = new DateTime(2023, 01, 04, 0, 0, 0, DateTimeKind.Utc),
             ModifiedAt = new DateTime(2023, 01, 04, 0, 0, 0, DateTimeKind.Utc),
-            DeletedAt = DateTime.MinValue,
+            DeletedAt = null,
         },
         new Product()
         {
@@ -92,7 +92,7 @@ public static class ProductsInitData
                           Инструкция и гарантийный талон.",
             CreatedAt = new DateTime(2023, 01, 05, 0, 0, 0, DateTimeKind.Utc),
             ModifiedAt = new DateTime(2023, 01, 05, 0, 0, 0, DateTimeKind.Utc),
-            DeletedAt = DateTime.MinValue,
+            DeletedAt = null,
         },
         new Product()
         {
@@ -115,7 +115,7 @@ public static class ProductsInitData
                           Инструкция и гарантийный талон.",
             CreatedAt = new DateTime(2023, 01, 05, 0, 0, 0, DateTimeKind.Utc),
             ModifiedAt = new DateTime(2023, 01, 05, 0, 0, 0, DateTimeKind.Utc),
-            DeletedAt = DateTime.MinValue,
+            DeletedAt = null,
         }
     };
 }

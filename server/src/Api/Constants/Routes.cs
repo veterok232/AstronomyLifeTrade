@@ -137,6 +137,20 @@ public static class Routes
         public const string SaveUserInfo = "save-user-info";
         
         public const string SaveUserAddress = "save-user-address";
+        
+        public const string GetOrdersStatistics = "get-orders-statistics";
+        
+        public const string GetManagersLookupItems = "managers-lookup-items";
+        
+        public const string GetUsersLookupItems = "users-lookup-items";
+        
+        public const string AssignAsManager = "assign-as-manager/{userAssignmentId}";
+        
+        public const string AssignAsAdministrator = "assign-as-administrator/{userAssignmentId}";
+        
+        public const string BlockUser = "block-user/{userAssignmentId}";
+        
+        public const string UnblockUser = "unblock-user/{userAssignmentId}";
     }
     
     public static class AstronomicalCalculator
@@ -148,5 +162,12 @@ public static class Routes
         public const string SaveUserInfo = "save-user-info";
         
         public const string SaveUserAddress = "save-user-address";
+    }
+    
+    public static class Promotions
+    {
+        public const string Root = "promotions";
+        
+        public const string GetPromotion = "{promocode}";
     }
 }

@@ -1,0 +1,51 @@
+.statistics-diagram {
+    .legend {
+        .legend-item {
+            .legend-color-circle {
+                height: 13px;
+                min-width: 13px;
+                border-radius: 10px;
+                margin-right: 8px;
+            }
+
+            .legend-count {
+                margin-left: 4px;
+
+                &.active {
+                    color: $color-green-dark;
+                }
+
+                &.inactive {
+                    color: $color-grey;
+                }
+            }
+
+            .legend-amount {
+                padding: 2px;
+                border-radius: 5px;
+                background-color: $body-bg;
+            }
+
+            a {
+                color: inherit;
+            }
+
+            margin-top: 12px;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .collapse {
+            @include media-breakpoint-down(sm) {
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+
+        .collapse-toggle {
+            margin-bottom: 0;
+            margin-top: 11px;
+            font-weight: bold;
+        }
+    }
+}

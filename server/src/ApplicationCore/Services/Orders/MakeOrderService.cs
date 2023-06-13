@@ -54,6 +54,9 @@ public class MakeOrderService : IMakeOrderService
             CreatedAt = DateTime.UtcNow,
             ModifiedAt = DateTime.UtcNow,
             OrderItems = _mapper.Map<List<OrderItem>>(cartItems.ToList()),
+            PromoCode = model.PromoCode,
+            PromoRate = model.PromoRate,
+            PromoAmount = model.PromoAmount
         }));
     }
 }

@@ -10,6 +10,7 @@ class ContextStore {
     public firstName?: string;
     public lastName?: string;
     public refreshTokenExpirationDateTime?: Date;
+    public assignmentId?: string;
 
     public isContextLoaded = false;
 
@@ -33,6 +34,7 @@ class ContextStore {
         this.firstName = context.firstName;
         this.lastName = context.lastName;
         this.setRefreshTokenExpirationDateTime(context.refreshTokenExpirationDateTime);
+        this.assignmentId = context.assignmentId;
     }
 
     public setRefreshTokenExpirationDateTime(expiryDateTime: string) {

@@ -121,7 +121,6 @@ export const ProductDetailsPage = () => {
                                         : <PresentLabel icon="check_circle_outline" labelKey="HaveInPresence" className="text-success" />}
                                 </Col>
                             </Row>
-
                             <ProductRatingSection
                                 className="mb-2"
                                 productRating={productDetails?.rating} size="medium" />
@@ -141,7 +140,7 @@ export const ProductDetailsPage = () => {
                                         onAddToCart={() => onAddToCart(productId)}
                                         onAddToFavorites={() => onAddToFavorites(productId)}
                                         onEditProduct={() => sharedHistory.push(getRoute(routeLinks.catalog.editProduct, productId))}
-                                        onDeleteProduct={async () => await onDeleteProduct(productId)} />
+                                        onDeleteProduct={() => onDeleteProduct(productId)} />
                                 </Col>
                             </Row>
                         </CardBody>

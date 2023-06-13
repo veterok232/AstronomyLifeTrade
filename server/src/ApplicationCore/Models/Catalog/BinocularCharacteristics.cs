@@ -32,7 +32,7 @@ public class BinocularCharacteristics
     
     public PrismType? PrismType { get; set; }
     
-    public BinocularPurpose? Purpose { get; set; }
+    public BinocularPurpose? BinocularPurpose { get; set; }
     
     public decimal? RelativeBrightnessMin { get; set; }
     

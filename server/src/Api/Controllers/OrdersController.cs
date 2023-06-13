@@ -80,7 +80,7 @@ public class OrdersController : ControllerBase
     
     [HttpPost(Routes.Orders.ApproveOrder)]
     [Authorization(Roles.Manager, Roles.Staff)]
-    public Task ApproveOrder(Guid orderId)
+    public Task<Result> ApproveOrder(Guid orderId)
     {
         return _mediator.Send(new ApproveOrderCommand(orderId));
     }

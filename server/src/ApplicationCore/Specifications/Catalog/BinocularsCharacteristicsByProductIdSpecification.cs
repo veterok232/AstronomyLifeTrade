@@ -24,7 +24,7 @@ public class BinocularsCharacteristicsByProductIdSpecification : DataTransformSp
                 FocusDistanceMin = b.FocusDistanceMin,
                 OpticsMaterial = b.OpticsMaterial,
                 PrismType = b.PrismType,
-                Purpose = b.Purpose,
+                BinocularPurpose = b.Purpose,
                 RelativeBrightnessMin = b.RelativeBrightnessMin,
                 RelativeBrightnessMax = b.RelativeBrightnessMax,
                 RemovalExitPupilMin = b.RemovalExitPupilMin,

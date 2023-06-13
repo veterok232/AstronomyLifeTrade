@@ -26,6 +26,9 @@ import { required, requiredNonWhitespace } from "../../common/controls/validatio
 import { notifications } from "../../toast/toast";
 import { modalsStore } from "../../../infrastructure/stores/modalsStore";
 import { modalsTypes } from "../../layout/modals/modalsTypes";
+import { PromotionModel } from "../../../dataModels/promotions/promotionModel";
+import { getPromotion } from "../../../api/promotions/promotionsApi";
+import { AppIcon } from "../../common/controls/appIcon";
 
 export interface OrderFormData {
     cart: Cart;
@@ -33,10 +36,34 @@ export interface OrderFormData {
     deliveryType?: DeliveryType;
     paymentMethod?: PaymentMethod;
     customerNotes?: string;
-    promocode?: string;
+    promoCode?: string;
 }
 
-const calculateTotalAmount = (cart: Cart): number => {
+const courierDeliveryAmount = 20;
+
+const calculateTotalAmount = (cart: Cart, deliveryType: DeliveryType, promotion: PromotionModel): number => {
+    if (!cart || !cart.cartItems) {
+        return 0;
+    }
+
+    let result = 0;
+
+    for (let i = 0; i < cart.cartItems.length; i++) {
+        result += cart.cartItems[i].product.price * cart.cartItems[i].quantity;
+    }
+
+    if (promotion) {
+        result *= (1 - promotion.promoRate);
+    }
+
+    if (deliveryType === DeliveryType.Courier) {
+        result += courierDeliveryAmount;
+    }
+
+    return result;
+};
+
+const calculateShortTotalAmount = (cart: Cart): number => {
     if (!cart || !cart.cartItems) {
         return 0;
     }
@@ -50,9 +77,29 @@ const calculateTotalAmount = (cart: Cart): number => {
     return result;
 };
 
+const calculatePromotionDiscountAmount = (cart: Cart, promotion: PromotionModel): number => {
+    if (!cart || !cart.cartItems) {
+        return 0;
+    }
+
+    let result = 0;
+
+    for (let i = 0; i < cart.cartItems.length; i++) {
+        result += cart.cartItems[i].product.price * cart.cartItems[i].quantity;
+    }
+
+    if (promotion) {
+        result *= promotion.promoRate;
+    }
+
+    return result;
+};
+
 export const MakeOrderPage = () => {
     const [customerInfo, setCustomerInfo] = useState<OrderCustomerInfo>(null);
     const [cart, setCart] = useState<Cart>();
+    const [promotion, setPromotion] = useState<PromotionModel>();
+    const [promotionNotFound, setPromotionNotFound] = useState<boolean>(null);
 
     useAsyncEffect(async () => {
         setCart(await getCart());
@@ -65,11 +112,19 @@ export const MakeOrderPage = () => {
             return;
         }
 
+        if (promotionNotFound !== false && promotionNotFound !== null) {
+            notifications.localizedError("EnterValidPromotionMessage");
+            return;
+        }
+
         const result = await makeOrder({
             ...formData,
             cartItemsIds: formData.cart.cartItems.map(ci => ci.id),
-            totalAmount: calculateTotalAmount(formData.cart),
+            totalAmount: calculateTotalAmount(formData.cart, formData.deliveryType, promotion),
             customerInfo: formData.customerInfo,
+            promoCode: formData.promoCode,
+            promoRate: promotion?.promoRate,
+            promoAmount: calculatePromotionDiscountAmount(formData.cart, promotion),
         });
 
         if (!result.isSucceeded) {
@@ -91,6 +146,27 @@ export const MakeOrderPage = () => {
         });
 
         await removeProductFromCart(cart.cartItems[index].product.productId);
+
+        cart.cartItems.splice(index, 1);
+
+        setCart({
+            ...cart,
+            cartItems: cart.cartItems,
+        });
+    };
+
+    const onApplyPromocode = async (promocode: string) => {
+        const result = await getPromotion(promocode);
+
+        if (!result.isSucceeded) {
+            notifications.localizedWarning("PromotionNotFound");
+            setPromotionNotFound(true);
+
+            return;
+        }
+
+        setPromotion(result.data);
+        setPromotionNotFound(false);
     };
 
     return (
@@ -202,15 +278,42 @@ export const MakeOrderPage = () => {
                                     <Row className="mb-2">
                                         <h1 className="ui-section-header pt-2"><Local id="TotalsInOrder" /></h1>
                                     </Row>
-                                    <MakeOrderCard quantity={values.cart?.quantity ?? 0} totalAmount={calculateTotalAmount(values.cart)} isValid={valid} />
+                                    <MakeOrderCard
+                                        quantity={values.cart?.quantity ?? 0}
+                                        shortTotalAmount={calculateShortTotalAmount(values.cart)}
+                                        totalAmount={calculateTotalAmount(values.cart, values.deliveryType, promotion)}
+                                        isValid={valid}
+                                        promoDiscountAmount={promotionNotFound === false && calculatePromotionDiscountAmount(values.cart, promotion)}
+                                        promoDiscountPercent={promotion?.promoRate}
+                                        deliveryAmount={values.deliveryType === DeliveryType.Courier && courierDeliveryAmount} />
                                 </Col>
                             </Row>
                             <Row className="promocode-card p-3">
-                                <Col>
+                                <Col className="pl-0">
                                     <Row className="mb-2">
-                                        <h1 className="ui-section-header pt-2"><Local id="Promocode" /></h1>
+                                        <Col>
+                                            <h1 className="ui-section-header pt-2"><Local id="Promocode" /></h1>
+                                        </Col>
                                     </Row>
-                                    <TextFormControl name={"promocode"} placeholder="Введите промокод" />
+                                    <TextFormControl
+                                        name={"promoCode"}
+                                        placeholder="Введите промокод"
+                                        onChange={() => setPromotionNotFound(null)} />
+                                    <Button onClick={() => onApplyPromocode(values.promoCode)}>
+                                        <Local id="ApplyPromocode" />
+                                    </Button>
+                                    {promotionNotFound === true &&
+                                        <div className="mt-3 d-flex align-items-center">
+                                            <AppIcon className="promotion-fail-message" icon="block" />
+                                            <span className="ml-1 promotion-fail-message">Введён некорректный промокод</span>
+                                        </div>
+                                    }
+                                    {promotionNotFound === false &&
+                                        <div className="mt-3 d-flex align-items-center">
+                                            <AppIcon className="text-success" icon="check_circle" />
+                                            <span className="ml-1 text-success">Промокод успешно применён!</span>
+                                        </div>
+                                    }
                                 </Col>
                             </Row>
                         </Row>

@@ -9,6 +9,8 @@ public class OrdersSearchModel : ISortable, IPageable
     
     public int? OrderNumber { get; set; }
     
+    public bool? IsWithoutManager { get; set; }
+    
     public string SortBy { get; set; }
     
     public SortOrder Direction  { get; set; }

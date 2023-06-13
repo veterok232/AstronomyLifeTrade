@@ -1,7 +1,14 @@
 import { routeLinks } from "../components/layout/routes/routeLinks";
+import { isManager, isStaff } from "../infrastructure/services/auth/authService";
 import { objToQueryString } from "./requestParameterUtils";
 
 export const getDefaultPageRoute = (): string => {
+    if (isManager()) {
+        return getRoute(routeLinks.orders.root);
+    } else if (isStaff()) {
+        return getRoute(routeLinks.account.staffProfile);
+    }
+
     return getRoute(routeLinks.catalog.root);
 };
 

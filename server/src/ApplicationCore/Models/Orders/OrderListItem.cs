@@ -19,4 +19,6 @@ public class OrderListItem
     public string CustomerLastName { get; set; }
     
     public int OrderNumber { get; set; }
+    
+    public string? ManagerFullName { get; set; }
 }

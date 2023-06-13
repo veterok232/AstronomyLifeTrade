@@ -34,7 +34,7 @@ export const CatalogSearchBar = (props: Props) => {
                         <Row className="align-items-center mx-4">
                             <Col className="align-content-center m-0 p-0">
                                 <TextFormControl
-                                    className="search-bar search m-0 p-0" name="searchString"
+                                    className="search-bar search m-0" name="searchString"
                                     placeholder="Например, телескоп" />
                             </Col>
                             <Col className="align-content-center m-0 p-0">

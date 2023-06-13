@@ -6,6 +6,7 @@ export interface ContextResponse {
     lastName?: string;
     roleName?: string;
     refreshTokenExpirationDateTime?: string;
+    assignmentId?: string;
 }
 
 export interface CurrentAssignmentInfo {

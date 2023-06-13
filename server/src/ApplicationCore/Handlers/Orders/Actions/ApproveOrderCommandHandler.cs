@@ -1,10 +1,11 @@
 ﻿using ApplicationCore.Interfaces;
 using ApplicationCore.Interfaces.Orders;
+using ApplicationCore.Models.Common;
 using MediatR;
 
 namespace ApplicationCore.Handlers.Orders.Actions;
 
-internal class ApproveOrderCommandHandler : AsyncRequestHandler<ApproveOrderCommand>
+internal class ApproveOrderCommandHandler : IRequestHandler<ApproveOrderCommand, Result>
 {
     private readonly IOrdersService _ordersService;
     private readonly IUnitOfWork _unitOfWork;
@@ -20,12 +21,14 @@ internal class ApproveOrderCommandHandler : AsyncRequestHandler<ApproveOrderComm
         _ordersService = ordersService;
     }
 
-    protected override async Task Handle(
+    public async Task<Result> Handle(
         ApproveOrderCommand command,
         CancellationToken cancellationToken)
     {
-        await _ordersService.ApproveOrder(command.OrderId);
+        var result = await _ordersService.ApproveOrder(command.OrderId);
 
         await _unitOfWork.Commit();
+
+        return result;
     }
 }

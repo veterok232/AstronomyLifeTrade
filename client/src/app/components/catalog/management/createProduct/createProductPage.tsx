@@ -295,8 +295,9 @@ export const CreateProductPage = () => {
                             </Row>
                             <Row>
                                 <Col className="pl-0">
-                                    {productId &&
-                                        <span className="field-label mb-2">Изменить количество товара (сейчас на складе: {productModel?.quantity} шт.)</span>}
+                                    {productId
+                                        ? <span className="field-label mb-2">Изменить количество товара (сейчас на складе: {productModel?.quantity} шт.)</span>
+                                        : <span className="field-label mb-2">Количество товара</span>}
                                     <IntegerUpDownFormControl
                                         minValue={-productModel?.quantity}
                                         maxValue={100}

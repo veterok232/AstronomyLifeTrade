@@ -1,0 +1,28 @@
+.statistics-diagram {
+    .legend {
+        width: 30%;
+
+        .legend-header {
+            .legend-total-amount {
+                margin-left: 8px;
+                color: $color-green-dark;
+            }
+
+            font-size: 14px;
+            line-height: 20px;
+        }
+    }
+
+    .diagram {
+        @include media-breakpoint-up(lg) {
+            margin-right: 18px;
+            margin-left: 15px;
+        }
+
+        // workaround to get rid of flickering when hover on tooltip
+        // can be removed after https://github.com/google/google-visualization-issues/issues/2162 will be fixed
+        svg > g:last-child > g:last-child {
+            pointer-events: none;
+        }
+    }
+}

@@ -8,7 +8,7 @@ namespace ApplicationCore.Specifications.Catalog;
 internal class PopularProductsSpecification : PopularProductsBaseSpecification
 {
     public PopularProductsSpecification()
-        : base(_ => true)
+        : base(p => !p.DeletedAt.HasValue)
     {
         var searchModel = new SearchModel
         {

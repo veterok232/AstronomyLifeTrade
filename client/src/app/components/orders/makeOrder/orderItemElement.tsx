@@ -15,6 +15,7 @@ interface Props {
     item: CartItem;
     ind: number;
     onRemoveItem: () => Promise<void>;
+    hideRemoveButton?: boolean;
 }
 
 export const OrderItemElement = (props: Props) => {
@@ -40,6 +41,9 @@ export const OrderItemElement = (props: Props) => {
                         </Link>
                     </Col>
                 </Row>
+                <Row className="my-auto">
+                    <Col className="my-auto pr-1 secondary-value">Артикул: {props.item.product.code}</Col>
+                </Row>
             </Col>
             <Col className="col-2 m-auto">
                 <LabeledField
@@ -56,9 +60,11 @@ export const OrderItemElement = (props: Props) => {
                     labelKey={"TotalAmount"}
                     value={<Money className="mx-auto" amount={totalAmount} />} />
             </Col>
-            <Col className="col-1 my-auto pl-0">
-                <IconicRemoveCartItemButton className="p-0" onClick={props.onRemoveItem} />
-            </Col>
+            {!props.hideRemoveButton &&
+                <Col className="col-1 my-auto pl-0">
+                    <IconicRemoveCartItemButton className="p-0" onClick={props.onRemoveItem} />
+                </Col>
+            }
         </Row>
     );
 };

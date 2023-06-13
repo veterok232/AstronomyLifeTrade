@@ -8,6 +8,8 @@ import { Local } from "../../localization/local";
 import { generateElementId } from "../../../utils/stringUtils";
 import { LabeledField } from "../../common/presentation/labeledField";
 import { localizer } from "../../localization/localizer";
+import { isAuthorizedAsOneOf } from "../../../infrastructure/services/auth/authService";
+import { Roles } from "../../../infrastructure/services/auth/roles";
 
 interface Props {
     order: OrderListItem;
@@ -37,9 +39,14 @@ export const OrderCard = (props: Props) => {
                     <Col className="col-2 pb-0">
                         <LabeledField className="pb-0" labelKey={"OrderAmount"} value={<CardPrice value={props.order.totalAmount} currency={CurrencyType.BYN} />} />
                     </Col>
-                    <Col className="col-8 pb-0">
+                    <Col className="col-2 pb-0">
                         <LabeledField className="pb-0" labelKey={"OrderQuantity"} value={`${props.order.quantity} шт.`} />
                     </Col>
+                    {isAuthorizedAsOneOf([Roles.manager, Roles.staff]) &&
+                        <Col className="col-6 pb-0">
+                            <LabeledField className="pb-0" labelKey={"ManagerFullName"} value={props.order.managerFullName ? props.order.managerFullName : "Нет"} />
+                        </Col>
+                    }
                 </Row>
                 <hr className="mt-0"/>
                 <Row>

@@ -37,9 +37,15 @@ public class Order : Entity, IHasCreatedAt, IHasModifiedAt
     
     public string Email { get; set; }
     
-    public Guid AddressId { get; set; }
+    public Guid? AddressId { get; set; }
     
-    public Address Address { get; set; }
+    public Address? Address { get; set; }
     
     public string? CustomerNotes { get; set; }
+    
+    public string? PromoCode { get; set; }
+    
+    public decimal? PromoRate { get; set; }
+    
+    public decimal? PromoAmount { get; set; }
 }

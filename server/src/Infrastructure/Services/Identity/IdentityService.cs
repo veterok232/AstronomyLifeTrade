@@ -84,6 +84,11 @@ internal class IdentityService : IIdentityService
             return "Неправильный адрес электронной почты или пароль!";
         }
 
+        if (user.LockedAt.HasValue)
+        {
+            return $"Извините, вы были заблокированы {user.LockedAt.ToString()}";
+        }
+
         return null;
     }
 

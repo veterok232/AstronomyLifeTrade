@@ -2,6 +2,7 @@
 using ApplicationCore.Enums;
 using ApplicationCore.Exceptions;
 using ApplicationCore.Interfaces;
+using ApplicationCore.Interfaces.AuthContext;
 using ApplicationCore.Interfaces.Orders;
 using ApplicationCore.Models.Common;
 using ApplicationCore.Models.Orders;
@@ -18,17 +19,20 @@ public class OrdersService : IOrdersService
     private readonly IRepository<Product> _productsRepository;
     private readonly IOrderActionsValidator _orderActionsValidator;
     private readonly IOrderStatusValidator _orderStatusValidator;
+    private readonly IAuthContextAccessor _authContextAccessor;
 
     public OrdersService(
         IRepository<Order> ordersRepository,
         IRepository<Product> productsRepository,
         IOrderActionsValidator orderActionsValidator,
-        IOrderStatusValidator orderStatusValidator)
+        IOrderStatusValidator orderStatusValidator,
+        IAuthContextAccessor authContextAccessor)
     {
         _ordersRepository = ordersRepository;
         _productsRepository = productsRepository;
         _orderActionsValidator = orderActionsValidator;
         _orderStatusValidator = orderStatusValidator;
+        _authContextAccessor = authContextAccessor;
     }
 
     public async Task PostponeOrder(Guid orderId)
@@ -41,6 +45,7 @@ public class OrdersService : IOrdersService
         }
 
         order.OrderStatus = OrderStatus.Postponed;
+        order.ManagerAssignmentId ??= _authContextAccessor.AssignmentId;
 
         await _ordersRepository.Update(order);
     }
@@ -58,6 +63,7 @@ public class OrdersService : IOrdersService
         DiscardReservationForProducts(order);
         
         order.OrderStatus = OrderStatus.Cancelled;
+        order.ManagerAssignmentId ??= _authContextAccessor.AssignmentId;
 
         await _ordersRepository.Update(order);
     }
@@ -82,6 +88,7 @@ public class OrdersService : IOrdersService
         ReserveProducts(order);
         
         order.OrderStatus = OrderStatus.Approved;
+        order.ManagerAssignmentId ??= _authContextAccessor.AssignmentId;
 
         await _ordersRepository.Update(order);
 
@@ -101,6 +108,7 @@ public class OrdersService : IOrdersService
         MarkProductsAsSold(order);
         
         order.OrderStatus = OrderStatus.Closed;
+        order.ManagerAssignmentId ??= _authContextAccessor.AssignmentId;
 
         await _ordersRepository.Update(order);
     }
@@ -111,6 +119,7 @@ public class OrdersService : IOrdersService
             new OrderForApproveSpecification(model.OrderId));
 
         order.OrderItems.Remove(order.OrderItems.Single(oi => oi.Id == model.OrderItemId));
+        order.ManagerAssignmentId ??= _authContextAccessor.AssignmentId;
         
         await _ordersRepository.Update(order);
     }

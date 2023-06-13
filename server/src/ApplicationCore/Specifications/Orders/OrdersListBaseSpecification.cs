@@ -19,7 +19,10 @@ internal abstract class OrdersListBaseSpecification : DataTransformSpecification
                 CreatedAt = o.CreatedAt,
                 CustomerFirstName = o.FirstName,
                 CustomerLastName = o.LastName,
-                OrderNumber = o.OrderNumber
+                OrderNumber = o.OrderNumber,
+                ManagerFullName = o.ManagerAssignmentId.HasValue
+                    ? $"{o.ManagerAssignment.PersonalData.LastName} {o.ManagerAssignment.PersonalData.FirstName}"
+                    : null,
             },
             criteria)
     {

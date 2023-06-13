@@ -68,7 +68,7 @@ export async function cancelOrder(orderId: string) {
     });
 }
 
-export async function approveOrder(orderId: string) {
+export async function approveOrder(orderId: string): Promise<Result> {
     return httpPost({
         url: `${resourceName}/approve-order/${orderId}`,
     });

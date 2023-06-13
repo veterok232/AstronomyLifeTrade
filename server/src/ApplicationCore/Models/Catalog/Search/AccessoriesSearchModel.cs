@@ -7,7 +7,7 @@ public class AccessoriesSearchModel : ISortable, IPageable
 {
     public IReadOnlyCollection<Guid>? BrandsIds { get; set; }
     
-    public IReadOnlyCollection<AccessoryType>? AccesoryTypes { get; set; }
+    public IReadOnlyCollection<AccessoryType>? AccessoryTypes { get; set; }
     
     public decimal? PriceMax { get; set; }
     

@@ -10,6 +10,8 @@ export interface OrderDetailsModel {
     createdAt: Date;
     customerFirstName: string;
     customerLastName: string;
+    customerEmail: string;
+    customerPhoneNumber: string;
     totalAmount: number;
     quantity: number;
     orderStatus: OrderStatus;
@@ -18,4 +20,8 @@ export interface OrderDetailsModel {
     address?: Address;
     orderItems: OrderItem[];
     customerNotes?: string;
+    managerFullName?: string;
+    promoCode?: string;
+    promoRate?: number;
+    promoAmount?: number;
 }
