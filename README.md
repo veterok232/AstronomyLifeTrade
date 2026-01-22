@@ -1,6 +1,6 @@
 Astronomy Life Trade - веб-приложение онлайн-магазина торговли астрономическими приборами и аксессуарами.
 
-Стек тенологий:
+Стек технологий:
 - Backend: .NET, ASP.NET Core, Entity Framework Core
 - Frontend: React/Typescript
 - Database: PostgreSQL
